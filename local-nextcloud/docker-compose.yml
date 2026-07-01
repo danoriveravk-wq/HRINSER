@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud-local-test
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nextcloud_data:/var/www/html
+    restart: always
