@@ -16,9 +16,10 @@ Para evitar confusiones en el desarrollo y despliegue, se establece explícitame
 | **Landing Page** | Frontend estático (HTML/CSS/JS) | **Hostinger Shared Web Hosting** (Plan Unlimited) | Consumo mínimo de recursos, bajo costo, despliegue simple. |
 | **EspoCRM** | Aplicación PHP Nativa + DB MariaDB | **Hostinger Shared Web Hosting** (Plan Unlimited) | Instalación directa sin contenedores, aprovechando la base de datos MySQL y el soporte PHP nativo contratado para ahorrar costos. |
 | **DMS (Nextcloud)** | Stack Docker (App, Postgres, Redis, Cron) | **Elestio Multi-VPS** (Un VPS dedicado de 4GB por Cliente) | Requisitos de CPU intensiva para procesamiento de OCR (Tesseract) en PDF e inmutabilidad de almacenamiento bajo la **Ley 21.719**. |
+| **DNS Manager** | Gestión y resolución de nombres | **Hostinger DNS Zone Editor** (Incluido en el Hosting) | Centraliza la resolución de nombres del dominio `hrinser.cl` y subdominios en Hostinger sin requerir proveedores externos adicionales. |
 
 ```
-[Cliente Web] ---> [DNS Cloudflare (Proxy SSL/TLS)]
+[Cliente Web] ---> [DNS Hostinger (Gestor de Nombres)]
                           │
        ┌──────────────────┴────────────────────────────────────────────────┐ (HTTPS / TLS 1.3)
        ▼                                   ▼                               ▼
@@ -34,21 +35,21 @@ Para evitar confusiones en el desarrollo y despliegue, se establece explícitame
 ```
 
 > [!IMPORTANT]
-> **Regla de Enrutamiento DNS y SSL:**
-> El dominio principal `hrinser.cl` y sus subdominios se gestionan mediante **Cloudflare** para proteger la infraestructura contra ataques de denegación de servicio (DDoS). Dado que forzamos HTTPS en todos los servidores, en el panel de Cloudflare se debe configurar obligatoriamente el modo SSL/TLS como **Full (strict)**. Si se deja en "Flexible", se provocará un bucle infinito de redirecciones en el navegador del usuario.
+> **Certificados SSL en Hostinger y Elestio:**
+> Al eliminar proveedores proxy intermediarios, la seguridad de las conexiones SSL/TLS se gestiona nativamente en el punto final. Hostinger provee e instala certificados SSL gratuitos de por vida (Let's Encrypt / ZeroSSL) para la Landing Page y el subdominio del CRM. En el caso de los VPS de Elestio, la propia plataforma de Elestio aprovisiona automáticamente el certificado SSL mediante su proxy reverso interno integrado al apuntar los registros DNS.
 
 ---
 
 ## 2. Fase 1: Configuración de DNS, Landing Page y Despliegue de EspoCRM en Hostinger (Shared Hosting)
 
-### Paso 2.1: Gestión de DNS en Hostinger o Cloudflare
-1. Configurar la zona DNS del dominio `hrinser.cl`.
-2. Mapear los registros DNS para que apunten a los servidores web del hosting compartido y del DMS en Elestio:
-   * `@` (raíz para la landing page) -> `IP_HOSTINGER_SHARED_HOSTING`
-   * `crm.hrinser.cl` (subdominio para el CRM) -> `IP_HOSTINGER_SHARED_HOSTING`
-   * `alfa.hrinser.cl` -> `IP_VPS_ELESTIO_ALFA`
-   * `beta.hrinser.cl` -> `IP_VPS_ELESTIO_BETA`
-3. En Cloudflare o Hostinger, habilitar el certificado SSL gratuito para el dominio principal y el subdominio `crm.hrinser.cl`, forzando la redirección automática a HTTPS.
+### Paso 2.1: Gestión de DNS en Hostinger
+1. Iniciar sesión en el hPanel de Hostinger y acceder a **Avanzado -> Editor de Zona DNS** para el dominio `hrinser.cl`.
+2. Configurar la tabla de registros DNS para direccionar el tráfico web de la siguiente manera:
+   * **Registro A (raíz):** Apuntar `@` a la dirección IP del servidor web de Hostinger Shared Hosting (ej: `IP_HOSTINGER_SERVER`).
+   * **Registro A (CRM):** Crear `crm` apuntando a `IP_HOSTINGER_SERVER`.
+   * **Registro A (Cliente Alfa DMS):** Crear `alfa` apuntando a la IP pública del VPS aprovisionado en Elestio (ej: `IP_VPS_ELESTIO_ALFA`).
+   * **Registro A (Cliente Beta DMS):** Crear `beta` apuntando a la IP pública del segundo VPS de Elestio (ej: `IP_VPS_ELESTIO_BETA`).
+3. Activar el SSL gratuito para el dominio principal y el subdominio `crm.hrinser.cl` desde la sección **Seguridad -> SSL** en el hPanel de Hostinger.
 
 ### Paso 2.2: Despliegue de la Landing Page en Hostinger
 1. **CI/CD Pipeline (GitHub Actions):** Si la landing page requiere una compilación previa (como empaquetadores de Tailwind o Vite), utilizar la plantilla de GitHub Actions `.github/workflows/deploy.yml` para compilar y desplegar vía SFTP de manera automática:
@@ -778,7 +779,7 @@ Cuando una oportunidad comercial se cierra como ganada y el cliente pasa a estad
               ▼
 1. Aprovisionamiento Cloud (Desarrollador DevOps)
    - Levantar VPS Dedicado de 2 vCPUs y 4 GB de RAM en Elestio.
-   - Apuntar subdominio de Cloudflare (ej: cliente.hrinser.cl) a la IP.
+   - Apuntar subdominio en el DNS Zone Editor de Hostinger (ej: cliente.hrinser.cl) a la IP.
    - Activar cifrado en reposo LUKS a nivel de disco del host.
               │
               ▼
