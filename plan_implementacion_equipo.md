@@ -9,9 +9,12 @@
 
 ## 1. Resumen de la Arquitectura del Sistema
 
-Esta guía detalla las tareas técnicas y de infraestructura necesarias para implementar y desplegar el ecosistema digital de **HRINSER** (Gestión Comercial SpA). La solución está compuesta por:
-1. **Landing Page Corporativa:** Un frontend estático avanzado con soporte multi-idioma (Español/Inglés/Chino) y selector de modo claro/oscuro, desplegado en **Hostinger Web Hosting**.
-2. **Backoffice CRM de Código Abierto (EspoCRM):** Despliegue de la solución self-hosted EspoCRM en un **VPS de Hostinger** mediante Docker y MariaDB. Parametrización del pipeline de ventas de 10 etapas en la entidad Oportunidades y adición de campos personalizados (RUT, dotación, mandante, plataforma de acreditación) mediante el Entity Manager.
+Esta guía detalla las tareas técnicas y de infraestructura necesarias para implementar y desplegar el ecosistema digital de **HRINSER** (Gestión Comercial SpA). 
+
+Dado que se cuenta contratado el plan **Hostinger Shared Web Hosting (Plan Unlimited)**, la arquitectura se optimiza para no requerir un VPS adicional para el CRM, reduciendo costos operacionales. La Landing Page y el CRM se desplegarán de forma nativa (sin contenedores) en Hostinger. La plataforma de almacenamiento documental (DMS), por sus requisitos de OCR pesado, volumen e inmutabilidad, se mantiene sobre servidores dedicados en Elestio:
+
+1. **Landing Page Corporativa:** Frontend estático desplegado en **Hostinger Web Hosting (Plan Unlimited)**.
+2. **Backoffice CRM de Código Abierto (EspoCRM):** Instalación nativa basada en la pila **PHP / MySQL** dentro del mismo plan **Hostinger Shared Web Hosting**. Se configuran las bases de datos y la ejecución del script cron mediante el hPanel, parametrizando el pipeline de ventas de 10 etapas en la entidad Oportunidades y campos personalizados mediante el Entity Manager.
 3. **Plataforma de Gestión Documental (DMS Nextcloud):** Arquitectura **Multi-VPS en Elestio**. Cada cliente contratista opera en una máquina virtual dedicada con su propio stack aislado en Docker (Nextcloud Core + PostgreSQL + Redis + Cron), cumpliendo de manera estricta las exigencias de privacidad de la **Ley 21.719**.
 
 ```
@@ -20,116 +23,67 @@ Esta guía detalla las tareas técnicas y de infraestructura necesarias para imp
        ┌──────────────────┴────────────────────────────────────────────────┐ (HTTPS / TLS 1.3)
        ▼                                   ▼                               ▼
 ┌──────────────┐                    ┌──────────────┐               ┌──────────────┐
-│ VPS Hostinger│                    │ VPS Cliente1 │               │ VPS Cliente2 │
-│ (EspoCRM)    │                    │ (Elestio NC) │               │ (Elestio NC) │
+│ Hostinger    │                    │ VPS Cliente1 │               │ VPS Cliente2 │
+│ (Shared Host)│                    │ (Elestio NC) │               │ (Elestio NC) │
 ├──────────────┤                    ├──────────────┤               ├──────────────┤
-│ EspoApp      │                    │ NC App       │               │ NC App       │
-│ MariaDB DB   │                    │ Postgres DB  │               │ Postgres DB  │
-│              │                    │ Redis Cache  │               │ Redis Cache  │
+│ Landing Page │                    │ NC App       │               │ NC App       │
+│ EspoCRM PHP  │                    │ Postgres DB  │               │ Postgres DB  │
+│ MySQL DB     │                    │ Redis Cache  │               │ Redis Cache  │
 │              │                    │ Vol. Cifrado │               │ Vol. Cifrado │
 └──────────────┘                    └──────────────┘               └──────────────┘
 ```
 
 ---
 
-## 2. Fase 1: Configuración de DNS, Landing Page y Despliegue de EspoCRM en Hostinger
+## 2. Fase 1: Configuración de DNS, Landing Page y Despliegue de EspoCRM en Hostinger (Shared Hosting)
 
-### Paso 2.1: Gestión de DNS y Zonas en Cloudflare o Hostinger
-1. Configurar la zona DNS del dominio `hrinser.cl` (administrada en Hostinger o Cloudflare).
-2. Crear registros de tipo `A` comodín (Wildcard) o subdominios específicos apuntando a las IPs correspondientes:
-   * `@` (raíz para la landing page) -> `IP_HOSTINGER_WEB_HOSTING`
-   * `crm.hrinser.cl` -> `IP_VPS_HOSTINGER_CRM`
+### Paso 2.1: Gestión de DNS en Hostinger o Cloudflare
+1. Configurar la zona DNS del dominio `hrinser.cl`.
+2. Mapear los registros DNS para que apunten a los servidores web del hosting compartido y del DMS en Elestio:
+   * `@` (raíz para la landing page) -> `IP_HOSTINGER_SHARED_HOSTING`
+   * `crm.hrinser.cl` (subdominio para el CRM) -> `IP_HOSTINGER_SHARED_HOSTING`
    * `alfa.hrinser.cl` -> `IP_VPS_ELESTIO_ALFA`
    * `beta.hrinser.cl` -> `IP_VPS_ELESTIO_BETA`
-3. Habilitar la política de seguridad SSL/TLS en modo **Strict (Estricto)** para forzar conexiones HTTPS cifradas de extremo a extremo.
+3. En Cloudflare o Hostinger, habilitar el certificado SSL gratuito para el dominio principal y el subdominio `crm.hrinser.cl`, forzando la redirección automática a HTTPS.
 
-### Paso 2.2: Despliegue de la Landing Page en Hostinger Web Hosting
-1. **Estructura del Proyecto:** La Landing Page debe ser un desarrollo liviano (HTML/CSS Vanilla o Vite/React estático).
-2. **Soporte Multi-Idioma (i18n):**
-   * Configurar un selector de idiomas en el header que modifique de forma reactiva las cadenas de texto del sitio (Español, Inglés y Chino).
-   * Almacenar la preferencia de idioma del navegador en el `localStorage` del cliente.
-3. **Modo Claro/Oscuro (Dark Mode):**
-   * Implementar mediante clases CSS (`.dark`) y variables CSS.
-   * Por defecto, leer la preferencia del sistema operativo del usuario (`prefers-color-scheme`).
-4. **Formulario de Captación de Leads:**
-   * Diseñar un formulario de contacto seguro que valide en el cliente los campos obligatorios: Nombre, Correo Corporativo, Teléfono, Empresa, RUT y Número de Trabajadores.
-   * Conectar el envío del formulario mediante una petición HTTP POST a la API de Captura de Leads de EspoCRM (`api/v1/Lead`).
-5. **Despliegue:**
-   * Acceder al panel de Hostinger (hPanel) -> **Hosting** -> **Administrar**.
-   * Subir los archivos estáticos en el directorio `public_html` utilizando el Administrador de Archivos o mediante la integración Git nativa de Hostinger vinculando el repositorio.
-   * Activar el certificado SSL autogenerado gratuito de Hostinger para el dominio principal `hrinser.cl`.
+### Paso 2.2: Despliegue de la Landing Page en Hostinger
+1. Subir los archivos HTML/CSS/JS de la Landing Page al directorio raíz del dominio principal (típicamente `/public_html/`) a través del **Administrador de Archivos** de Hostinger o vinculando el repositorio git en la sección **Git** de hPanel.
+2. Comprobar que el selector de idiomas (ES/EN/ZH) y el modo oscuro funcionen correctamente mediante peticiones HTTP seguras.
 
-### Paso 2.3: Despliegue e Integración de EspoCRM en Hostinger VPS
-El CRM se despliega en un Servidor VPS de Hostinger configurado con Docker.
+### Paso 2.3: Despliegue e Instalación Nativa de EspoCRM (PHP/MySQL)
+Al usar el plan Hosting Compartido Unlimited de Hostinger, EspoCRM se instala de forma nativa en una carpeta/subdominio dedicado.
 
-#### A. Aprovisionamiento y Securización del VPS en Hostinger
-1. En el panel de Hostinger (hPanel), ir a **Servidores VPS** -> **Comprar/Administrar VPS**.
-2. Seleccionar la plantilla de sistema operativo recomendada por Hostinger: **Ubuntu 22.04 con Docker preinstalado** (o Ubuntu limpio e instalar Docker manualmente mediante SSH).
-3. Habilitar el Firewall en el panel del VPS de Hostinger y abrir únicamente los puertos:
-   * `80/tcp` (HTTP) y `443/tcp` (HTTPS).
-   * `22/tcp` (SSH) restringido a la llave pública SSH del desarrollador.
+#### A. Configuración de Base de Datos y PHP en hPanel
+1. **Crear Base de Datos MySQL:**
+   * Ir a **Bases de datos -> Bases de datos MySQL** en hPanel.
+   * Crear una nueva base de datos llamada `uXXXXX_espocrm` y un usuario `uXXXXX_espo_usr` con una contraseña segura de 24 caracteres. Anotar estas credenciales.
+2. **Configuración de Versión PHP:**
+   * Ir a **Avanzado -> Configuración de PHP**.
+   * Seleccionar **PHP 8.2** (o la versión recomendada estable por EspoCRM) y verificar que las extensiones requeridas estén habilitadas: `pdo_mysql`, `gd`, `openssl`, `zip`, `mbstring`, `curl`, `exif`.
+   * En la pestaña **Opciones de PHP**, subir el límite de memoria `memory_limit` a mínimo `256M` o `512M` (según permita el plan).
 
-#### B. Archivo `docker-compose.yml` para EspoCRM
-Acceder al VPS de Hostinger por SSH y en `/opt/espocrm/` crear el siguiente archivo Docker Compose. Para producción, el contenedor de EspoCRM escuchará directamente en el puerto HTTP `80` del host (o detrás de un Nginx Proxy Manager si se requiere administrar SSL en el mismo VPS):
+#### B. Subida e Instalación de Archivos
+1. Crear el subdominio `crm.hrinser.cl` en la sección **Dominios -> Subdominios** de hPanel. Esto creará una carpeta en el servidor llamada `/public_html/crm/` o `/crm.hrinser.cl/`.
+2. Descargar el paquete oficial de instalación de EspoCRM (.zip) desde su sitio web oficial.
+3. Subir el archivo `.zip` utilizando el **Administrador de Archivos** a la carpeta del subdominio y descomprimirlo.
+4. Asegurar que los permisos de los archivos y carpetas del subdominio tengan la propiedad correcta (`755` para directorios y `644` para archivos).
+5. Acceder en el navegador a `https://crm.hrinser.cl/` para iniciar el instalador web:
+   * Aceptar la licencia de software.
+   * Ingresar los datos de conexión MySQL creados en el paso anterior (Host: `localhost` o la dirección provista por Hostinger, Base de datos: `uXXXXX_espocrm`, Usuario: `uXXXXX_espo_usr`, Contraseña).
+   * Crear la cuenta del Administrador General de HRINSER (Vanessa Galdames).
+   * Completar la instalación guiada.
 
-```yaml
-version: '3.8'
+#### C. Programación del Cron Job en Hostinger (hPanel)
+EspoCRM requiere la ejecución de un cron cada 1 minuto para procesar notificaciones, correos entrantes y alertas automáticas de acreditación.
+1. Ir a **Avanzado -> Tareas Cron** en el panel de Hostinger (hPanel).
+2. Crear una nueva tarea cron con la siguiente configuración:
+   * **Tipo de Cron:** PHP script (o comando personalizado).
+   * **Comando:** `/usr/bin/php /home/uXXXXX/public_html/crm/cron.php` (reemplazar `/home/uXXXXX/public_html/crm/` por la ruta absoluta de instalación provista en el Administrador de Archivos).
+   * **Frecuencia:** Cada minuto (`* * * * *`).
+3. Guardar la tarea cron y verificar en el registro de EspoCRM (en **Administración -> Jobs**) que el cron se esté ejecutando exitosamente.
 
-services:
-  espocrm-db:
-    image: mariadb:10.11-jammy
-    container_name: espocrm-db
-    restart: always
-    environment:
-      MARIADB_ROOT_PASSWORD: RootSecurePass_EspoDB2026! # MODIFICAR EN PRODUCCIÓN
-      MARIADB_DATABASE: espocrm
-      MARIADB_USER: espocrm_user
-      MARIADB_PASSWORD: SecurePass_EspoDB2026!       # MODIFICAR EN PRODUCCIÓN
-    volumes:
-      - espocrm_db_data:/var/lib/mysql
-    deploy:
-      resources:
-        limits:
-          cpus: '1.0'
-          memory: 1024M
-
-  espocrm:
-    image: espocrm/espocrm:latest
-    container_name: espocrm
-    restart: always
-    ports:
-      - "80:80"  # Mapeado directamente al puerto HTTP estándar en el VPS de Hostinger
-    environment:
-      ESPOCRM_DATABASE_HOST: espocrm-db
-      ESPOCRM_DATABASE_USER: espocrm_user
-      ESPOCRM_DATABASE_PASSWORD: SecurePass_EspoDB2026!
-      ESPOCRM_DATABASE_NAME: espocrm
-      ESPOCRM_LANGUAGE: es_ES
-    volumes:
-      - espocrm_custom:/var/www/html/custom
-      - espocrm_data:/var/www/html/data
-      - espocrm_client_custom:/var/www/html/client/custom
-    depends_on:
-      - espocrm-db
-    deploy:
-      resources:
-        limits:
-          cpus: '1.5'
-          memory: 1536M
-
-volumes:
-  espocrm_db_data:
-    driver: local
-  espocrm_custom:
-    driver: local
-  espocrm_data:
-    driver: local
-  espocrm_client_custom:
-    driver: local
-```
-
-#### C. Configuración de Entidades y Pipeline Comercial en EspoCRM
-Para parametrizar el CRM según el modelo de negocio, el desarrollador debe ingresar al Panel de Administración de EspoCRM y realizar los siguientes ajustes mediante el **Entity Manager**:
+#### D. Configuración de Entidades y Pipeline Comercial
+Acceder al Panel de Administración de EspoCRM mediante la cuenta de administrador creada:
 
 1. **Campos Personalizados en la Entidad Oportunidad (`Opportunity`) / Cliente Potencial (`Lead`):**
    Añadir mediante **Administration -> Entity Manager -> Opportunity -> Fields -> Add Field**:
