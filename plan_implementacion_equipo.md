@@ -10,18 +10,18 @@
 ## 1. Resumen de la Arquitectura del Sistema
 
 Esta guía detalla las tareas técnicas y de infraestructura necesarias para implementar y desplegar el ecosistema digital de **HRINSER** (Gestión Comercial SpA). La solución está compuesta por:
-1. **Landing Page Corporativa:** Un frontend estático avanzado con soporte multi-idioma (Español/Inglés/Chino) y selector de modo claro/oscuro.
-2. **Backoffice CRM de Código Abierto (EspoCRM):** Despliegue de la solución self-hosted EspoCRM en Docker con base de datos MariaDB. Parametrización del pipeline de ventas de 10 etapas en la entidad Oportunidades y adición de campos personalizados (RUT, dotación, mandante, plataforma de acreditación) mediante el Entity Manager.
+1. **Landing Page Corporativa:** Un frontend estático avanzado con soporte multi-idioma (Español/Inglés/Chino) y selector de modo claro/oscuro, desplegado en **Hostinger Web Hosting**.
+2. **Backoffice CRM de Código Abierto (EspoCRM):** Despliegue de la solución self-hosted EspoCRM en un **VPS de Hostinger** mediante Docker y MariaDB. Parametrización del pipeline de ventas de 10 etapas en la entidad Oportunidades y adición de campos personalizados (RUT, dotación, mandante, plataforma de acreditación) mediante el Entity Manager.
 3. **Plataforma de Gestión Documental (DMS Nextcloud):** Arquitectura **Multi-VPS en Elestio**. Cada cliente contratista opera en una máquina virtual dedicada con su propio stack aislado en Docker (Nextcloud Core + PostgreSQL + Redis + Cron), cumpliendo de manera estricta las exigencias de privacidad de la **Ley 21.719**.
 
 ```
-[Cliente Web] ---> [DNS Cloudflare]
+[Cliente Web] ---> [DNS Cloudflare / Hostinger]
                           │
        ┌──────────────────┴────────────────────────────────────────────────┐ (HTTPS / TLS 1.3)
        ▼                                   ▼                               ▼
 ┌──────────────┐                    ┌──────────────┐               ┌──────────────┐
-│ VPS EspoCRM  │                    │ VPS Cliente1 │               │ VPS Cliente2 │
-│ (MariaDB)    │                    │ (Elestio NC) │               │ (Elestio NC) │
+│ VPS Hostinger│                    │ VPS Cliente1 │               │ VPS Cliente2 │
+│ (EspoCRM)    │                    │ (Elestio NC) │               │ (Elestio NC) │
 ├──────────────┤                    ├──────────────┤               ├──────────────┤
 │ EspoApp      │                    │ NC App       │               │ NC App       │
 │ MariaDB DB   │                    │ Postgres DB  │               │ Postgres DB  │
@@ -32,17 +32,18 @@ Esta guía detalla las tareas técnicas y de infraestructura necesarias para imp
 
 ---
 
-## 2. Fase 1: Configuración de DNS, Landing Page y Despliegue de EspoCRM
+## 2. Fase 1: Configuración de DNS, Landing Page y Despliegue de EspoCRM en Hostinger
 
-### Paso 2.1: Gestión de DNS y Zonas en Cloudflare
-1. Configurar la zona DNS del dominio `hrinser.cl` en Cloudflare.
-2. Crear registros de tipo `A` comodín (Wildcard) o subdominios específicos apuntando a las IPs de los servidores de DMS y de CRM:
-   * `crm.hrinser.cl` -> `IP_VPS_CRM_ESPO`
-   * `alfa.hrinser.cl` -> `IP_VPS_ALFA`
-   * `beta.hrinser.cl` -> `IP_VPS_BETA`
-3. Habilitar la política de seguridad SSL/TLS en modo **Strict (Estricto)** en Cloudflare para forzar conexiones HTTPS cifradas de extremo a extremo.
+### Paso 2.1: Gestión de DNS y Zonas en Cloudflare o Hostinger
+1. Configurar la zona DNS del dominio `hrinser.cl` (administrada en Hostinger o Cloudflare).
+2. Crear registros de tipo `A` comodín (Wildcard) o subdominios específicos apuntando a las IPs correspondientes:
+   * `@` (raíz para la landing page) -> `IP_HOSTINGER_WEB_HOSTING`
+   * `crm.hrinser.cl` -> `IP_VPS_HOSTINGER_CRM`
+   * `alfa.hrinser.cl` -> `IP_VPS_ELESTIO_ALFA`
+   * `beta.hrinser.cl` -> `IP_VPS_ELESTIO_BETA`
+3. Habilitar la política de seguridad SSL/TLS en modo **Strict (Estricto)** para forzar conexiones HTTPS cifradas de extremo a extremo.
 
-### Paso 2.2: Despliegue de la Landing Page Corporativa
+### Paso 2.2: Despliegue de la Landing Page en Hostinger Web Hosting
 1. **Estructura del Proyecto:** La Landing Page debe ser un desarrollo liviano (HTML/CSS Vanilla o Vite/React estático).
 2. **Soporte Multi-Idioma (i18n):**
    * Configurar un selector de idiomas en el header que modifique de forma reactiva las cadenas de texto del sitio (Español, Inglés y Chino).
@@ -53,12 +54,23 @@ Esta guía detalla las tareas técnicas y de infraestructura necesarias para imp
 4. **Formulario de Captación de Leads:**
    * Diseñar un formulario de contacto seguro que valide en el cliente los campos obligatorios: Nombre, Correo Corporativo, Teléfono, Empresa, RUT y Número de Trabajadores.
    * Conectar el envío del formulario mediante una petición HTTP POST a la API de Captura de Leads de EspoCRM (`api/v1/Lead`).
+5. **Despliegue:**
+   * Acceder al panel de Hostinger (hPanel) -> **Hosting** -> **Administrar**.
+   * Subir los archivos estáticos en el directorio `public_html` utilizando el Administrador de Archivos o mediante la integración Git nativa de Hostinger vinculando el repositorio.
+   * Activar el certificado SSL autogenerado gratuito de Hostinger para el dominio principal `hrinser.cl`.
 
-### Paso 2.3: Despliegue e Integración de EspoCRM (Self-Hosted)
-El CRM se despliega en su propio VPS utilizando Docker Compose y MariaDB.
+### Paso 2.3: Despliegue e Integración de EspoCRM en Hostinger VPS
+El CRM se despliega en un Servidor VPS de Hostinger configurado con Docker.
 
-#### A. Archivo `docker-compose.yml` para EspoCRM
-Crear el archivo de despliegue para el CRM en `/opt/espocrm/`:
+#### A. Aprovisionamiento y Securización del VPS en Hostinger
+1. En el panel de Hostinger (hPanel), ir a **Servidores VPS** -> **Comprar/Administrar VPS**.
+2. Seleccionar la plantilla de sistema operativo recomendada por Hostinger: **Ubuntu 22.04 con Docker preinstalado** (o Ubuntu limpio e instalar Docker manualmente mediante SSH).
+3. Habilitar el Firewall en el panel del VPS de Hostinger y abrir únicamente los puertos:
+   * `80/tcp` (HTTP) y `443/tcp` (HTTPS).
+   * `22/tcp` (SSH) restringido a la llave pública SSH del desarrollador.
+
+#### B. Archivo `docker-compose.yml` para EspoCRM
+Acceder al VPS de Hostinger por SSH y en `/opt/espocrm/` crear el siguiente archivo Docker Compose. Para producción, el contenedor de EspoCRM escuchará directamente en el puerto HTTP `80` del host (o detrás de un Nginx Proxy Manager si se requiere administrar SSL en el mismo VPS):
 
 ```yaml
 version: '3.8'
@@ -85,11 +97,8 @@ services:
     image: espocrm/espocrm:latest
     container_name: espocrm
     restart: always
-    expose:
-      - "80"
-    # Para pruebas locales o mapear puertos detrás de Nginx Proxy Manager:
-    # ports:
-    #   - "8088:80"
+    ports:
+      - "80:80"  # Mapeado directamente al puerto HTTP estándar en el VPS de Hostinger
     environment:
       ESPOCRM_DATABASE_HOST: espocrm-db
       ESPOCRM_DATABASE_USER: espocrm_user
@@ -119,7 +128,7 @@ volumes:
     driver: local
 ```
 
-#### B. Configuración de Entidades y Pipeline Comercial en EspoCRM
+#### C. Configuración de Entidades y Pipeline Comercial en EspoCRM
 Para parametrizar el CRM según el modelo de negocio, el desarrollador debe ingresar al Panel de Administración de EspoCRM y realizar los siguientes ajustes mediante el **Entity Manager**:
 
 1. **Campos Personalizados en la Entidad Oportunidad (`Opportunity`) / Cliente Potencial (`Lead`):**
@@ -145,7 +154,7 @@ Para parametrizar el CRM según el modelo de negocio, el desarrollador debe ingr
 3. **Integración del Formulario API (Lead Capture):**
    * Ir a **Administration -> Lead Capture**. Crear una nueva campaña de captura.
    * EspoCRM generará un **Access Key** de API y un Payload en formato JSON.
-   * Configurar el script de procesamiento del formulario de la Landing Page para enviar un POST HTTP con los datos ingresados al endpoint de EspoCRM `/api/v1/LeadCapture/YOUR_ACCESS_KEY`.
+   * Configurar el script de procesamiento del formulario de la Landing Page en Hostinger para enviar un POST HTTP con los datos ingresados al endpoint de EspoCRM `/api/v1/LeadCapture/YOUR_ACCESS_KEY`.
 
 ---
 
