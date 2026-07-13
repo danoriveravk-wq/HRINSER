@@ -47,14 +47,53 @@ Dado que se cuenta contratado el plan **Hostinger Shared Web Hosting (Plan Unlim
 3. En Cloudflare o Hostinger, habilitar el certificado SSL gratuito para el dominio principal y el subdominio `crm.hrinser.cl`, forzando la redirección automática a HTTPS.
 
 ### Paso 2.2: Despliegue de la Landing Page en Hostinger
-1. **CI/CD Pipeline (GitHub Actions):** Si la landing page se desarrolla utilizando frameworks o compiladores (Tailwind, Vite, Node), configurar una acción de GitHub para compilar en frío en la rama principal y subir el directorio de salida `/dist` o `/build` al servidor Hostinger usando SFTP de forma automática con llaves protegidas. Si es puramente estático, se puede subir directamente al directorio raíz `/public_html/`.
-2. **Optimización de i18n (Multi-Idioma ES/EN/ZH):** 
+1. **Pipeline de CI/CD (GitHub Actions):** Si la landing page requiere una compilación previa (como empaquetadores de Tailwind o Vite), utilizar la plantilla de GitHub Actions `.github/workflows/deploy.yml` para compilar y desplegar vía SFTP de manera automática:
+
+```yaml
+name: Deploy Landing Page to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy to Hostinger via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.SFTP_SERVER }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          local-dir: ./dist/ # O la carpeta de build correspondiente
+          server-dir: /domains/hrinser.cl/public_html/
+```
+*(Nota: Configurar `SFTP_SERVER`, `SFTP_USERNAME` y `SFTP_PASSWORD` en los Secretos del repositorio GitHub).*
+
+2. **Optimización de i18n (Multi-Idioma ES/EN/ZH):**
    * **Diseño Líquido:** Diseñar componentes (cajas de texto, botones, contenedores) con medidas elásticas (`min-width`, `height: auto` en Flexbox y CSS Grid) evitando tamaños fijos horizontales y verticales. El español es un 20% más expansivo que el inglés, y el chino es extremadamente corto pero con mayor densidad vertical.
    * **Fuentes del Sistema para Chino:** Para evitar la descarga de fuentes web de chino de varios megabytes (que arruinarían el LCP y el SEO), utilizar el stack de fuentes del sistema operativo:
      ```css
      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
      ```
-   * **Actualizar Atributo Lang:** Al alternar de idioma vía JavaScript, inyectar dinámicamente `document.documentElement.lang = selectedLangCode;`. Para SEO internacional óptimo, preferir carpetas físicas (`/en/index.html` y `/zh/index.html`).
+   * **Actualizar Atributo Lang:** Al alternar de idioma vía JavaScript, inyectar dinámicamente `document.documentElement.lang = selectedLangCode;`. Para SEO internacional óptimo, preferir carpetas físicas (`/en/index.html` y `/zh/index.html`) y configurar reglas de redirección en el archivo `.htaccess`.
 3. **Optimización de Modo Claro/Oscuro (Theme Toggle):**
    * **Script Bloqueante Anti-Parpadeo (FOUC):** Colocar el siguiente bloque de JavaScript inline al principio del `<head>` del HTML antes de cargar las hojas de estilo:
      ```html
@@ -92,13 +131,14 @@ Dado que se cuenta contratado el plan **Hostinger Shared Web Hosting (Plan Unlim
    * En el entorno de hosting compartido de Hostinger (SuExec), configurar directorios con permisos **`755`** y archivos con **`644`**. Está estrictamente prohibido usar permisos `777`.
 
 #### B. Subida de Archivos y Tarea Cron
-1. Subir y descomprimir el paquete de EspoCRM oficial en el directorio del subdominio `/crm.hrinser.cl/`.
-2. Completar el asistente web en `https://crm.hrinser.cl` vinculando la base de datos configurada.
-3. **Programación del Cron en hPanel:**
+1. Crear el subdominio `crm.hrinser.cl`. En Hostinger, esto crea la carpeta física en `/home/uXXXXX/domains/hrinser.cl/public_html/crm/` o en `/home/uXXXXX/crm.hrinser.cl/`.
+2. Subir y descomprimir el paquete de EspoCRM oficial en el directorio asignado al subdominio.
+3. Completar el asistente web en `https://crm.hrinser.cl` vinculando la base de datos configurada.
+4. **Programación del Cron en hPanel:**
    * Ir a **Avanzado -> Tareas Cron**.
-   * Agregar la ejecución del cron cada un minuto, forzando la versión CLI exacta y redirigiendo errores a un log rotativo:
+   * Agregar la ejecución del cron cada un minuto, utilizando la ruta absoluta correcta de Hostinger y redirigiendo errores a un archivo de bitácora:
      ```text
-     /usr/bin/php8.2 /home/uXXXXX/public_html/crm/cron.php >> /home/uXXXXX/public_html/crm/data/logs/cron_errors.log 2>&1
+     /usr/bin/php8.2 /home/uXXXXX/domains/hrinser.cl/public_html/crm/cron.php >> /home/uXXXXX/domains/hrinser.cl/public_html/crm/data/logs/cron_errors.log 2>&1
      ```
 
 #### C. Seguridad de Formulario (Validación RUT y reCAPTCHA v3)
@@ -122,8 +162,17 @@ Para evitar inyectar leads duplicados y proteger la capacidad de procesamiento d
    }
    ```
 2. **Prevención de Doble Envío:** Deshabilitar el botón submit al hacer clic y cambiar su contenido a `"Enviando..."`. Usar pseudoclases CSS `:user-valid` y `:user-invalid` para una validación amigable al quitar el foco.
-3. **Crear script Proxy Seguro PHP (`submit_lead.php`):**
-   Subir este archivo PHP al directorio raíz de la Landing Page para procesar el token de reCAPTCHA y realizar la llamada cURL interna con un timeout estricto de 5 segundos (evitando bloqueos de red concurrentes):
+3. **Configuración Externa de Credenciales (`config.php`):**
+   Para evitar subir las claves de API a repositorios públicos, crear el archivo `config.php` en la carpeta de la landing page para guardar los secretos del backend:
+   ```php
+   <?php
+   // config.php - Secretos Protegidos en el Servidor
+   define('RECAPTCHA_SECRET_KEY', 'TU_RECAPTCHA_SECRET_KEY_AQUI');
+   define('ESPOCRM_ACCESS_KEY', 'TU_ACCESS_KEY_DE_ESPOCRM');
+   ?>
+   ```
+4. **Crear script Proxy Seguro PHP (`submit_lead.php`):**
+   Este archivo incluye control de tasa local (**Rate Limiting** de 5 peticiones por minuto por IP) para bloquear ataques de inundación localmente y evitar que tiren el hosting compartido:
 
 ```php
 <?php
@@ -132,14 +181,39 @@ header('Content-Type: application/json');
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
+require_once 'config.php';
+
+// A. Control de Tasa (Rate Limiting) - 5 peticiones por minuto por IP
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$limitFile = sys_get_temp_dir() . '/rate_limit_' . md5($ip) . '.json';
+$currentTime = time();
+$window = 60; // 1 minuto
+$limit = 5;
+
+if (file_exists($limitFile)) {
+    $data = json_decode(file_get_contents($limitFile), true);
+    $data['requests'] = array_filter($data['requests'], function($ts) use ($currentTime, $window) {
+        return $ts > ($currentTime - $window);
+    });
+    if (count($data['requests']) >= $limit) {
+        http_response_code(429);
+        header('Retry-After: ' . $window);
+        echo json_encode(['error' => 'Demasiadas solicitudes. Por favor intente más tarde.']);
+        exit;
+    }
+    $data['requests'][] = $currentTime;
+} else {
+    $data = ['requests' => [$currentTime]];
+}
+file_put_contents($limitFile, json_encode($data));
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'Method Not Allowed']);
     exit;
 }
 
-// 1. Validar Google reCAPTCHA v3 en el Backend con Timeout
-$recaptchaSecret = 'TU_RECAPTCHA_SECRET_KEY_AQUI'; 
+// B. Validar Google reCAPTCHA v3 en el Backend con Timeout
 $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
 if (empty($recaptchaResponse)) {
@@ -152,10 +226,10 @@ $chVerify = curl_init("https://www.google.com/recaptcha/api/siteverify");
 curl_setopt($chVerify, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($chVerify, CURLOPT_POST, true);
 curl_setopt($chVerify, CURLOPT_POSTFIELDS, http_build_query([
-    'secret' => $recaptchaSecret,
+    'secret' => RECAPTCHA_SECRET_KEY,
     'response' => $recaptchaResponse
 ]));
-curl_setopt($chVerify, CURLOPT_TIMEOUT, 5); // Timeout para evitar bloqueos
+curl_setopt($chVerify, CURLOPT_TIMEOUT, 5); 
 $verifyResponse = curl_exec($chVerify);
 $verifyHttpCode = curl_getinfo($chVerify, CURLINFO_HTTP_CODE);
 curl_close($chVerify);
@@ -173,7 +247,7 @@ if (!$responseData->success || $responseData->score < 0.5) {
     exit;
 }
 
-// 2. Sanitizar datos recibidos
+// C. Sanitizar datos recibidos
 $rut = filter_var($_POST['rutEmpresa'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 $trabajadores = filter_var($_POST['numeroTrabajadores'] ?? 0, FILTER_VALIDATE_INT);
 $mandante = filter_var($_POST['mandantePrincipal'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -188,8 +262,8 @@ if (!$email) {
     exit;
 }
 
-// 3. Reenviar Payload vía cURL a EspoCRM con Timeout de 5s
-$crmUrl = 'https://crm.hrinser.cl/api/v1/LeadCapture/TU_ACCESS_KEY_DE_ESPOCRM';
+// D. Reenviar Payload vía cURL a EspoCRM con Timeout de 5s
+$crmUrl = 'https://crm.hrinser.cl/api/v1/LeadCapture/' . ESPOCRM_ACCESS_KEY;
 $payload = json_encode([
     'firstName' => $firstName,
     'lastName' => $lastName,
@@ -246,6 +320,14 @@ Crear la siguiente estructura de directorios en `/opt/hrinser-dms/`:
 └── nextcloud.env
 ```
 
+Configurar el archivo `/opt/hrinser-dms/nextcloud.env` para mantener las contraseñas e identificadores aislados del control de versiones:
+```ini
+POSTGRES_DB=nextcloud_db
+POSTGRES_USER=nextcloud_usr
+POSTGRES_PASSWORD=SecurePass_Postgres_32Char! # MODIFICAR EN PRODUCCIÓN
+REDIS_PASSWORD=SecurePass_Redis_32Char!       # MODIFICAR EN PRODUCCIÓN
+```
+
 ### Paso 3.3: Construcción de la Imagen Docker (Dockerfile)
 Crear el `Dockerfile` personalizado para instalar las librerías necesarias de Tesseract OCR y soporte del idioma Español:
 
@@ -263,9 +345,7 @@ RUN chown -R www-data:www-data /var/www/html
 ```
 
 ### Paso 3.4: Archivo de Orquestación Docker Compose (`docker-compose.yml`)
-Este archivo define el stack con límites estrictos de CPU y memoria RAM para evitar que los picos de OCR consuman toda la memoria física del host y activen el kernel **OOM Killer** del sistema operativo. Los límites se reajustan a un total de **3.0 GB** de RAM, reservando 1 GB para el sistema operativo Host del VPS. 
-
-Se incorpora una red bridge personalizada, la sincronización de la zona horaria (`TZ=America/Santiago`) y la optimización de los parámetros del motor de PostgreSQL y Redis para rendimiento bajo restricciones de RAM.
+Este archivo define el stack con límites de memoria de un total de **3.0 GB** de RAM, reservando 1 GB para el sistema operativo Host del VPS. Utiliza variables de entorno cargadas de `nextcloud.env`, aísla el tráfico interno en una red personalizada y tunea el rendimiento de PG y Redis.
 
 ```yaml
 version: '3.8'
@@ -290,10 +370,9 @@ services:
       - hrinser-network
     volumes:
       - db_data:/var/lib/postgresql/data
+    env_file:
+      - nextcloud.env
     environment:
-      - POSTGRES_DB=nextcloud_db
-      - POSTGRES_USER=nextcloud_usr
-      - POSTGRES_PASSWORD=SecurePass_Postgres_32Char! # MODIFICAR EN PRODUCCIÓN
       - TZ=America/Santiago
     command: >
       postgres
@@ -363,11 +442,10 @@ services:
       - nextcloud_data:/var/www/html
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
+    env_file:
+      - nextcloud.env
     environment:
       - POSTGRES_HOST=db
-      - POSTGRES_DB=nextcloud_db
-      - POSTGRES_USER=nextcloud_usr
-      - POSTGRES_PASSWORD=SecurePass_Postgres_32Char!
       - REDIS_HOST=redis
       - REDIS_HOST_PASSWORD=SecurePass_Redis_32Char!
       - PHP_MEMORY_LIMIT=1024M
@@ -486,18 +564,26 @@ Configurar la plantilla base de Nextcloud para que, al crear la cuenta del clien
 
 ## 5. Fase 4: Ingesta de Datos, OCR y Tareas en Segundo Plano
 
-### Paso 5.1: Ingesta Masiva de Documentos Históricos (Evitar Timeouts)
-Para transferir los 100 GB históricos sin cortes por carga de navegador:
-1. Transferir el bloque de archivos históricos al VPS mediante un cliente SFTP seguro usando la llave SSH.
-2. Mapear o mover los archivos directamente a la ruta de datos del usuario correspondiente en el host (ej: `/var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/data/USER_CLIENTE/files/`).
-3. Corregir los permisos del sistema de archivos para asegurar la propiedad de Apache:
-   ```bash
-   chown -R www-data:www-data /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/data/USER_CLIENTE/files/
-   ```
-4. Forzar el escaneo de base de datos de Nextcloud para indexar los archivos importados:
-   ```bash
-   docker exec -u www-data hrinser-nextcloud-app php occ files:scan --all
-   ```
+### Paso 5.1: Ingesta Masiva de Documentos Históricos (Bypass de Cifrado Resuelto)
+> [!IMPORTANT]
+> **Advertencia de Seguridad:** Si los archivos históricos se copian directamente en el sistema de archivos del host mediante SFTP, Nextcloud los indexará pero **quedarán en texto plano (sin cifrar)** en el almacenamiento físico, violando el control TC-02. Para forzar su encriptación, los desarrolladores deben utilizar obligatoriamente una de las dos siguientes rutas de ingesta:
+
+*   **Ruta Recomendada (WebDAV/API):** Sincronizar los archivos del cliente utilizando un cliente automatizado WebDAV (por ejemplo, configurando `rclone` local con las credenciales del cliente contratista y apuntando a `https://cliente.hrinser.cl/remote.php/dav/files/USERNAME/`). Esto obliga a Nextcloud a cifrar los archivos en caliente en el momento de la ingesta.
+*   **Ruta de Contingencia (Copia en Caliente + Cifrado Masivo):** 
+    1. Transferir archivos históricos vía SFTP seguro al volumen Docker en el host.
+    2. Corregir permisos en el volumen físico:
+       ```bash
+       chown -R www-data:www-data /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/data/USER_CLIENTE/files/
+       ```
+    3. Forzar escaneo de la base de datos:
+       ```bash
+       docker exec -u www-data hrinser-nextcloud-app php occ files:scan --all
+       ```
+    4. **EJECUTAR CIFRADO EN BLOQUE:** Correr el proceso de encriptación masiva de archivos huérfanos:
+       ```bash
+       docker exec -u www-data hrinser-nextcloud-app php occ encryption:encrypt-all
+       ```
+       *(Nota: Este comando es intensivo en CPU/Disco y debe ejecutarse antes de que los usuarios comiencen a operar en el portal).*
 
 ### Paso 5.2: Configuración del Procesamiento OCR Fuera de Horario Laboral
 Tesseract OCR consume dinámicamente un hilo completo de CPU al digitalizar imágenes y PDFs. Para evitar cuellos de botella durante horario de oficina:
@@ -525,13 +611,15 @@ Tesseract OCR consume dinámicamente un hilo completo de CPU al digitalizar imá
 
 ## 6. Automatización de Copias de Seguridad (Backups)
 
-El cumplimiento normativo de la Ley 21.719 exige salvaguardas de disponibilidad y cifrado para los respaldos del sistema.
-
 ### 6.1. Copias de Seguridad de EspoCRM (Hostinger Shared Hosting)
-Se debe programar una rutina semanal para archivar y respaldar la base de datos de EspoCRM. Hostinger realiza copias diarias automatizadas en su plan Unlimited. Para contar con un respaldo local adicional seguro, se puede estructurar un script de exportación MySQL y descargas mediante SSH.
+Para contar con copias locales e independientes adicionales a las de Hostinger, los desarrolladores deben configurar un Cron Job semanal de tipo "Custom Command" en el hPanel de Hostinger que exporte la base de datos MySQL y la comprima en una carpeta segura no accesible mediante peticiones HTTP web:
+
+```text
+mysqldump -u uXXXXX_espo_usr -p'CONTRASEÑA_BD' uXXXXX_espocrm | gzip > /home/uXXXXX/backups/espocrm_$(date +\%F).sql.gz
+```
 
 ### 6.2. Copias de Seguridad de Nextcloud DMS (Elestio Multi-VPS)
-Crear un archivo script en el Host VPS en `/opt/hrinser-dms/scripts/backup_nextcloud.sh`. Este script resuelve la falla de autenticación de `pg_dump` mediante inyección no interactiva, utiliza el nombre correcto del volumen Docker, realiza el **cifrado asimétrico GPG** (mediante llave pública del administrador importada previamente) y **excluye las llaves criptográficas** para respaldarlas por separado (cumpliendo estrictamente el control **TC-08**):
+Crear un archivo script en el Host VPS en `/opt/hrinser-dms/scripts/backup_nextcloud.sh`. El script realiza el dump PostgreSQL no interactivo, el cifrado asimétrico GPG por llave pública y la segregación física obligatoria de llaves criptográficas (aborta inmediatamente si la compresión de llaves falla):
 
 ```bash
 #!/bin/bash
@@ -579,12 +667,11 @@ tar -czf "$BACKUP_PATH.tar.gz" \
     -C "$VOLUME_DATA_DIR" . \
     -C "$BACKUP_DIR" "nextcloud_backup_$DATE.sql"
 
-# 4. Comprimir Llaves de Cifrado por separado
-# Se guardan de forma independiente para permitir almacenamiento en otra bóveda externa.
+# 4. Comprimir Llaves de Cifrado por separado (Aborta si hay error, sin || true)
 tar -czf "$KEYS_BACKUP_PATH.tar.gz" \
     -C "$VOLUME_DATA_DIR" \
     "./data/files_encryption" \
-    $(find "$VOLUME_DATA_DIR/data/" -maxdepth 2 -type d -name "files_encryption" -not -path '*/appdata_*' | sed "s|$VOLUME_DATA_DIR/||g") 2>/dev/null || true
+    $(find "$VOLUME_DATA_DIR/data/" -maxdepth 2 -type d -name "files_encryption" -not -path '*/appdata_*' | sed "s|$VOLUME_DATA_DIR/||g")
 
 # 5. Desactivar Modo Mantenimiento
 docker exec -u www-data "$APP_CONTAINER" php occ maintenance:mode --off
@@ -614,7 +701,50 @@ Programar la ejecución diaria del backup a las **04:00 AM** en el crontab del H
 
 ---
 
-## 7. Flujo de Onboarding Técnico de un Nuevo Cliente Contratista
+## 7. Procedimiento de Restauración ante Desastres (Disaster Recovery)
+
+Para cumplir con el tiempo objetivo de recuperación (**RTO < 20 minutos**) establecido en el test **TC-07**:
+
+1. **Detener Contenedores en Ejecución:**
+   ```bash
+   cd /opt/hrinser-dms/
+   docker compose down -v
+   ```
+2. **Desencriptar Respaldos con GPG:**
+   *(Requiere ingresar la llave privada del administrador mediante agente GPG seguro)*:
+   ```bash
+   gpg --decrypt /var/backups/nextcloud/nextcloud_backup_DATE.tar.gz.gpg > nextcloud_backup_DATE.tar.gz
+   gpg --decrypt /var/backups/nextcloud/keys_backup_DATE.tar.gz.gpg > keys_backup_DATE.tar.gz
+   ```
+3. **Restaurar el Volumen de Datos (Excluyendo Llaves):**
+   ```bash
+   # Crear volumen vacío montándolo de nuevo
+   docker compose up db redis -d
+   # Extraer los datos en el volumen físico correspondiente
+   tar -xzf nextcloud_backup_DATE.tar.gz -C /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/
+   ```
+4. **Restaurar las Llaves Cifradas Segregadas:**
+   ```bash
+   tar -xzf keys_backup_DATE.tar.gz -C /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/
+   ```
+5. **Restaurar la Base de Datos PostgreSQL:**
+   * Mover el archivo SQL recuperado (`nextcloud_backup_DATE.sql`) al contenedor de base de datos o inyectarlo directamente:
+   ```bash
+   docker exec -i hrinser-nextcloud-db psql -U nextcloud_usr -d nextcloud_db < /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/nextcloud_backup_DATE.sql
+   # Eliminar el archivo SQL residual
+   rm /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/nextcloud_backup_DATE.sql
+   ```
+6. **Arrancar Contenedores y Limpiar Modo Mantenimiento:**
+   ```bash
+   docker compose up -d
+   docker exec -u www-data hrinser-nextcloud-app php occ maintenance:mode --off
+   # Limpiar archivos .tar.gz residuales del host
+   rm nextcloud_backup_DATE.tar.gz keys_backup_DATE.tar.gz
+   ```
+
+---
+
+## 8. Flujo de Onboarding Técnico de un Nuevo Cliente Contratista
 
 Cuando una oportunidad comercial se cierra como ganada y el cliente pasa a estado **"Cliente Activo"** en EspoCRM, se ejecuta el siguiente flujo técnico de aprovisionamiento:
 
@@ -635,8 +765,8 @@ Cuando una oportunidad comercial se cierra como ganada y el cliente pasa a estad
               │
               ▼
 3. Ingesta de Datos Históricos (Desarrollador DevOps)
-   - Cargar los documentos previos del contratista vía SFTP.
-   - Sincronizar indexación de base de datos con occ files:scan.
+   - Cargar los documentos previos del contratista vía SFTP o WebDAV.
+   - Sincronizar e invocar cifrado en bloque mediante encrypt-all.
               │
               ▼
 4. Entrega de Credenciales e Inducción (Vanessa Galdames)
@@ -646,7 +776,7 @@ Cuando una oportunidad comercial se cierra como ganada y el cliente pasa a estad
 
 ---
 
-## 8. Plan de Verificación y Pruebas (UAT) para Desarrolladores
+## 9. Plan de Verificación y Pruebas (UAT) para Desarrolladores
 
 Antes de entregar los portales de clientes y el CRM a producción, los desarrolladores deben validar las siguientes pruebas de aceptación:
 
