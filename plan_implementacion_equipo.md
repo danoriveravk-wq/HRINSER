@@ -47,51 +47,90 @@ Dado que se cuenta contratado el plan **Hostinger Shared Web Hosting (Plan Unlim
 3. En Cloudflare o Hostinger, habilitar el certificado SSL gratuito para el dominio principal y el subdominio `crm.hrinser.cl`, forzando la redirección automática a HTTPS.
 
 ### Paso 2.2: Despliegue de la Landing Page en Hostinger
-1. Subir los archivos HTML/CSS/JS de la Landing Page al directorio raíz del dominio principal (típicamente `/public_html/`) a través del **Administrador de Archivos** de Hostinger o vinculando el repositorio git en la sección **Git** de hPanel.
-2. Comprobar que el selector de idiomas (ES/EN/ZH) y el modo oscuro funcionen correctamente mediante peticiones HTTP seguras.
+1. **CI/CD Pipeline (GitHub Actions):** Si la landing page se desarrolla utilizando frameworks o compiladores (Tailwind, Vite, Node), configurar una acción de GitHub para compilar en frío en la rama principal y subir el directorio de salida `/dist` o `/build` al servidor Hostinger usando SFTP de forma automática con llaves protegidas. Si es puramente estático, se puede subir directamente al directorio raíz `/public_html/`.
+2. **Optimización de i18n (Multi-Idioma ES/EN/ZH):** 
+   * **Diseño Líquido:** Diseñar componentes (cajas de texto, botones, contenedores) con medidas elásticas (`min-width`, `height: auto` en Flexbox y CSS Grid) evitando tamaños fijos horizontales y verticales. El español es un 20% más expansivo que el inglés, y el chino es extremadamente corto pero con mayor densidad vertical.
+   * **Fuentes del Sistema para Chino:** Para evitar la descarga de fuentes web de chino de varios megabytes (que arruinarían el LCP y el SEO), utilizar el stack de fuentes del sistema operativo:
+     ```css
+     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
+     ```
+   * **Actualizar Atributo Lang:** Al alternar de idioma vía JavaScript, inyectar dinámicamente `document.documentElement.lang = selectedLangCode;`. Para SEO internacional óptimo, preferir carpetas físicas (`/en/index.html` y `/zh/index.html`).
+3. **Optimización de Modo Claro/Oscuro (Theme Toggle):**
+   * **Script Bloqueante Anti-Parpadeo (FOUC):** Colocar el siguiente bloque de JavaScript inline al principio del `<head>` del HTML antes de cargar las hojas de estilo:
+     ```html
+     <script>
+       (function() {
+         try {
+           const storedTheme = localStorage.getItem('theme');
+           const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+           if (storedTheme === 'dark' || (!storedTheme && systemDark)) {
+             document.documentElement.classList.add('dark');
+           } else {
+             document.documentElement.classList.remove('dark');
+           }
+         } catch (e) {}
+       })();
+     </script>
+     ```
+   * **Integración del Navegador:** Declarar `color-scheme: light dark;` en el CSS raíz para forzar la adaptación de barras de navegación y campos nativos. Asegurar que los contrastes de ambos temas cumplan la norma WCAG AA (mínimo 4.5:1).
+
+---
 
 ### Paso 2.3: Despliegue e Instalación Nativa de EspoCRM (PHP/MySQL)
-Al usar el plan Hosting Compartido Unlimited de Hostinger, EspoCRM se instala de forma nativa en una carpeta/subdominio dedicado.
 
 #### A. Configuración de Base de Datos y PHP en hPanel
 1. **Crear Base de Datos MySQL:**
    * Ir a **Bases de datos -> Bases de datos MySQL** en hPanel.
-   * Crear una nueva base de datos llamada `uXXXXX_espocrm` y un usuario `uXXXXX_espo_usr` con una contraseña segura de 24 caracteres. Anotar estas credenciales.
-2. **Configuración de Versión PHP:**
-   * Ir a **Avanzado -> Configuración de PHP**.
-   * Seleccionar **PHP 8.2** (o la versión recomendada estable por EspoCRM) y verificar que las extensiones requeridas estén habilitadas: `pdo_mysql`, `gd`, `openssl`, `zip`, `mbstring`, `curl`, `exif`.
-   * En la pestaña **Opciones de PHP**, subir el límite de memoria `memory_limit` a mínimo `256M` o `512M` (según permita el plan).
+   * Crear la base de datos `uXXXXX_espocrm` y el usuario `uXXXXX_espo_usr` con contraseña de 24 caracteres.
+   * Configurar el conjunto de caracteres en **`utf8mb4`** y la colación en **`utf8mb4_unicode_ci`** para evitar fallos de ejecución con caracteres especiales en los formularios:
+     ```sql
+     ALTER DATABASE uXXXXX_espocrm CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+     ```
+2. **Configuración de PHP y Permisos:**
+   * En hPanel, ir a **Avanzado -> Configuración de PHP** y activar **PHP 8.2** con extensiones requeridas (`pdo_mysql`, `gd`, `openssl`, `zip`, `mbstring`, `curl`, `exif`, `opcache`).
+   * Configurar `memory_limit` a un mínimo de `256M`.
+   * En el entorno de hosting compartido de Hostinger (SuExec), configurar directorios con permisos **`755`** y archivos con **`644`**. Está estrictamente prohibido usar permisos `777`.
 
-#### B. Subida e Instalación de Archivos
-1. Crear el subdominio `crm.hrinser.cl` en la sección **Dominios -> Subdominios** de hPanel. Esto creará una carpeta en el servidor llamada `/public_html/crm/` o `/crm.hrinser.cl/`.
-2. Descargar el paquete oficial de instalación de EspoCRM (.zip) desde su sitio web oficial.
-3. Subir el archivo `.zip` utilizando el **Administrador de Archivos** a la carpeta del subdominio y descomprimirlo.
-4. Asegurar que los permisos de los archivos y carpetas del subdominio tengan la propiedad correcta (`755` para directorios y `644` para archivos).
-5. Acceder en el navegador a `https://crm.hrinser.cl/` para iniciar el instalador web:
-   * Aceptar la licencia de software.
-   * Ingresar los datos de conexión MySQL creados en el paso anterior (Host: `localhost` o la dirección provista por Hostinger, Base de datos: `uXXXXX_espocrm`, Usuario: `uXXXXX_espo_usr`, Contraseña).
-   * Crear la cuenta del Administrador General de HRINSER (Vanessa Galdames).
-   * Completar la instalación guiada.
+#### B. Subida de Archivos y Tarea Cron
+1. Subir y descomprimir el paquete de EspoCRM oficial en el directorio del subdominio `/crm.hrinser.cl/`.
+2. Completar el asistente web en `https://crm.hrinser.cl` vinculando la base de datos configurada.
+3. **Programación del Cron en hPanel:**
+   * Ir a **Avanzado -> Tareas Cron**.
+   * Agregar la ejecución del cron cada un minuto, forzando la versión CLI exacta y redirigiendo errores a un log rotativo:
+     ```text
+     /usr/bin/php8.2 /home/uXXXXX/public_html/crm/cron.php >> /home/uXXXXX/public_html/crm/data/logs/cron_errors.log 2>&1
+     ```
 
-#### C. Programación del Cron Job en Hostinger (hPanel)
-EspoCRM requiere la ejecución de un cron cada 1 minuto para procesar notificaciones, correos entrantes y alertas automáticas de acreditación.
-1. Ir a **Avanzado -> Tareas Cron** en el panel de Hostinger (hPanel).
-2. Crear una nueva tarea cron con la siguiente configuración:
-   * **Tipo de Cron:** PHP script (o comando personalizado).
-   * **Comando:** `/usr/bin/php8.2 /home/uXXXXX/public_html/crm/cron.php > /dev/null 2>&1` (reemplazar `/home/uXXXXX/public_html/crm/` por la ruta absoluta de instalación y forzar el uso del binario `/usr/bin/php8.2` para evitar discrepancias de versión en la CLI).
-   * **Frecuencia:** Cada minuto (`* * * * *`).
-3. Guardar la tarea cron y verificar en el registro de EspoCRM (en **Administración -> Jobs**) que el cron se esté ejecutando exitosamente.
+#### C. Seguridad de Formulario (Validación RUT y reCAPTCHA v3)
+Para evitar inyectar leads duplicados y proteger la capacidad de procesamiento de MySQL y CPU de la cuenta compartida de Hostinger (evitando errores *508 Resource Limit Reached*):
 
-#### D. Ocultar la API de Lead Capture y Evitar Ataques DoS/Spam
-Para evitar exponer la API Key y el endpoint de EspoCRM en el código JavaScript del frontend (lo que dejaría el hosting vulnerable a inundaciones de spam y caídas por CPU/MySQL), los desarrolladores deben implementar un handler proxy en PHP.
-
-1. **Crear el script `submit_lead.php` en Hostinger:**
-   Subir este archivo PHP al directorio raíz de la Landing Page:
+1. **Validación de RUT en el Frontend (Módulo 11):**
+   Agregar una función Javascript en el frontend para evitar llamadas HTTP con datos inválidos:
+   ```javascript
+   function validarRutChileno(rutCompleto) {
+       if (!/^[0-9]+-[0-9kK]{1}$/.test(rutCompleto.replace(/\./g, ''))) return false;
+       const tmp = rutCompleto.replace(/\./g, '').split('-');
+       let rut = tmp[0]; const dv = tmp[1].toLowerCase();
+       let suma = 0; let multiplicador = 2;
+       for (let i = rut.length - 1; i >= 0; i--) {
+           suma += parseInt(rut.charAt(i)) * multiplicador;
+           multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+       }
+       const dvEsperado = 11 - (suma % 11);
+       let dvCalculado = dvEsperado === 11 ? '0' : (dvEsperado === 10 ? 'k' : dvEsperado.toString());
+       return dv === dvCalculado;
+   }
+   ```
+2. **Prevención de Doble Envío:** Deshabilitar el botón submit al hacer clic y cambiar su contenido a `"Enviando..."`. Usar pseudoclases CSS `:user-valid` y `:user-invalid` para una validación amigable al quitar el foco.
+3. **Crear script Proxy Seguro PHP (`submit_lead.php`):**
+   Subir este archivo PHP al directorio raíz de la Landing Page para procesar el token de reCAPTCHA y realizar la llamada cURL interna con un timeout estricto de 5 segundos (evitando bloqueos de red concurrentes):
 
 ```php
 <?php
 // submit_lead.php - Handler Seguro para Captura de Leads en Hostinger Shared Hosting
 header('Content-Type: application/json');
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -99,22 +138,38 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// 1. Validar Google reCAPTCHA v3 en el Backend
-$recaptchaSecret = 'TU_RECAPTCHA_SECRET_KEY_AQUI'; // Reemplazar con clave secreta
+// 1. Validar Google reCAPTCHA v3 en el Backend con Timeout
+$recaptchaSecret = 'TU_RECAPTCHA_SECRET_KEY_AQUI'; 
 $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
 if (empty($recaptchaResponse)) {
     http_response_code(400);
-    echo json_encode(['error' => 'Falta validación de seguridad recaptcha.']);
+    echo json_encode(['error' => 'Falta validación de seguridad de Google reCAPTCHA.']);
     exit;
 }
 
-$verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecret}&response={$recaptchaResponse}");
-$responseData = json_decode($verify);
+$chVerify = curl_init("https://www.google.com/recaptcha/api/siteverify");
+curl_setopt($chVerify, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($chVerify, CURLOPT_POST, true);
+curl_setopt($chVerify, CURLOPT_POSTFIELDS, http_build_query([
+    'secret' => $recaptchaSecret,
+    'response' => $recaptchaResponse
+]));
+curl_setopt($chVerify, CURLOPT_TIMEOUT, 5); // Timeout para evitar bloqueos
+$verifyResponse = curl_exec($chVerify);
+$verifyHttpCode = curl_getinfo($chVerify, CURLINFO_HTTP_CODE);
+curl_close($chVerify);
 
+if ($verifyHttpCode !== 200) {
+    http_response_code(502);
+    echo json_encode(['error' => 'Error de conexión con el servidor de seguridad de Google.']);
+    exit;
+}
+
+$responseData = json_decode($verifyResponse);
 if (!$responseData->success || $responseData->score < 0.5) {
     http_response_code(403);
-    echo json_encode(['error' => 'Fallo en la validación anti-bot.']);
+    echo json_encode(['error' => 'Acceso denegado: El sistema ha detectado comportamiento inusual (bot).']);
     exit;
 }
 
@@ -129,11 +184,11 @@ $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
 
 if (!$email) {
     http_response_code(400);
-    echo json_encode(['error' => 'Email no válido.']);
+    echo json_encode(['error' => 'El correo electrónico ingresado no es válido.']);
     exit;
 }
 
-// 3. Reenviar Payload vía cURL seguro a la API interna de EspoCRM
+// 3. Reenviar Payload vía cURL a EspoCRM con Timeout de 5s
 $crmUrl = 'https://crm.hrinser.cl/api/v1/LeadCapture/TU_ACCESS_KEY_DE_ESPOCRM';
 $payload = json_encode([
     'firstName' => $firstName,
@@ -149,6 +204,7 @@ $ch = curl_init($crmUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+curl_setopt($ch, CURLOPT_TIMEOUT, 5); 
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Content-Type: application/json',
     'Content-Length: ' . strlen($payload)
@@ -159,17 +215,14 @@ $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
 if ($httpCode === 200 || $httpCode === 201) {
-    echo json_encode(['status' => 'success', 'message' => 'Lead registrado correctamente.']);
+    echo json_encode(['status' => 'success', 'message' => 'Información registrada exitosamente.']);
 } else {
-    error_log("Fallo en LeadCapture de EspoCRM: " . $response);
+    error_log("Fallo en LeadCapture de EspoCRM. HTTP Code: {$httpCode}. Respuesta: {$response}");
     http_response_code(502);
-    echo json_encode(['error' => 'No se pudo conectar con el servidor CRM de destino.']);
+    echo json_encode(['error' => 'No se pudo conectar con el CRM de destino.']);
 }
 ?>
 ```
-
-2. **Configuración de Oportunidades y Pipeline:**
-   Ingresar a **Administración -> Entity Manager -> Opportunity** y configurar los campos personalizados (`rutEmpresa`, `numeroTrabajadores`, `mandantePrincipal`, `plataformaAcreditacion`) y las 10 etapas del pipeline comercial como se describió anteriormente.
 
 ---
 
@@ -210,31 +263,49 @@ RUN chown -R www-data:www-data /var/www/html
 ```
 
 ### Paso 3.4: Archivo de Orquestación Docker Compose (`docker-compose.yml`)
-Este archivo define el stack con límites estrictos de CPU y memoria RAM para evitar que los picos de OCR consuman toda la memoria física del host y activen el kernel **OOM Killer** del sistema operativo. Los límites se reajustan a un total de **3.0 GB** de RAM, reservando 1 GB para el sistema operativo Host del VPS.
+Este archivo define el stack con límites estrictos de CPU y memoria RAM para evitar que los picos de OCR consuman toda la memoria física del host y activen el kernel **OOM Killer** del sistema operativo. Los límites se reajustan a un total de **3.0 GB** de RAM, reservando 1 GB para el sistema operativo Host del VPS. 
+
+Se incorpora una red bridge personalizada, la sincronización de la zona horaria (`TZ=America/Santiago`) y la optimización de los parámetros del motor de PostgreSQL y Redis para rendimiento bajo restricciones de RAM.
 
 ```yaml
 version: '3.8'
 
+networks:
+  hrinser-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
 services:
   # ----------------------------------------------------------------------------
-  # BASE DE DATOS: PostgreSQL dedicada para la instancia del cliente
+  # BASE DE DATOS: PostgreSQL dedicada con tuning de memoria
   # ----------------------------------------------------------------------------
   db:
     image: postgres:15-alpine
     container_name: hrinser-nextcloud-db
     restart: always
     stop_grace_period: 1m30s
+    networks:
+      - hrinser-network
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=nextcloud_db
       - POSTGRES_USER=nextcloud_usr
       - POSTGRES_PASSWORD=SecurePass_Postgres_32Char! # MODIFICAR EN PRODUCCIÓN
+      - TZ=America/Santiago
+    command: >
+      postgres
+      -c shared_buffers=192MB
+      -c work_mem=16MB
+      -c maintenance_work_mem=64MB
+      -c effective_cache_size=512MB
     deploy:
       resources:
         limits:
           cpus: '0.8'
-          memory: 768M      # Reducido de 1024M para evitar OOM
+          memory: 768M
         reservations:
           memory: 256M
     healthcheck:
@@ -244,21 +315,24 @@ services:
       retries: 5
 
   # ----------------------------------------------------------------------------
-  # CACHÉ Y LOCKING: Redis para caché distribuida y file locking en memoria
-  # Reduce el impacto de I/O de disco del log transaccional (WAL) en más de un 60%
+  # CACHÉ Y LOCKING: Redis configurado con directivas Maxmemory contra caídas OOM
   # ----------------------------------------------------------------------------
   redis:
     image: redis:7-alpine
     container_name: hrinser-nextcloud-redis
     restart: always
-    command: redis-server --requirepass SecurePass_Redis_32Char! # MODIFICAR EN PRODUCCIÓN
+    networks:
+      - hrinser-network
+    command: redis-server --requirepass SecurePass_Redis_32Char! --maxmemory 180mb --maxmemory-policy allkeys-lru
     volumes:
       - redis_data:/data
+    environment:
+      - TZ=America/Santiago
     deploy:
       resources:
         limits:
           cpus: '0.3'
-          memory: 256M      # Reducido de 512M para optimización
+          memory: 256M
         reservations:
           memory: 64M
     healthcheck:
@@ -276,6 +350,8 @@ services:
       dockerfile: Dockerfile
     container_name: hrinser-nextcloud-app
     restart: always
+    networks:
+      - hrinser-network
     expose:
       - "80"
     depends_on:
@@ -285,6 +361,8 @@ services:
         condition: service_healthy
     volumes:
       - nextcloud_data:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_DB=nextcloud_db
@@ -294,13 +372,14 @@ services:
       - REDIS_HOST_PASSWORD=SecurePass_Redis_32Char!
       - PHP_MEMORY_LIMIT=1024M
       - PHP_UPLOAD_LIMIT=10G
-      - TRUSTED_PROXIES=172.18.0.0/16 172.19.0.0/16 10.0.0.0/8
+      - TRUSTED_PROXIES=172.28.0.0/16 10.0.0.0/8
       - OVERWRITEPROTOCOL=https
+      - TZ=America/Santiago
     deploy:
       resources:
         limits:
           cpus: '1.2'
-          memory: 1536M     # Reducido de 2048M para evitar OOM
+          memory: 1536M
         reservations:
           memory: 512M
     healthcheck:
@@ -318,19 +397,25 @@ services:
       dockerfile: Dockerfile
     container_name: hrinser-nextcloud-cron
     restart: always
+    networks:
+      - hrinser-network
     volumes:
       - nextcloud_data:/var/www/html
-    entrypoint: /cron.sh   # Reemplaza bucles personalizados para evitar fallas de inicio
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    entrypoint: /cron.sh
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
+    environment:
+      - TZ=America/Santiago
     deploy:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256M      # Ajustado para ejecución secuencial
+          memory: 256M
         reservations:
           memory: 64M
 
@@ -446,49 +531,80 @@ El cumplimiento normativo de la Ley 21.719 exige salvaguardas de disponibilidad 
 Se debe programar una rutina semanal para archivar y respaldar la base de datos de EspoCRM. Hostinger realiza copias diarias automatizadas en su plan Unlimited. Para contar con un respaldo local adicional seguro, se puede estructurar un script de exportación MySQL y descargas mediante SSH.
 
 ### 6.2. Copias de Seguridad de Nextcloud DMS (Elestio Multi-VPS)
-Crear un archivo script en el Host VPS en `/opt/hrinser-dms/scripts/backup_nextcloud.sh`:
+Crear un archivo script en el Host VPS en `/opt/hrinser-dms/scripts/backup_nextcloud.sh`. Este script resuelve la falla de autenticación de `pg_dump` mediante inyección no interactiva, utiliza el nombre correcto del volumen Docker, realiza el **cifrado asimétrico GPG** (mediante llave pública del administrador importada previamente) y **excluye las llaves criptográficas** para respaldarlas por separado (cumpliendo estrictamente el control **TC-08**):
 
 ```bash
 #!/bin/bash
-# Backup Nextcloud DMS - Elestio VPS (Cifrado GPG + Modo Mantenimiento)
+# ==============================================================================
+# Backup Nextcloud DMS - Elestio VPS (Cifrado Asimétrico GPG + Segregación de Llaves)
+# Código de Control: HR-SEC-BACKUP-v2
+# ==============================================================================
 set -e
 
+# Configuración de variables
+PROJECT_NAME="hrinser-dms"
 BACKUP_DIR="/var/backups/nextcloud"
 DATE=$(date +%Y%m%d_%H%M%S)
 BACKUP_PATH="$BACKUP_DIR/nextcloud_backup_$DATE"
+KEYS_BACKUP_PATH="$BACKUP_DIR/keys_backup_$DATE"
+
 APP_CONTAINER="hrinser-nextcloud-app"
 DB_CONTAINER="hrinser-nextcloud-db"
+DB_PASS="SecurePass_Postgres_32Char!" # Se debe configurar externamente en producción
+GPG_RECIPIENT="backup-key@hrinser.cl"  # Correo de la llave pública GPG importada en el Host
 
-mkdir -p $BACKUP_DIR
+# Rutas del sistema de archivos de Docker
+VOLUME_DATA_DIR="/var/lib/docker/volumes/${PROJECT_NAME}_nextcloud_data/_data"
 
-echo "=== Iniciando Respaldo DMS ==="
+# Validar que la llave pública GPG existe en el host antes de iniciar
+if ! gpg --list-keys "$GPG_RECIPIENT" >/dev/null 2>&1; then
+    echo "ERROR: La llave pública GPG para $GPG_RECIPIENT no está importada en el Host." >&2
+    exit 1
+fi
 
-# 1. Forzar Modo Mantenimiento en Nextcloud
-docker exec -u www-data $APP_CONTAINER php occ maintenance:mode --on
+mkdir -p "$BACKUP_DIR"
+echo "=== [${DATE}] Iniciando Respaldo DMS Segurizado ==="
 
-# 2. Dump de la Base de Datos PostgreSQL
-docker exec $DB_CONTAINER pg_dump -U nextcloud_usr -d nextcloud_db > "$BACKUP_PATH.sql"
+# 1. Activar Modo Mantenimiento en Nextcloud
+docker exec -u www-data "$APP_CONTAINER" php occ maintenance:mode --on
 
-# 3. Comprimir dump y volumen de datos
+# 2. Dump de Base de Datos inyectando contraseña de forma segura
+docker exec -e PGPASSWORD="$DB_PASS" "$DB_CONTAINER" pg_dump -U nextcloud_usr -d nextcloud_db > "$BACKUP_PATH.sql"
+
+# 3. Comprimir Datos del Sistema (EXCLUYENDO llaves de cifrado)
+# Esto cumple con TC-08 al segregar datos de llaves criptográficas.
 tar -czf "$BACKUP_PATH.tar.gz" \
-    -C /var/lib/docker/volumes/opt_nextcloud_data/_data . \
+    --exclude="./data/files_encryption" \
+    --exclude="./data/*/files_encryption" \
+    -C "$VOLUME_DATA_DIR" . \
     -C "$BACKUP_DIR" "nextcloud_backup_$DATE.sql"
 
-# 4. Limpiar dump temporal
+# 4. Comprimir Llaves de Cifrado por separado
+# Se guardan de forma independiente para permitir almacenamiento en otra bóveda externa.
+tar -czf "$KEYS_BACKUP_PATH.tar.gz" \
+    -C "$VOLUME_DATA_DIR" \
+    "./data/files_encryption" \
+    $(find "$VOLUME_DATA_DIR/data/" -maxdepth 2 -type d -name "files_encryption" -not -path '*/appdata_*' | sed "s|$VOLUME_DATA_DIR/||g") 2>/dev/null || true
+
+# 5. Desactivar Modo Mantenimiento
+docker exec -u www-data "$APP_CONTAINER" php occ maintenance:mode --off
+
+# 6. Limpiar archivo SQL temporal
 rm "$BACKUP_PATH.sql"
 
-# 5. Apagar Modo Mantenimiento
-docker exec -u www-data $APP_CONTAINER php occ maintenance:mode --off
+# 7. Cifrar asimétricamente los respaldos con GPG (solo cifrar, no descifrar en el Host)
+gpg --encrypt --recipient "$GPG_RECIPIENT" --trust-model always "$BACKUP_PATH.tar.gz"
+gpg --encrypt --recipient "$GPG_RECIPIENT" --trust-model always "$KEYS_BACKUP_PATH.tar.gz"
 
-# 6. Cifrar el archivo de respaldo con clave simétrica AES-256
-# IMPORTANTE: Definir la clave y aislar el respaldo de /var/www/html/data/files_encryption/ en otra bóveda externa
-echo "ClaveGPG_NextcloudDMS_2026" | gpg --batch --yes --passphrase-fd 0 -c "$BACKUP_PATH.tar.gz"
+# Eliminar comprimidos temporales en texto plano
 rm "$BACKUP_PATH.tar.gz"
+rm "$KEYS_BACKUP_PATH.tar.gz"
 
-# 7. Mantener solo los últimos 14 respaldos (Rotación automática)
-find $BACKUP_DIR -name "nextcloud_backup_*.tar.gz.gpg" -mtime +14 -delete
+# 8. Mantener solo los últimos 14 respaldos (Rotación automática)
+find "$BACKUP_DIR" -name "nextcloud_backup_*.tar.gz.gpg" -mtime +14 -delete
+find "$BACKUP_DIR" -name "keys_backup_*.tar.gz.gpg" -mtime +14 -delete
 
-echo "=== Respaldo DMS Finalizado: $BACKUP_PATH.tar.gz.gpg ==="
+echo "=== Respaldo DMS Finalizado Exitosamente ==="
 ```
 
 Programar la ejecución diaria del backup a las **04:00 AM** en el crontab del Host VPS:
