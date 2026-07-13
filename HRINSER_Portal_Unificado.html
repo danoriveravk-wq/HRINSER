@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRINSER | Acreditación, Control de Contratistas & Compliance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+    <!-- Header / Barra de Navegación -->
+    <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text text-transparent">HRINSER</span>
+                <span class="text-xs bg-slate-900 text-slate-400 px-2.5 py-1 rounded-full font-semibold border border-slate-800">COMPLIANCE TECH</span>
+            </div>
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-400">
+                <a href="#inicio" class="hover:text-white transition">Inicio</a>
+                <a href="#quienes-somos" class="hover:text-white transition">La Empresa</a>
+                <a href="#riesgos" class="hover:text-white transition">Riesgos Operacionales</a>
+                <a href="#manual-limites" class="hover:text-white transition">Cotejador Legal</a>
+            </nav>
+            <div class="flex items-center gap-4 text-sm">
+                <a href="#portales" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-xl transition text-xs md:text-sm shadow-lg shadow-blue-500/10">
+                    Ingresar al Portal
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 w-full">
+        
+        <!-- HERO SECTION (Inicio) -->
+        <section id="inicio" class="max-w-7xl mx-auto px-6 pt-16 pb-20 text-center relative overflow-hidden">
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
+            
+            <div class="max-w-4xl mx-auto">
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-4 py-1.5 rounded-full border border-blue-500/20">
+                    Mitigación de Riesgos & Continuidad Operacional en Chile
+                </span>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent mt-6 leading-tight">
+                    Acreditación y Control de Contratistas Sin Multas ni Paralizaciones
+                </h1>
+                <p class="mt-6 text-base md:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                    Evita la suspensión de faenas mineras e industriales. Controlamos de manera inmutable exámenes médicos, contratos y obligaciones de seguridad bajo las normativas DS 72, DS 594 y Ley 20.123.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#manual-limites" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-semibold px-6 py-3.5 rounded-xl border border-slate-800 transition">
+                        Verificar Límites Legales
+                    </a>
+                    <a href="#portales" class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-blue-500/20">
+                        Acceder a Portales
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: QUIÉNES SOMOS -->
+        <section id="quienes-somos" class="border-t border-slate-900 bg-slate-900/20 py-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">¿Quiénes Somos?</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 leading-tight">
+                            Garantizamos Rigurosidad Técnica para Operaciones Complejas
+                        </h2>
+                        <p class="mt-6 text-slate-400 leading-relaxed">
+                            En <strong>HRINSER</strong> entendemos que en industrias críticas como la minería, la energía, el transporte y la construcción, un documento vencido es una amenaza directa a la continuidad operacional. 
+                        </p>
+                        <p class="mt-4 text-slate-400 leading-relaxed">
+                            No somos un simple gestor de archivos en la nube. Somos el escudo técnico que protege a las empresas mandantes y contratistas mediante el control preventivo de la documentación exigida por la Dirección del Trabajo (DT), la Seremi de Salud y el Sernageomin.
+                        </p>
+                    </div>
+                    <div class="bg-slate-900/60 p-8 rounded-3xl border border-slate-800 shadow-xl relative">
+                        <div class="absolute -top-3 -right-3 w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 border border-indigo-500/20 font-bold">⚖️</div>
+                        <h3 class="text-xl font-bold text-white mb-4">Nuestro Compromiso de Cumplimiento</h3>
+                        <div class="space-y-4 text-sm">
+                            <div class="flex gap-3">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <p><strong class="text-slate-200">Trazabilidad Inmutable:</strong> Todo documento cargado se almacena mediante un identificador criptográfico único para auditorías in situ.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <p><strong class="text-slate-200">Cero Errores de Plazos:</strong> Alertas con semáforo inteligente 30 días antes del vencimiento de cualquier credencial.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <p><strong class="text-slate-200">Mitigación Solidaria:</strong> Protección legal del mandante ante deudas de subcontratistas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: TERMÓMETRO DE RIESGOS ("¿COMO CUÁLES?") -->
+        <section id="riesgos" class="border-t border-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-red-400">Impacto Real de Infracciones</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">
+                        Riesgos Operacionales Inminentes
+                    </h2>
+                    <p class="text-slate-400 mt-4 text-sm md:text-base">
+                        Un documento mal gestionado tiene consecuencias reales en la industria chilena. Esto es lo que evitamos con nuestro sistema operativo de compliance.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Tarjeta 1 -->
+                    <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-red-500/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl font-bold mb-6">🩺</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Salud y Altura Física</h3>
+                        <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: DS 72 / Sernageomin</p>
+                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                            Ingresar personal a faenas con exámenes médicos de aptitud vencidos (altura, espacios confinados).
+                        </p>
+                        <div class="bg-red-500/5 border border-red-500/10 rounded-xl p-4 text-xs text-red-300/90">
+                            <strong>Consecuencia Legal:</strong> Paralización del frente de trabajo + Multas superiores a <strong>150 UTM</strong> por trabajador expuesto.
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 2 -->
+                    <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-amber-500/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl font-bold mb-6">🤝</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Control de Terceros</h3>
+                        <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: Ley 20.123 (Subcontratación)</p>
+                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                            No validar mensualmente el pago de cotizaciones previsionales y de salud de contratistas (F30 y F30-1).
+                        </p>
+                        <div class="bg-amber-500/5 border border-amber-500/10 rounded-xl p-4 text-xs text-amber-300/90">
+                            <strong>Consecuencia Legal:</strong> Retención de estados de pago por la mandante + El mandante asume <strong>responsabilidad solidaria</strong> de deudas de terceros.
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 3 -->
+                    <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-blue-500/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl font-bold mb-6">📝</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Inducción y Seguridad</h3>
+                        <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: DS 594 / Ley 16.744</p>
+                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                            Falta de registro o firma digital de la Obligación de Informar (ODI/DAS) e implementos de seguridad (EPP).
+                        </p>
+                        <div class="bg-blue-500/5 border border-blue-500/10 rounded-xl p-4 text-xs text-blue-300/90">
+                            <strong>Consecuencia Legal:</strong> Pérdida de cobertura de mutualidad + Exposición a <strong>demandas civiles y penales</strong> por negligencia patronal.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: EL MÓDULO INTERACTIVO DE LÍMITES LEGALES (El "Manual en Sencillo") -->
+        <section id="manual-limites" class="border-t border-slate-900 bg-slate-900/10 py-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Autogestión de Cumplimiento</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">
+                        El Manual de Límites Legales en Sencillo
+                    </h2>
+                    <p class="text-slate-400 mt-4 text-sm md:text-base">
+                        Simula y evalúa escenarios operativos para verificar si tu empresa está dentro o fuera de la "Línea Roja" regulada en Chile.
+                    </p>
+                </div>
+
+                <!-- Caja del Simulador Interactivo -->
+                <div class="bg-slate-900/80 rounded-3xl border border-slate-800 p-8 shadow-2xl">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        <!-- Columna Izquierda: Escenarios para probar -->
+                        <div class="lg:col-span-1 space-y-4">
+                            <h4 class="font-bold text-white text-base mb-2 flex items-center gap-2">
+                                <span>⚙️</span> Selecciona un Escenario
+                            </h4>
+                            <button onclick="probarLimite('altura')" id="btn-altura" class="w-full text-left p-4 rounded-xl bg-slate-800 border-2 border-blue-500 text-white font-medium hover:bg-slate-800/80 transition flex flex-col">
+                                <span class="text-xs font-semibold text-blue-400 mb-1">SALUD</span>
+                                <span class="text-sm">Exámenes de Altura Minera</span>
+                            </button>
+                            <button onclick="probarLimite('contratistas')" id="btn-contratistas" class="w-full text-left p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 font-medium hover:bg-slate-800 transition flex flex-col">
+                                <span class="text-xs font-semibold text-amber-400 mb-1">SUBCONTRATACIÓN</span>
+                                <span class="text-sm">Certificados F30 y F30-1</span>
+                            </button>
+                            <button onclick="probarLimite('accidentes')" id="btn-accidentes" class="w-full text-left p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 font-medium hover:bg-slate-800 transition flex flex-col">
+                                <span class="text-xs font-semibold text-red-400 mb-1">PREVENCIÓN</span>
+                                <span class="text-sm">Firmas ODI y Entrega de EPP</span>
+                            </button>
+                        </div>
+
+                        <!-- Columna Derecha/Centro: Visor del Límite de Datos -->
+                        <div class="lg:col-span-2 bg-slate-950 rounded-2xl border border-slate-800/80 p-6 flex flex-col justify-between">
+                            <div class="space-y-6">
+                                <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                                    <h3 id="limite-titulo" class="font-bold text-xl text-white">Exámenes de Altura Física</h3>
+                                    <span id="limite-tag" class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-blue-500/10 text-blue-300 border border-blue-500/20">Decreto 72</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                                    <div class="space-y-2">
+                                        <h5 class="font-semibold text-red-400 flex items-center gap-1">
+                                            <span>🔴</span> La Línea Roja (Límite Legal)
+                                        </h5>
+                                        <p id="limite-rojo" class="text-slate-400 text-xs md:text-sm leading-relaxed">
+                                            Trabajar a más de 3.000 msnm sin examen de salud vigente. Cualquier vencimiento genera la detención inmediata y multas directas a toda la cadena de valor.
+                                        </p>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <h5 class="font-semibold text-emerald-400 flex items-center gap-1">
+                                            <span>🟢</span> Solución Preventiva HRINSER
+                                        </h5>
+                                        <p id="limite-verde" class="text-slate-400 text-xs md:text-sm leading-relaxed">
+                                            Bloqueo del pase de acceso 30 días antes del vencimiento. Notificaciones automáticas al correo del supervisor y del contratista para agendar renovación a tiempo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 pt-6 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between gap-4">
+                                <div class="text-xs text-slate-500 font-mono">
+                                    Cotejado bajo la legislación vigente de la República de Chile.
+                                </div>
+                                <div id="limite-multa-box" class="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2.5 text-xs text-red-400 font-bold flex items-center gap-2">
+                                    ⚠️ Riesgo de Multa: <span id="limite-multa">150 UTM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTAL DE ACCESOS (Para Vanessa y clientes) -->
+        <section id="portales" class="border-t border-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-4 py-1.5 rounded-full border border-blue-500/20">Centro de Mando Operativo</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-4">Redireccionamiento Unificado</h2>
+                    <p class="text-slate-400 mt-4 text-sm md:text-base">
+                        Ingresa a cada una de nuestras plataformas dedicadas. Cada sistema opera de manera aislada y robusta en la nube.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                    
+                    <!-- SECCIÓN: EQUIPO INTERNO -->
+                    <div class="bg-slate-900/40 rounded-3xl p-8 border border-slate-800 hover:border-slate-700/50 transition-all duration-300 flex flex-col justify-between shadow-xl">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Backoffice de Operaciones</span>
+                                <span class="text-2xl">🛡️</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-2">Portal del Equipo Interno</h2>
+                            <p class="text-sm text-slate-400 mb-8 leading-relaxed">
+                                Acceso restringido para colaboradores de HRINSER. Centraliza la administración de contratos, bases de datos, acreditaciones y embudos de venta.
+                            </p>
+
+                            <!-- Lista de Accesos Subdominios -->
+                            <div class="space-y-4">
+                                <!-- Botón DMS -->
+                                <div onclick="mostrarSimulacion('dms')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">📁</div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-200 text-sm group-hover:text-blue-400 transition-colors">Gestión Documental (DMS - Nextcloud)</h4>
+                                            <p class="text-xs text-slate-500 mt-0.5">dms.hrinser.cl</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                </div>
+
+                                <!-- Botón CRM -->
+                                <div onclick="mostrarSimulacion('crm')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">📈</div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-200 text-sm group-hover:text-blue-400 transition-colors">CRM de Clientes (EspoCRM)</h4>
+                                            <p class="text-xs text-slate-500 mt-0.5">crm.hrinser.cl</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-500">
+                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Bases de datos segregadas por empresa cliente (Multi-tenant).
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN: CLIENTES Y TRABAJADORES -->
+                    <div class="bg-slate-900/40 rounded-3xl p-8 border border-slate-800 hover:border-slate-700/50 transition-all duration-300 flex flex-col justify-between shadow-xl">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-xs font-bold uppercase tracking-widest text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">Portal de cara al Cliente</span>
+                                <span class="text-2xl">👥</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-2">Portal de Clientes & Empresas</h2>
+                            <p class="text-sm text-slate-400 mb-8 leading-relaxed">
+                                Punto de acceso para que tus clientes mandantes (como la gerencia de una faena) o subcontratistas ingresen a verificar el estado de su personal.
+                            </p>
+
+                            <!-- Lista de Accesos Clientes -->
+                            <div class="space-y-4">
+                                <!-- Botón Portal Clientes -->
+                                <div onclick="mostrarSimulacion('clientes')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">💼</div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-200 text-sm group-hover:text-purple-400 transition-colors">Portal de Acreditación (Clientes)</h4>
+                                            <p class="text-xs text-slate-500 mt-0.5">clientes.hrinser.cl</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                </div>
+
+                                <!-- Botón Registro Externos -->
+                                <div onclick="mostrarSimulacion('trabajadores')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">👤</div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-200 text-sm group-hover:text-purple-400 transition-colors">Portal del Trabajador</h4>
+                                            <p class="text-xs text-slate-500 mt-0.5">miperfil.hrinser.cl</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-500">
+                            <span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                            Seguridad mediante Cloud Storage encriptado y firmado digitalmente.
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SIMULADOR INTERACTIVO DE CONSOLA DE CONEXIÓN -->
+                <div id="pantalla-consola" class="hidden bg-slate-950 rounded-3xl border border-blue-500/30 p-8 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                    
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            <span class="text-xs text-slate-500 font-mono ml-2">CONSOLA DE REDIRECCIONAMIENTO_</span>
+                        </div>
+                        <button onclick="cerrarConsola()" class="text-xs text-slate-500 hover:text-white bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">Cerrar Simulación ✕</button>
+                    </div>
+
+                    <!-- Contenedor dinámico de simulación -->
+                    <div id="consola-contenido" class="font-mono text-sm space-y-4">
+                        <!-- Inyectado por JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 bg-slate-950/80 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>© 2026 HRINSER SPA. Todos los derechos reservados. Diseñado por el Core Engineering Team.</p>
+            <div class="flex gap-6 text-slate-400">
+                <a href="#" class="hover:text-blue-400 transition-colors">Seguridad R2/S3</a>
+                <span>•</span>
+                <a href="#" class="hover:text-blue-400 transition-colors">Leyes & Normativas DT</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lógica de Simulación Interactiva -->
+    <script>
+        // Data de límites legales para el simulador
+        const limitesData = {
+            altura: {
+                titulo: "Exámenes de Altura Física",
+                tag: "Decreto Supremo 72",
+                rojo: "Trabajar a más de 3.000 msnm sin examen de salud vigente. Cualquier vencimiento genera la detención inmediata y multas directas a toda la cadena de valor.",
+                verde: "Bloqueo del pase de acceso 30 días antes del vencimiento. Notificaciones automáticas al correo del supervisor y del contratista para agendar renovación a tiempo.",
+                multa: "150 UTM"
+            },
+            contratistas: {
+                titulo: "Certificados F30 y F30-1",
+                tag: "Ley de Subcontratación 20.123",
+                rojo: "Permitir el ingreso de subcontratistas sin acreditar mensualmente el pago de cotizaciones y deudas laborales de sus operarios.",
+                verde: "Verificación automática mediante panel centralizado. Semáforo preventivo que frena estados de pago y evita la asunción de responsabilidad solidaria.",
+                multa: "Retención / Solidaria"
+            },
+            accidentes: {
+                titulo: "Firmas ODI y Entrega de EPP",
+                tag: "Decreto 594 / Ley 16.744",
+                rojo: "Accidente grave en faena sin registro digitalizado o firma del documento de Obligación de Informar (ODI) y entrega de equipamiento de seguridad.",
+                verde: "Repositorio inmutable firmado digitalmente en Cloudflare R2. Trazabilidad absoluta de descarga y firma visible en segundos ante fiscalizadores de la DT.",
+                multa: "60 UTM / Penal"
+            }
+        };
+
+        function probarLimite(clave) {
+            // Actualizar botones activos
+            document.querySelectorAll('#manual-limites button').forEach(btn => {
+                btn.classList.remove('bg-slate-800', 'border-2', 'border-blue-500', 'text-white');
+                btn.classList.add('bg-slate-950', 'border-slate-800', 'text-slate-400');
+            });
+
+            const btnActivo = document.getElementById(`btn-${clave}`);
+            btnActivo.classList.remove('bg-slate-950', 'border-slate-800', 'text-slate-400');
+            btnActivo.classList.add('bg-slate-800', 'border-2', 'border-blue-500', 'text-white');
+
+            // Actualizar textos
+            const data = limitesData[clave];
+            document.getElementById('limite-titulo').innerText = data.titulo;
+            document.getElementById('limite-tag').innerText = data.tag;
+            document.getElementById('limite-rojo').innerText = data.rojo;
+            document.getElementById('limite-verde').innerText = data.verde;
+            document.getElementById('limite-multa').innerText = data.multa;
+        }
+
+        // Simulación de portales
+        function mostrarSimulacion(plataforma) {
+            const consola = document.getElementById('pantalla-consola');
+            const contenido = document.getElementById('consola-contenido');
+            consola.classList.remove('hidden');
+            
+            consola.scrollIntoView({ behavior: 'smooth' });
+
+            let html = '';
+
+            switch(plataforma) {
+                case 'dms':
+                    html = `
+                        <div class="text-blue-400 font-bold">> Redirigiendo a Nextcloud (DMS seguro)...</div>
+                        <div class="text-slate-400">[OK] Resolviendo servidor: dms.hrinser.cl</div>
+                        <div class="text-slate-400">[OK] Enrutando almacenamiento Cloudflare R2 (100 GB inmutables configurados)</div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-indigo-500/20 mt-4 font-sans">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                                <span class="font-bold text-indigo-400 flex items-center gap-2">📁 Nextcloud HRINSER</span>
+                                <span class="text-xs text-emerald-400">● Seguro (SSL)</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Bienvenido, Admin. Tienes acceso completo a las carpetas jerárquicas: <strong>Empresa > Proyecto > Trabajador</strong>.</p>
+                        </div>
+                    `;
+                    break;
+                case 'crm':
+                    html = `
+                        <div class="text-emerald-400 font-bold">> Abriendo EspoCRM Autohospedado en Hostinger...</div>
+                        <div class="text-slate-400">[OK] Cargando servidor PHP local...</div>
+                        <div class="text-slate-400">[OK] Sin límites de usuarios para el equipo comercial (Vanessa & Daniel).</div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-emerald-500/20 mt-4 font-sans">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                                <span class="font-bold text-emerald-400">📈 EspoCRM Sales Engine</span>
+                                <span class="text-xs text-slate-400">Cuentas Activas: 4</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Toda la base de datos de prospectos mineros y de logística se encuentra resguardada localmente.</p>
+                        </div>
+                    `;
+                    break;
+                case 'clientes':
+                    html = `
+                        <div class="text-purple-400 font-bold">> Cargando Portal de Clientes (clientes.hrinser.cl)...</div>
+                        <div class="text-slate-400">[OK] Leyendo base relacional de cumplimiento...</div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-purple-500/20 mt-4 font-sans">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                                <span class="font-bold text-purple-400">💼 Panel del Mandante</span>
+                                <span class="text-xs text-emerald-400">● 92% Acreditación General</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Tus clientes de faena pueden descargar certificados, vigencias de exámenes y credenciales de acceso con un solo clic.</p>
+                        </div>
+                    `;
+                    break;
+                case 'trabajadores':
+                    html = `
+                        <div class="text-amber-400 font-bold">> Cargando Portal de Autogestión (miperfil.hrinser.cl)...</div>
+                        <div class="text-slate-400">[OK] Verificando sesiones seguras con RUT...</div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-amber-500/20 mt-4 font-sans">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                                <span class="font-bold text-amber-400">👤 Mi Perfil HRINSER</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Los operarios pueden subir sus propios documentos y firmar contratos o pases directamente desde el móvil.</p>
+                        </div>
+                    `;
+                    break;
+            }
+
+            contenido.innerHTML = html;
+        }
+
+        function cerrarConsola() {
+            document.getElementById('pantalla-consola').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

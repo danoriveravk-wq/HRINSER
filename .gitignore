@@ -1,0 +1,18 @@
+# Ignorar propuestas económicas y presupuestos
+propuesta_economica.*
+presentacion.html
+*.pdf
+*.tex
+*.log
+*.aux
+*.zip
+*.jpg
+*.png
+*.webp
+!logo.png
+!logopngoficial.png
+!logopngoficial_transparente.png
+!wallpaper.webp
+!7df06148be985dd15b4407c468fe9a94.webp
+!gemini_image.webp
+!watermarked_img.webp

@@ -1,0 +1,1748 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRINSER | Acreditación, Control de Contratistas & Compliance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Efecto Parallax Fijo para el Atardecer en el Hero (Inicio) */
+        .hero-parallax {
+            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.4) 0%, rgba(2, 6, 23, 0.9) 70%, rgba(2, 6, 23, 1) 100%), url('wallpaper.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Efecto Parallax Fijo para la Bota de Seguridad (Sección Final) */
+        .footer-parallax {
+            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 1) 0%, rgba(2, 6, 23, 0.8) 20%, rgba(2, 6, 23, 0.8) 80%, rgba(2, 6, 23, 1) 100%), url('7df06148be985dd15b4407c468fe9a94.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-600 selection:text-white scroll-smooth overflow-x-hidden">
+
+    <!-- CONTENEDOR PRINCIPAL: LANDING PAGE -->
+    <div id="landing-page" class="flex flex-col min-h-screen">
+        
+        <!-- Header / Barra de Navegación -->
+        <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent">HRINSER</span>
+                    <span class="text-xs bg-slate-900 text-slate-400 px-2.5 py-1 rounded-full font-semibold border border-slate-800">COMPLIANCE TECH</span>
+                </div>
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-400">
+                    <a href="#inicio" class="hover:text-white transition" data-translate="nav-inicio">Inicio</a>
+                    <a href="#quienes-somos" class="hover:text-white transition" data-translate="nav-empresa">La Empresa</a>
+                    <a href="#riesgos" class="hover:text-white transition" data-translate="nav-riesgos">Riesgos</a>
+                    <a href="#sectores" class="hover:text-white transition" data-translate="nav-sectores">Sectores</a>
+                    <a href="#manual-limites" class="hover:text-white transition" data-translate="nav-cotejador">Cotejador Legal</a>
+                    <a href="#planes" class="hover:text-white transition" data-translate="nav-planes">Planes</a>
+                </nav>
+                <div class="flex items-center gap-4 text-sm">
+                    <!-- Selector de Idioma Premium -->
+                    <div class="relative inline-block text-left">
+                        <button id="lang-btn" onclick="toggleLangDropdown()" class="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold px-3 py-2 rounded-xl transition text-xs">
+                            <span>🌐</span> <span id="current-lang-label">ES</span>
+                        </button>
+                        <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-28 bg-slate-900 border border-slate-800 rounded-xl shadow-xl z-50 overflow-hidden">
+                            <button onclick="selectLanguage('es')" class="w-full text-left px-4 py-2 hover:bg-slate-800 text-xs text-slate-300 hover:text-white transition">Español (ES)</button>
+                            <button onclick="selectLanguage('en')" class="w-full text-left px-4 py-2 hover:bg-slate-800 text-xs text-slate-300 hover:text-white transition">English (EN)</button>
+                        </div>
+                    </div>
+                    <a href="#portales" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-semibold px-4 py-2 rounded-xl transition text-xs md:text-sm" data-translate="btn-portales">
+                        Acceder a Portales
+                    </a>
+                    <a href="#contacto" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-4 py-2 rounded-xl transition text-xs md:text-sm shadow-lg shadow-amber-500/10" data-translate="btn-piloto">
+                        Agendar Piloto 6 UF
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content of Landing Page -->
+        <main class="flex-1 w-full">
+            
+            <!-- SECCIÓN DE INICIO: Parallax con wallpaper.jpg (Los cascos de los trabajadores) -->
+            <section id="inicio" class="hero-parallax pt-32 pb-40 text-center overflow-hidden">
+                <div class="max-w-4xl mx-auto px-6 relative z-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">
+                        Mitigación de Riesgos & Continuidad Operacional en Chile
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent mt-6 leading-tight">
+                        Acreditación y Control de Contratistas Sin Multas ni Paralizaciones
+                    </h1>
+                    <p class="mt-6 text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+                        Evita la suspensión de faenas mineras e industriales. Controlamos de manera inmutable exámenes médicos, contratos y obligaciones de seguridad bajo las normativas DS 72, DS 594 y Ley 20.123.
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#manual-limites" class="w-full sm:w-auto bg-slate-900/90 hover:bg-slate-800 text-white font-semibold px-6 py-3.5 rounded-xl border border-slate-800 transition">
+                            Verificar Límites Legales
+                        </a>
+                        <a href="#portales" class="w-full sm:w-auto bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-amber-500/20">
+                            Ingresar a Portales
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIONES INTERMEDIAS: Fondo Sólido Negro/Gris Muy Oscuro (Evita distracciones y asegura contraste) -->
+            <div class="bg-slate-950 relative z-20">
+
+                <!-- SECCIÓN: QUIÉNES SOMOS -->
+                <section id="quienes-somos" class="border-t border-slate-900 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">¿Quiénes Somos?</span>
+                                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 leading-tight">
+                                    Garantizamos Rigurosidad Técnica para Operaciones Complejas
+                                </h2>
+                                <p class="mt-6 text-slate-400 leading-relaxed">
+                                    En <strong>HRINSER</strong> entendemos que en industrias críticas como la minería, la energía, el transporte y la construcción, un documento vencido o una acreditación retrasada es una amenaza directa a tus estados de pago y continuidad operacional.
+                                </p>
+                                <p class="mt-4 text-slate-400 leading-relaxed">
+                                    No somos un simple gestor de archivos. Somos el escudo técnico que protege a las empresas mandantes y contratistas mediante el control preventivo de la documentación exigida por la DT, la Seremi de Salud y el Sernageomin.
+                                </p>
+                            </div>
+                            <div class="bg-slate-900/60 p-8 rounded-3xl border border-slate-800 shadow-xl relative">
+                                <div class="absolute -top-3 -right-3 w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center border border-amber-500/20">
+                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-4">Nuestro Compromiso de Cumplimiento</h3>
+                                <div class="space-y-4 text-sm">
+                                    <div class="flex gap-3">
+                                        <div class="w-5 h-5 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
+                                        <p><strong class="text-slate-200">Trazabilidad Inmutable:</strong> Todo documento cargado se almacena mediante protocolos de seguridad y auditorías in situ.</p>
+                                    </div>
+                                    <div class="flex gap-3">
+                                        <div class="w-5 h-5 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
+                                        <p><strong class="text-slate-200">Cero Errores de Plazos:</strong> Alertas preventivas 30 días antes del vencimiento de cualquier credencial o examen médico.</p>
+                                    </div>
+                                    <div class="flex gap-3">
+                                        <div class="w-5 h-5 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
+                                        <p><strong class="text-slate-200">Mitigación Solidaria:</strong> Protección legal activa ante deudas previsionales o laborales de subcontratistas.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: TERMÓMETRO DE RIESGOS -->
+                <section id="riesgos" class="border-t border-slate-900 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center max-w-3xl mx-auto mb-16">
+                            <span class="text-xs font-bold uppercase tracking-widest text-red-400">Impacto Real de Infracciones</span>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">
+                                Riesgos Operacionales Inminentes
+                            </h2>
+                            <p class="text-slate-400 mt-4 text-sm md:text-base">
+                                Un documento mal gestionado tiene consecuencias reales en la industria chilena. Esto es lo que evitamos con nuestro sistema operativo de compliance.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <!-- Tarjeta 1 -->
+                            <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-red-500/30 transition-all duration-300">
+                                <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
+                                    <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1115 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 13.5a3 3 0 100-6 3 3 0 000 6z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-2">Salud y Altura Física</h3>
+                                <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: DS 72 / Sernageomin</p>
+                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                    Ingresar personal a faenas con exámenes médicos de aptitud vencidos (altura, espacios confinados).
+                                </p>
+                                <div class="bg-red-500/5 border border-red-500/10 rounded-xl p-4 text-xs text-red-300/90">
+                                    <strong>Consecuencia Legal:</strong> Paralización del frente de trabajo + Multas superiores a <strong>150 UTM</strong> por trabajador expuesto.
+                                </div>
+                            </div>
+
+                            <!-- Tarjeta 2 -->
+                            <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-amber-500/30 transition-all duration-300">
+                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6">
+                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-2">Control de Terceros</h3>
+                                <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: Ley 20.123 (Subcontratación)</p>
+                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                    No validar mensualmente el pago de cotizaciones previsionales y de salud de contratistas (F30 y F30-1).
+                                </p>
+                                <div class="bg-amber-500/5 border border-amber-500/10 rounded-xl p-4 text-xs text-amber-300/90">
+                                    <strong>Consecuencia Legal:</strong> Retención de estados de pago por la mandante + Responsabilidad solidaria de deudas de terceros.
+                                </div>
+                            </div>
+
+                            <!-- Tarjeta 3 -->
+                            <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-amber-500/30 transition-all duration-300">
+                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6">
+                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-2">Inducción y Seguridad</h3>
+                                <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: DS 594 / Ley 16.744</p>
+                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                    Falta de registro o firma digital de la Obligación de Informar (ODI/DAS) e implementos de seguridad (EPP).
+                                </p>
+                                <div class="bg-amber-500/5 border border-amber-500/10 rounded-xl p-4 text-xs text-amber-300/90">
+                                    <strong>Consecuencia Legal:</strong> Pérdida de cobertura de mutualidad + Exposición a demandas civiles y penales por negligencia.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: SECTORES SOPORTADOS -->
+                <section id="sectores" class="border-t border-slate-900 py-24 bg-slate-950/40">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center max-w-3xl mx-auto mb-16">
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400" data-translate="sectors-subtitle">Industrias de Alta Exigencia</span>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3" data-translate="sectors-title">
+                                Sectores Soportados
+                            </h2>
+                            <p class="text-slate-400 mt-4 text-sm md:text-base" data-translate="sectors-desc">
+                                Adaptamos nuestros flujos de acreditación y control documental a las normativas específicas de cada industria clave en Chile.
+                            </p>
+                        </div>
+
+                        <!-- Grilla de Tarjetas con Hover Animado Premium -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                            <!-- Minería y Energía -->
+                            <div onclick="mostrarSector('mineria')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-amber-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                        <!-- SVG Minería digitalizado -->
+                                        <svg class="w-6 h-6 text-amber-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-white mb-2" data-translate="sector-mineria-title">Minería y Energía</h3>
+                                    <p class="text-xs text-slate-400 leading-relaxed" data-translate="sector-mineria-desc">
+                                        Control riguroso de DS 72, pases de acceso a faenas críticas, inducciones de seguridad y exámenes de salud ocupacional.
+                                    </p>
+                                </div>
+                                <span class="text-xs font-bold text-amber-400 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                    <span>Ver detalles</span> ➔
+                                </span>
+                            </div>
+
+                            <!-- Construcción -->
+                            <div onclick="mostrarSector('construccion')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-blue-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                        <!-- SVG Construcción digitalizado -->
+                                        <svg class="w-6 h-6 text-blue-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-white mb-2" data-translate="sector-construccion-title">Construcción</h3>
+                                    <p class="text-xs text-slate-400 leading-relaxed" data-translate="sector-construccion-desc">
+                                        Gestión documental para obras civiles, control de subcontratación en cascada, entrega de EPP y cumplimiento de DS 594.
+                                    </p>
+                                </div>
+                                <span class="text-xs font-bold text-blue-400 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                    <span>Ver detalles</span> ➔
+                                </span>
+                            </div>
+
+                            <!-- Transporte y Logística -->
+                            <div onclick="mostrarSector('transporte')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-emerald-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                        <!-- SVG Transporte digitalizado -->
+                                        <svg class="w-6 h-6 text-emerald-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1m-6 0a1 1 0 001-1m-6 0H9" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-white mb-2" data-translate="sector-transporte-title">Transporte y Logística</h3>
+                                    <p class="text-xs text-slate-400 leading-relaxed" data-translate="sector-transporte-desc">
+                                        Acreditación ágil de conductores, hojas de ruta inmutables, control de fatiga y cumplimiento de cargas peligrosas.
+                                    </p>
+                                </div>
+                                <span class="text-xs font-bold text-emerald-400 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                    <span>Ver detalles</span> ➔
+                                </span>
+                            </div>
+
+                            <!-- Servicios Generales y Retail -->
+                            <div onclick="mostrarSector('retail')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-indigo-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                        <!-- SVG Retail digitalizado -->
+                                        <svg class="w-6 h-6 text-indigo-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-white mb-2" data-translate="sector-retail-title">Servicios Generales & Retail</h3>
+                                    <p class="text-xs text-slate-400 leading-relaxed" data-translate="sector-retail-desc">
+                                        Homologación rápida para contratistas de aseo, seguridad, mantenimiento y personal de apoyo en centros de distribución.
+                                    </p>
+                                </div>
+                                <span class="text-xs font-bold text-indigo-400 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                    <span>Ver detalles</span> ➔
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Visor de Flujos por Sector (Interactivo) -->
+                        <div id="sector-details-box" class="bg-slate-900/80 rounded-3xl border border-slate-800 p-8 shadow-2xl transition-all duration-500">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                <div class="lg:col-span-2 space-y-4">
+                                    <span id="sector-detail-norm" class="text-xs font-semibold text-amber-400" data-translate="sector-flow-rule">Marco Normativo</span>
+                                    <h3 id="sector-detail-title" class="font-extrabold text-2xl text-white" data-translate="sector-flow-title">Flujo Operacional del Sector</h3>
+                                    <p id="sector-detail-flow" class="text-slate-300 text-sm leading-relaxed" data-translate="sector-flow-desc">
+                                        Haz clic en cualquiera de las tarjetas de sectores arriba para visualizar su flujo operativo y los documentos clave requeridos.
+                                    </p>
+                                </div>
+                                <div class="lg:col-span-1 bg-slate-950 rounded-2xl border border-slate-800/80 p-6 flex flex-col justify-between">
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Documentos Críticos</h4>
+                                    <ul id="sector-detail-docs" class="space-y-2 text-xs text-slate-300">
+                                        <li class="flex items-center gap-2">
+                                            <span class="text-amber-400">•</span> Selecciona un sector para ver documentos
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: EL MÓDULO INTERACTIVO DE LÍMITES LEGALES -->
+                <section id="manual-limites" class="border-t border-slate-900 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center max-w-3xl mx-auto mb-16">
+                            <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Autogestión de Cumplimiento</span>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">
+                                El Manual de Límites Legales en Sencillo
+                            </h2>
+                            <p class="text-slate-400 mt-4 text-sm md:text-base">
+                                Simula y evalúa escenarios operativos para verificar si tu empresa está dentro o fuera de la "Línea Roja" regulada en Chile.
+                            </p>
+                        </div>
+
+                        <!-- Caja del Simulador Interactivo -->
+                        <div class="bg-slate-900/80 rounded-3xl border border-slate-800 p-8 shadow-2xl">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                
+                                <!-- Columna Izquierda: Escenarios para probar -->
+                                <div class="lg:col-span-1 space-y-4">
+                                    <h4 class="font-bold text-white text-base mb-2 flex items-center gap-2">
+                                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <span>Selecciona un Escenario</span>
+                                    </h4>
+                                    <button onclick="probarLimite('altura')" id="btn-altura" class="w-full text-left p-4 rounded-xl bg-slate-800 border-2 border-amber-500 text-white font-medium hover:bg-slate-800/80 transition flex flex-col">
+                                        <span class="text-xs font-semibold text-amber-400">SALUD</span>
+                                        <span class="text-sm">Exámenes de Altura Minera</span>
+                                    </button>
+                                    <button onclick="probarLimite('contratistas')" id="btn-contratistas" class="w-full text-left p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 font-medium hover:bg-slate-800 transition flex flex-col">
+                                        <span class="text-xs font-semibold text-amber-400">SUBCONTRATACIÓN</span>
+                                        <span class="text-sm">Certificados F30 y F30-1</span>
+                                    </button>
+                                    <button onclick="probarLimite('accidentes')" id="btn-accidentes" class="w-full text-left p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 font-medium hover:bg-slate-800 transition flex flex-col">
+                                        <span class="text-xs font-semibold text-amber-400">PREVENCIÓN</span>
+                                        <span class="text-sm">Firmas ODI y Entrega de EPP</span>
+                                    </button>
+                                </div>
+
+                                <!-- Columna Derecha/Centro: Visor del Límite de Datos -->
+                                <div class="lg:col-span-2 bg-slate-950 rounded-2xl border border-slate-800/80 p-6 flex flex-col justify-between">
+                                    <div class="space-y-6">
+                                        <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                                            <h3 id="limite-titulo" class="font-bold text-xl text-white">Exámenes de Altura Física</h3>
+                                            <span id="limite-tag" class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-amber-500/10 text-amber-300 border border-amber-500/20">Decreto 72</span>
+                                        </div>
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                                            <div class="space-y-2">
+                                                <h5 class="font-semibold text-red-400 flex items-center gap-2">
+                                                    <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 shrink-0"></span>
+                                                    <span>La Línea Roja (Límite Legal)</span>
+                                                </h5>
+                                                <p id="limite-rojo" class="text-slate-400 text-xs md:text-sm leading-relaxed">
+                                                    Trabajar a más de 3.000 msnm sin examen de salud vigente. Cualquier vencimiento genera la detención inmediata y multas directas a toda la cadena de valor.
+                                                </p>
+                                            </div>
+                                            <div class="space-y-2">
+                                                <h5 class="font-semibold text-emerald-400 flex items-center gap-2">
+                                                    <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                                                    <span>Solución Preventiva HRINSER</span>
+                                                </h5>
+                                                <p id="limite-verde" class="text-slate-400 text-xs md:text-sm leading-relaxed">
+                                                    Bloqueo del pase de acceso 30 días antes del vencimiento. Notificaciones automáticas al correo del supervisor y del contratista para agendar renovación a tiempo.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-8 pt-6 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between gap-4">
+                                        <div class="text-xs text-slate-500 font-mono">
+                                            Cotejado bajo la legislación vigente de la República de Chile.
+                                        </div>
+                                        <div id="limite-multa-box" class="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2.5 text-xs text-red-400 font-bold flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                            <span>Riesgo de Multa: </span><span id="limite-multa">150 UTM</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: NUESTROS PLANES -->
+                <section id="planes" class="border-t border-slate-900 py-24 bg-slate-950">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center max-w-3xl mx-auto mb-16">
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">Planes a tu Medida</span>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-4">Planes Permanentes de Gestión</h2>
+                            <p class="text-slate-400 mt-4 text-sm md:text-base">
+                                Escala según las necesidades de tu empresa. Todos nuestros planes incluyen soporte técnico, DMS estructurado y CRM de ventas integrado.
+                            </p>
+                        </div>
+
+                        <!-- Tarjeta Destacada: Piloto Fundador -->
+                        <div class="max-w-2xl mx-auto mb-16 bg-gradient-to-r from-amber-950/40 to-slate-950 border-2 border-amber-500 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 relative shadow-2xl">
+                            <span class="absolute -top-3 left-6 text-[10px] font-bold uppercase tracking-widest bg-amber-500 text-slate-950 px-3 py-1 rounded-full font-bold">Oportunidad Única</span>
+                            <div>
+                                <h4 class="text-2xl font-bold text-white">Plan Piloto Cliente Fundador</h4>
+                                <p class="text-slate-400 text-sm mt-2 max-w-md">Prueba nuestra plataforma y control documental por un período mensual completo. Sin contratos de largo plazo.</p>
+                            </div>
+                            <div class="text-center md:text-right shrink-0">
+                                <p class="text-4xl font-black text-white">6 UF <span class="text-xs text-slate-400 font-normal">+ IVA</span></p>
+                                <p class="text-xs text-amber-400 mt-1">Valor aproximado: $245.000 CLP</p>
+                                <a href="#contacto" class="mt-4 inline-block bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-6 py-2.5 rounded-xl transition shadow-lg shadow-amber-500/20">Agendar Piloto</a>
+                            </div>
+                        </div>
+
+                        <!-- Grilla de Planes Estándar -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            
+                            <!-- Esencial -->
+                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition">
+                                <div>
+                                    <h4 class="font-bold text-lg text-slate-200">Esencial</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Pequeñas empresas</p>
+                                    <p class="text-2xl font-black text-white mt-4">8 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
+                                    <ul class="space-y-3 text-xs text-slate-400 mt-6 border-t border-slate-800 pt-6">
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>1 Contrato activo</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>1 Plataforma mandante</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Hasta 20 trabajadores</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>DMS Básico</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a href="#contacto" class="mt-8 block text-center bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white text-xs font-semibold py-2.5 rounded-xl transition">Cotizar</a>
+                            </div>
+
+                            <!-- Operación -->
+                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition">
+                                <div>
+                                    <h4 class="font-bold text-lg text-slate-200">Operación</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Empresas en crecimiento</p>
+                                    <p class="text-2xl font-black text-white mt-4">14 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
+                                    <ul class="space-y-3 text-xs text-slate-400 mt-6 border-t border-slate-800 pt-6">
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Hasta 2 contratos</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Múltiples plataformas</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Hasta 60 trabajadores</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>DMS Estándar + Trazabilidad</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a href="#contacto" class="mt-8 block text-center bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white text-xs font-semibold py-2.5 rounded-xl transition">Cotizar</a>
+                            </div>
+
+                            <!-- Industrial -->
+                            <div class="bg-slate-900/50 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-600 transition relative">
+                                <span class="absolute -top-2.5 right-6 text-[9px] font-bold uppercase tracking-widest bg-amber-600 text-slate-950 px-2 py-0.5 rounded-full">Recomendado</span>
+                                <div>
+                                    <h4 class="font-bold text-lg text-white">Industrial</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Medianas empresas</p>
+                                    <p class="text-2xl font-black text-white mt-4">22 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
+                                    <ul class="space-y-3 text-xs text-slate-300 mt-6 border-t border-slate-800 pt-6">
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Hasta 3 contratos</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Múltiples plataformas</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Hasta 120 trabajadores</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>DMS Avanzado + Semáforos</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a href="#contacto" class="mt-8 block text-center bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2.5 rounded-xl transition">Cotizar</a>
+                            </div>
+
+                            <!-- Corporativo -->
+                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition">
+                                <div>
+                                    <h4 class="font-bold text-lg text-slate-200">Corporativo</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Grandes faenas</p>
+                                    <p class="text-2xl font-black text-white mt-4">Desde 30 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
+                                    <ul class="space-y-3 text-xs text-slate-400 mt-6 border-t border-slate-800 pt-6">
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Contratos ilimitados</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>+120 trabajadores</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Alta complejidad / Multi-tenant</span>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>Soporte Premium Dedicado</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a href="#contacto" class="mt-8 block text-center bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white text-xs font-semibold py-2.5 rounded-xl transition">Cotizar</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            </div> <!-- CIERRE DEL CONTENEDOR NEGRO DEL MEDIO -->
+
+            <!-- SECCIÓN FINAL (Portales & Contacto): Parallax con 7df06148be985dd15b4407c468fe9a94.jpg (La Bota) -->
+            <div class="footer-parallax relative z-10">
+                
+                <!-- SECCIÓN: PORTAL DE ACCESOS -->
+                <section id="portales" class="py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center max-w-3xl mx-auto mb-16">
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">Centro de Mando Operativo</span>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-4">Redireccionamiento Unificado</h2>
+                            <p class="text-slate-300 mt-4 text-sm md:text-base">
+                                Ingresa a cada una de nuestras plataformas dedicadas. Cada sistema opera de manera aislada y robusta en la nube.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                            
+                            <!-- SECCIÓN: EQUIPO INTERNO -->
+                            <div class="bg-slate-950/80 rounded-3xl p-8 border border-slate-800 hover:border-slate-700/50 transition-all duration-300 flex flex-col justify-between shadow-xl backdrop-blur-sm">
+                                <div>
+                                    <div class="flex items-center justify-between mb-6">
+                                        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">Backoffice de Operaciones</span>
+                                        <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                        </svg>
+                                    </div>
+                                    <h2 class="text-2xl font-bold text-white mb-2">Portal del Equipo Interno</h2>
+                                    <p class="text-sm text-slate-300 mb-8 leading-relaxed">
+                                        Acceso restringido para colaboradores de HRINSER. Centraliza la administración de contratos, bases de datos, acreditaciones y embudos de venta.
+                                    </p>
+
+                                    <!-- Lista de Accesos Subdominios -->
+                                    <div class="space-y-4">
+                                        <!-- Botón DMS -->
+                                        <div onclick="abrirPortalApp('dms')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-bold text-slate-200 text-sm group-hover:text-amber-400 transition-colors">Gestión Documental (DMS - Nextcloud)</h4>
+                                                    <p class="text-xs text-slate-400 mt-0.5">dms.hrinser.cl</p>
+                                                </div>
+                                            </div>
+                                            <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                        </div>
+
+                                        <!-- Botón CRM -->
+                                        <div onclick="abrirPortalApp('crm')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                    <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21h12a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2-2v12a2 2 0 002 2z" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-bold text-slate-200 text-sm group-hover:text-amber-400 transition-colors">CRM de Clientes (EspoCRM)</h4>
+                                                    <p class="text-xs text-slate-400 mt-0.5">crm.hrinser.cl</p>
+                                                </div>
+                                            </div>
+                                            <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-400">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    Bases de datos segregadas por empresa cliente (Multi-tenant).
+                                </div>
+                            </div>
+
+                            <!-- SECCIÓN: CLIENTES Y TRABAJADORES -->
+                            <div class="bg-slate-950/80 rounded-3xl p-8 border border-slate-800 hover:border-slate-700/50 transition-all duration-300 flex flex-col justify-between shadow-xl backdrop-blur-sm">
+                                <div>
+                                    <div class="flex items-center justify-between mb-6">
+                                        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">Portal de cara al Cliente</span>
+                                        <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <h2 class="text-2xl font-bold text-white mb-2">Portal de Clientes & Empresas</h2>
+                                    <p class="text-sm text-slate-300 mb-8 leading-relaxed">
+                                        Punto de acceso para que tus clientes mandantes (como la gerencia de una faena) o subcontratistas ingresen a verificar el estado de su personal.
+                                    </p>
+
+                                    <!-- Lista de Accesos Clientes -->
+                                    <div class="space-y-4">
+                                        <!-- Botón Portal Clientes -->
+                                        <div onclick="abrirPortalApp('clientes')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-bold text-slate-200 text-sm group-hover:text-amber-400 transition-colors">Portal de Acreditación (Clientes)</h4>
+                                                    <p class="text-xs text-slate-400 mt-0.5">clientes.hrinser.cl</p>
+                                                </div>
+                                            </div>
+                                            <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                        </div>
+
+                                        <!-- Botón Registro Externos -->
+                                        <div onclick="abrirPortalApp('trabajadores')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-bold text-slate-200 text-sm group-hover:text-amber-400 transition-colors">Portal del Trabajador</h4>
+                                                    <p class="text-xs text-slate-400 mt-0.5">miperfil.hrinser.cl</p>
+                                                </div>
+                                            </div>
+                                            <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-400">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
+                                    Seguridad mediante Cloud Storage encriptado y firmado digitalmente.
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: CONTACTO Y AGENDAMIENTO -->
+                <section id="contacto" class="py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Protege tu Operación Hoy</span>
+                                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">Agenda un Diagnóstico Operacional de 20 Minutos</h2>
+                                <p class="mt-6 text-slate-300 leading-relaxed text-sm md:text-base">
+                                    Durante la llamada, evaluaremos tus contratos actuales, el volumen de trabajadores activos y las plataformas que te exigen tus mandantes. Te entregaremos una estimación de riesgos y plazos sin costo para tu empresa.
+                                </p>
+                                
+                                <div class="mt-8 space-y-4">
+                                    <div class="flex items-center gap-4 text-sm text-slate-300">
+                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
+                                            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305 1.305a16.033 16.033 0 006.588 6.588l1.305-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.4 1.156l-.548 2.2a1 1 0 01-.94.725H5a2 2 0 01-2-2v-1z" />
+                                            </svg>
+                                        </span>
+                                        <span>Coordinación directa con un especialista asignado de cumplimiento</span>
+                                    </div>
+                                    <div class="flex items-center gap-4 text-sm text-slate-300">
+                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
+                                            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                            </svg>
+                                        </span>
+                                        <span>Opción de Plan Piloto por 6 UF</span>
+                                    </div>
+                                    <div class="flex items-center gap-4 text-sm text-slate-300">
+                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
+                                            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                            </svg>
+                                        </span>
+                                        <span>Acuerdo de Confidencialidad (NDA) firmado de entrada</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Formulario de Contacto -->
+                            <div class="bg-slate-950/85 border border-slate-800 p-8 rounded-3xl shadow-xl backdrop-blur-sm">
+                                <form class="space-y-4">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Nombre del Decisor</label>
+                                        <input type="text" placeholder="Ej: Juan Pérez" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition text-slate-100">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Empresa Contratista</label>
+                                        <input type="text" placeholder="Ej: Servicios Industriales SpA" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition text-slate-100">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Correo Electrónico</label>
+                                            <input type="email" placeholder="ejemplo@empresa.cl" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition text-slate-100">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Teléfono</label>
+                                            <input type="tel" placeholder="+56 9..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition text-slate-100">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">¿Cuántos trabajadores deben acreditar?</label>
+                                        <select class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 text-slate-400 transition bg-slate-900">
+                                            <option value="">Selecciona un rango...</option>
+                                            <option value="1-20">1 - 20 trabajadores (Plan Esencial)</option>
+                                            <option value="21-60">Hasta 60 trabajadores (Plan Operación)</option>
+                                            <option value="61-120">Hasta 120 trabajadores (Plan Industrial)</option>
+                                            <option value="121+">Más de 120 trabajadores (Plan Corporativo)</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" class="w-full bg-amber-600 hover:bg-amber-500 text-slate-950 font-extrabold py-3.5 rounded-xl text-sm transition shadow-lg shadow-amber-500/20 mt-4">
+                                        Solicitar Diagnóstico Operacional
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div> <!-- CIERRE DEL CONTENEDOR PARALLAX DE ABAJO -->
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-900 bg-slate-950/90 py-8 text-center text-xs text-slate-500 relative z-30">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p>© 2026 HRINSER SPA. Todos los derechos reservados. Diseñado por el Core Engineering Team.</p>
+                <div class="flex gap-6 text-slate-400">
+                    <a href="#" class="hover:text-amber-400 transition-colors">Seguridad Elestio Cloud</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-amber-400 transition-colors">Leyes & Normativas DT</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- CONTENEDOR APP: PORTALES REALES SIMULADOS -->
+    <!-- ========================================== -->
+    <div id="portal-app-container" class="hidden min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+        <!-- Header de la Aplicación -->
+        <header class="h-16 border-b border-slate-800 bg-slate-900/90 px-6 flex items-center justify-between sticky top-0 z-40">
+            <div class="flex items-center gap-4">
+                <button onclick="cerrarPortalApp()" class="flex items-center gap-2 text-xs font-semibold bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition">
+                    ← Salir al Sitio Web
+                </button>
+                <div class="h-4 w-px bg-slate-800"></div>
+                <span class="text-sm font-extrabold text-white tracking-widest">HRINSER <span id="app-header-subtitle" class="text-xs font-bold text-amber-500 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 ml-2">PORTAL</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                <span class="text-xs font-mono text-slate-400">Entorno Seguro en Elestio Cloud</span>
+            </div>
+        </header>
+
+        <!-- Cuerpo Dinámico de la Aplicación -->
+        <main class="flex-1 w-full max-w-7xl mx-auto p-4 md:p-8">
+            
+            <!-- APP 1: GESTIÓN DOCUMENTAL (DMS - Nextcloud Pro) -->
+            <div id="app-dms" class="hidden space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                    <div>
+                        <h2 class="text-2xl font-black text-white flex items-center gap-2">
+                            <span>📁</span> Nextcloud DMS <span class="text-xs font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-full">v26.0.4</span>
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Directorio jerárquico inmutable de almacenamiento de antecedentes laborales.</p>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="text-slate-400">Almacenamiento:</span>
+                        <strong class="text-slate-200">65 GB utilizados de 100 GB</strong>
+                    </div>
+                </div>
+
+                <!-- Explorador de Archivos -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <!-- Árbol de Carpetas (Sidebar) -->
+                    <div class="lg:col-span-1 bg-slate-900/60 rounded-2xl p-4 border border-slate-800 space-y-3 text-sm">
+                        <h3 class="font-bold text-slate-400 text-xs uppercase tracking-wider mb-2">Estructura Jerárquica</h3>
+                        <div class="space-y-1">
+                            <button onclick="navegarDMS('/')" class="w-full text-left p-2.5 rounded-lg font-semibold flex items-center gap-2 text-slate-200 bg-slate-800/80">
+                                🏢 Empresa Cliente A
+                            </button>
+                            <div class="pl-4 border-l border-slate-800 space-y-1 mt-1">
+                                <button onclick="navegarDMS('/Proyecto Escondida')" class="w-full text-left p-2 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2">
+                                    🚧 Proyecto Escondida
+                                </button>
+                                <div class="pl-4 border-l border-slate-800 space-y-1 mt-1">
+                                    <button class="w-full text-left p-1.5 rounded text-xs text-amber-500 bg-amber-500/5 flex items-center gap-2">
+                                        👤 Carlos Muñoz (RUT)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Documentos -->
+                    <div class="lg:col-span-3 space-y-6">
+                        <!-- Drag & Drop Uploader -->
+                        <div class="border-2 border-dashed border-indigo-500/30 bg-slate-900/40 rounded-2xl p-6 text-center hover:border-indigo-500/60 transition cursor-pointer relative" id="dms-uploader">
+                            <input type="file" id="dms-file-input" class="absolute inset-0 opacity-0 cursor-pointer" onchange="simularSubidaDMS(event)">
+                            <div class="space-y-2">
+                                <span class="text-3xl text-indigo-400 inline-block">☁️</span>
+                                <h4 class="font-bold text-slate-200 text-sm">Sube documentos del Trabajador</h4>
+                                <p class="text-xs text-slate-500">Soporta PDFs, XLSX o Imágenes. Máximo 50MB. Subida directa cifrada.</p>
+                            </div>
+                            <!-- Barra de progreso simulada -->
+                            <div id="upload-progress-container" class="hidden mt-4 max-w-xs mx-auto space-y-2">
+                                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                                    <div id="upload-progress-bar" class="bg-indigo-500 h-full w-0 transition-all duration-300"></div>
+                                </div>
+                                <span class="text-[10px] text-slate-400 font-mono" id="upload-status-text">Subiendo...</span>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de Archivos -->
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                            <div class="p-4 border-b border-slate-800 bg-slate-900/60 flex items-center justify-between">
+                                <span class="text-xs font-mono text-slate-400" id="dms-path">Ruta actual: / Empresa Cliente A / Proyecto Escondida / Carlos Muñoz</span>
+                                <span class="text-xs text-indigo-400 font-bold" id="dms-count">2 documentos</span>
+                            </div>
+                            <table class="w-full text-left border-collapse text-xs md:text-sm">
+                                <thead class="bg-slate-950/80 text-slate-500 border-b border-slate-800">
+                                    <tr>
+                                        <th class="p-4 font-bold uppercase tracking-wider text-[10px]">Nombre del Archivo</th>
+                                        <th class="p-4 font-bold uppercase tracking-wider text-[10px]">Tamaño</th>
+                                        <th class="p-4 font-bold uppercase tracking-wider text-[10px]">Tipo</th>
+                                        <th class="p-4 font-bold uppercase tracking-wider text-[10px] text-right">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800" id="dms-file-list">
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-4 flex items-center gap-3 font-semibold text-slate-200">
+                                            <span>📄</span> Contrato_Servicios_Fase3.pdf
+                                        </td>
+                                        <td class="p-4 text-slate-400 font-mono">2.4 MB</td>
+                                        <td class="p-4 text-slate-400">PDF Resguardado</td>
+                                        <td class="p-4 text-right">
+                                            <button onclick="alert('Descarga simulada con éxito.')" class="text-indigo-400 font-bold hover:underline">Descargar</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-4 flex items-center gap-3 font-semibold text-slate-200">
+                                            <span>🩺</span> Ficha_Altura_Geografica_Carlos.pdf
+                                        </td>
+                                        <td class="p-4 text-slate-400 font-mono">1.1 MB</td>
+                                        <td class="p-4 text-slate-400">Ficha Médica</td>
+                                        <td class="p-4 text-right">
+                                            <button onclick="alert('Descarga simulada con éxito.')" class="text-indigo-400 font-bold hover:underline">Descargar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- APP 2: CRM DE CLIENTES (EspoCRM Sales Engine) -->
+            <div id="app-crm" class="hidden space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                    <div>
+                        <h2 class="text-2xl font-black text-white flex items-center gap-2">
+                            <span>📈</span> CRM de Ventas <span class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">EspoCRM Enterprise</span>
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Control comercial y seguimiento de embudos para Vanessa Galdames.</p>
+                    </div>
+                    <button onclick="abrirModalCRM()" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl transition">
+                        + Nueva Empresa Prospecto
+                    </button>
+                </div>
+
+                <!-- Tablero Kanban -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="crm-kanban-board">
+                    <!-- Columna 1: Identificada / Investigada -->
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between min-h-[400px]">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">1. Investigada</span>
+                                <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-mono" id="crm-col-1-count">1</span>
+                            </div>
+                            <div class="space-y-3" id="crm-col-1">
+                                <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 hover:border-slate-700/50 transition">
+                                    <h4 class="font-bold text-sm text-slate-200">Servicios Industriales Norte</h4>
+                                    <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
+                                        <span>RUT: 76.541.220-k</span>
+                                        <span>30 Trab.</span>
+                                    </div>
+                                    <button onclick="avanzarCRM('Servicios Industriales Norte', 1)" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                                        <span>Avanzar a Diagnóstico</span> →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna 2: Diagnóstico Realizado -->
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between min-h-[400px]">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-400">2. Diagnóstico</span>
+                                <span class="px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-300 text-xs font-mono" id="crm-col-2-count">1</span>
+                            </div>
+                            <div class="space-y-3" id="crm-col-2">
+                                <div class="bg-slate-950/80 p-4 rounded-xl border border-blue-500/20 hover:border-blue-500/40 transition">
+                                    <h4 class="font-bold text-sm text-slate-200">Transportes Andes SpA</h4>
+                                    <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
+                                        <span>RUT: 77.102.344-2</span>
+                                        <span>15 Trab.</span>
+                                    </div>
+                                    <button onclick="avanzarCRM('Transportes Andes SpA', 2)" class="w-full bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 font-bold text-[10px] text-blue-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                                        <span>Avanzar a Propuesta</span> →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna 3: Propuesta Enviada -->
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between min-h-[400px]">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-amber-400">3. Propuesta</span>
+                                <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 text-xs font-mono" id="crm-col-3-count">1</span>
+                            </div>
+                            <div class="space-y-3" id="crm-col-3">
+                                <div class="bg-slate-950/80 p-4 rounded-xl border border-amber-500/20 hover:border-amber-500/40 transition">
+                                    <h4 class="font-bold text-sm text-slate-200">Aseo Industrial El Sol</h4>
+                                    <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
+                                        <span>RUT: 76.992.110-1</span>
+                                        <span>80 Trab.</span>
+                                    </div>
+                                    <button onclick="avanzarCRM('Aseo Industrial El Sol', 3)" class="w-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 font-bold text-[10px] text-amber-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                                        <span>Avanzar a Piloto</span> →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna 4: Piloto / Cierre Recibido -->
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between min-h-[400px]">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">4. Piloto / Activo</span>
+                                <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-mono" id="crm-col-4-count">1</span>
+                            </div>
+                            <div class="space-y-3" id="crm-col-4">
+                                <div class="bg-slate-950/80 p-4 rounded-xl border border-emerald-500/20 hover:border-emerald-500/40 transition">
+                                    <h4 class="font-bold text-sm text-slate-200">Constructora Altiplano</h4>
+                                    <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
+                                        <span>RUT: 77.250.312-3</span>
+                                        <span>50 Trab.</span>
+                                    </div>
+                                    <div class="mt-3 text-center text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 py-1 rounded-lg">
+                                        Piloto Firmado 6 UF
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- APP 3: PORTAL DE ACREDITACIÓN (Clientes Mandante) -->
+            <div id="app-clientes" class="hidden space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                    <div>
+                        <h2 class="text-2xl font-black text-white flex items-center gap-2">
+                            <span>💼</span> Portal de Acreditación <span class="text-xs font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 rounded-full">Mandante Vista</span>
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Semáforo de cumplimiento para que tus clientes verifiquen a los subcontratistas.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs flex items-center gap-3">
+                        <span class="text-slate-400 font-semibold">Tasa de Acreditación General:</span>
+                        <strong class="text-emerald-400 text-sm font-black">92%</strong>
+                    </div>
+                </div>
+
+                <!-- Métricas Rápidas -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl font-bold">🟢</div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Aprobados</p>
+                            <h3 class="text-2xl font-black text-slate-200 mt-1">12 Trabajadores</h3>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl font-bold">🟡</div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Alerta Preventiva</p>
+                            <h3 class="text-2xl font-black text-slate-200 mt-1">2 Vencen pronto</h3>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl font-bold">🔴</div>
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Bloqueados</p>
+                            <h3 class="text-2xl font-black text-slate-200 mt-1">1 Vencido</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buscador y Tabla de Personal -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <h3 class="font-bold text-white text-base">Nómina General de Personal Acreditado</h3>
+                        <div class="relative w-full sm:w-80">
+                            <input type="text" id="buscador-clientes" onkeyup="buscarPersonal()" placeholder="Buscar trabajador por RUT o Nombre..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-purple-500 transition">
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs md:text-sm" id="tabla-clientes">
+                            <thead class="bg-slate-950/80 text-slate-500 border-b border-slate-800">
+                                <tr>
+                                    <th class="p-4 font-bold uppercase tracking-wider text-[10px]">Nombre</th>
+                                    <th class="p-4 font-bold uppercase tracking-wider text-[10px]">RUT</th>
+                                    <th class="p-4 font-bold uppercase tracking-wider text-[10px]">Examen de Altura</th>
+                                    <th class="p-4 font-bold uppercase tracking-wider text-[10px]">Certificados F30</th>
+                                    <th class="p-4 font-bold uppercase tracking-wider text-[10px]">Estado General</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800">
+                                <tr class="hover:bg-slate-800/20 transition">
+                                    <td class="p-4 font-semibold text-slate-200">Carlos Muñoz</td>
+                                    <td class="p-4 text-slate-400 font-mono">16.541.220-k</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-red-500/10 text-red-400 font-bold text-[10px] border border-red-500/20">🔴 Vencido</span></td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px] border border-emerald-500/20">🟢 Aprobado</span></td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-red-500/20 text-red-300 font-extrabold text-[10px] border border-red-500/30">BLOQUEADO</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/20 transition">
+                                    <td class="p-4 font-semibold text-slate-200">Juan Pérez</td>
+                                    <td class="p-4 text-slate-400 font-mono">15.992.312-3</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px] border border-emerald-500/20">🟢 Aprobado</span></td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px] border border-emerald-500/20">🟢 Aprobado</span></td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px] border border-emerald-500/30">APROBADO</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/20 transition">
+                                    <td class="p-4 font-semibold text-slate-200">Ana Silva</td>
+                                    <td class="p-4 text-slate-400 font-mono">17.250.911-1</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 font-bold text-[10px] border border-amber-500/20">🟡 Vence en 10 días</span></td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px] border border-emerald-500/20">🟢 Aprobado</span></td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-[10px] border border-amber-500/30">ALERTA</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- APP 4: PORTAL DEL TRABAJADOR (miperfil.hrinser.cl) -->
+            <div id="app-trabajadores" class="hidden flex justify-center py-6">
+                <!-- Marco del Teléfono -->
+                <div class="w-full max-w-sm bg-slate-900 border-8 border-slate-800 rounded-[40px] shadow-2xl overflow-hidden relative" style="height: 600px;">
+                    <!-- Cabecera del Teléfono (Simulado) -->
+                    <div class="h-6 bg-slate-800 flex justify-between items-center px-6 text-[10px] text-slate-400 font-mono">
+                        <span>14:30</span>
+                        <div class="flex items-center gap-1.5">
+                            <span>📡 4G</span>
+                            <span>🔋 85%</span>
+                        </div>
+                    </div>
+
+                    <!-- Pantalla del Celular -->
+                    <div class="p-6 space-y-6 overflow-y-auto" style="height: calc(100% - 24px);">
+                        <!-- Perfil Cabecera -->
+                        <div class="text-center space-y-2 border-b border-slate-800 pb-4">
+                            <div class="w-16 h-16 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full flex items-center justify-center font-bold text-xl mx-auto">
+                                CM
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-white text-base">Carlos Muñoz</h3>
+                                <p class="text-xs text-slate-400">Operario de Maquinaria Pesada</p>
+                                <p class="text-[10px] font-mono text-slate-500">RUT: 16.541.220-k</p>
+                            </div>
+                        </div>
+
+                        <!-- Estado Crítico -->
+                        <div class="bg-red-500/10 border border-red-500/20 p-4 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-bold text-red-400 flex items-center gap-1.5">
+                                <span class="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                Acreditación Bloqueada
+                            </h4>
+                            <p class="text-[11px] text-slate-400">Tu examen de altura física expiró. Debes cargar el nuevo documento para poder ingresar a faena.</p>
+                        </div>
+
+                        <!-- Carga Documental Móvil -->
+                        <div class="space-y-4">
+                            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400">Mis Documentos Solicitados</h5>
+                            
+                            <!-- Documento 1: Cédula de Identidad -->
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                                <div>
+                                    <h6 class="font-semibold text-slate-200">Cédula de Identidad</h6>
+                                    <span class="text-[10px] text-emerald-400 font-bold">🟢 Aprobado</span>
+                                </div>
+                                <span class="text-emerald-500">✓</span>
+                            </div>
+
+                            <!-- Documento 2: Examen de Altura Física (Vencido) -->
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-red-500/30 flex flex-col gap-3 text-xs" id="worker-doc-card">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h6 class="font-semibold text-slate-200">Examen de Altura Física</h6>
+                                        <span class="text-[10px] text-red-400 font-bold" id="worker-status-text">🔴 Vencido (Actualizar)</span>
+                                    </div>
+                                    <span class="text-red-400" id="worker-doc-icon">⚠</span>
+                                </div>
+                                
+                                <!-- Botón de Captura Celular -->
+                                <button onclick="simularCamaraTrabajador()" id="worker-btn-upload" class="w-full bg-amber-600 hover:bg-amber-500 text-slate-950 font-extrabold text-[11px] py-2 rounded-lg transition text-center flex justify-center items-center gap-1.5">
+                                    <span>📸</span> Tomar Foto o Subir PDF
+                                </button>
+                                
+                                <!-- Simulación de cámara -->
+                                <div id="camera-simulation" class="hidden bg-slate-900 border border-slate-800 rounded-lg p-3 text-center space-y-2">
+                                    <div class="w-full h-32 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-center font-mono text-[10px] text-slate-500 relative overflow-hidden">
+                                        <div id="camera-capture-text">Enfoque la hoja del examen de altura...</div>
+                                        <div id="camera-photo" class="hidden absolute inset-0 bg-cover bg-center" style="background-image: url('7df06148be985dd15b4407c468fe9a94.jpg')"></div>
+                                    </div>
+                                    <button onclick="capturarFotoTrabajador()" id="camera-btn-capture" class="bg-emerald-500 text-slate-950 px-3 py-1 text-[10px] font-bold rounded-full">Capturar Examen</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modales CRM -->
+    <div id="crm-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl max-w-sm w-full space-y-4">
+            <h3 class="font-bold text-white text-lg">Agregar Nuevo Prospecto</h3>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">Nombre de la Empresa</label>
+                    <input type="text" id="crm-in-name" placeholder="Ej: Minera Cerro Verde" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-400 mb-1">RUT</label>
+                        <input type="text" id="crm-in-rut" placeholder="76.xxx.xxx-x" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Trabajadores</label>
+                        <input type="number" id="crm-in-workers" placeholder="Ej: 45" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 outline-none">
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-2 text-xs">
+                <button onclick="cerrarModalCRM()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 rounded-xl transition">Cancelar</button>
+                <button onclick="crearProspectoCRM()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-2.5 rounded-xl transition">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- LÓGICA DE SIMULACIÓN INTERACTIVA (JS) -->
+    <!-- ========================================== -->
+    <script>
+        // Data de límites legales para el simulador de la Landing Page
+        const limitesData = {
+            altura: {
+                titulo: "Exámenes de Altura Física",
+                tag: "Decreto Supremo 72",
+                rojo: "Trabajar a más de 3.000 msnm sin examen de salud vigente. Cualquier vencimiento genera la detención inmediata y multas directas a toda la cadena de valor.",
+                verde: "Bloqueo del pase de acceso 30 días antes del vencimiento. Notificaciones automáticas al correo del supervisor y del contratista para agendar renovación a tiempo.",
+                multa: "150 UTM"
+            },
+            contratistas: {
+                titulo: "Certificados F30 y F30-1",
+                tag: "Ley de Subcontratación 20.123",
+                rojo: "Permitir el ingreso de subcontratistas sin acreditar mensualmente el pago de cotizaciones y deudas laborales de sus operarios.",
+                verde: "Verificación automática mediante panel centralizado. Semáforo preventivo que frena estados de pago y evita la asunción de responsabilidad solidaria.",
+                multa: "Retención / Solidaria"
+            },
+            accidentes: {
+                titulo: "Firmas ODI y Entrega de EPP",
+                tag: "Decreto 594 / Ley 16.744",
+                rojo: "Accidente grave en faena sin registro digitalizado o firma del documento de Obligación de Informar (ODI) y entrega de equipamiento de seguridad.",
+                verde: "Repositorio inmutable firmado digitalmente en Elestio Cloud. Trazabilidad absoluta de descarga y firma visible en segundos ante fiscalizadores de la DT.",
+                multa: "60 UTM / Penal"
+            }
+        };
+
+        function probarLimite(clave) {
+            document.querySelectorAll('#manual-limites button').forEach(btn => {
+                btn.classList.remove('bg-slate-800', 'border-2', 'border-amber-500', 'text-white');
+                btn.classList.add('bg-slate-950', 'border-slate-800', 'text-slate-400');
+            });
+
+            const btnActivo = document.getElementById(`btn-${clave}`);
+            btnActivo.classList.remove('bg-slate-950', 'border-slate-800', 'text-slate-400');
+            btnActivo.classList.add('bg-slate-800', 'border-2', 'border-amber-500', 'text-white');
+
+            const data = limitesData[clave];
+            document.getElementById('limite-titulo').innerText = data.titulo;
+            document.getElementById('limite-tag').innerText = data.tag;
+            document.getElementById('limite-rojo').innerText = data.rojo;
+            document.getElementById('limite-verde').innerText = data.verde;
+            document.getElementById('limite-multa').innerText = data.multa;
+        }
+
+        // CONTROL DE INTERFACES / SINGLE PAGE APP
+        function abrirPortalApp(plataforma) {
+            // Ocultar Landing Page
+            document.getElementById('landing-page').classList.add('hidden');
+            
+            // Mostrar Contenedor App
+            const container = document.getElementById('portal-app-container');
+            container.classList.remove('hidden');
+
+            // Ocultar todas las sub-apps
+            document.getElementById('app-dms').classList.add('hidden');
+            document.getElementById('app-crm').classList.add('hidden');
+            document.getElementById('app-clientes').classList.add('hidden');
+            document.getElementById('app-trabajadores').classList.add('hidden');
+
+            const subLabel = document.getElementById('app-header-subtitle');
+
+            // Activar la app solicitada
+            if (plataforma === 'dms') {
+                document.getElementById('app-dms').classList.remove('hidden');
+                subLabel.innerText = "DMS NEXTCLOUD";
+                subLabel.className = "text-xs font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded ml-2";
+            } else if (plataforma === 'crm') {
+                document.getElementById('app-crm').classList.remove('hidden');
+                subLabel.innerText = "SALES CRM";
+                subLabel.className = "text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded ml-2";
+            } else if (plataforma === 'clientes') {
+                document.getElementById('app-clientes').classList.remove('hidden');
+                subLabel.innerText = "PORTAL MANDANTE";
+                subLabel.className = "text-xs font-bold text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 rounded ml-2";
+            } else if (plataforma === 'trabajadores') {
+                document.getElementById('app-trabajadores').classList.remove('hidden');
+                subLabel.innerText = "MI PERFIL TRABAJADOR";
+                subLabel.className = "text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded ml-2";
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function cerrarPortalApp() {
+            document.getElementById('portal-app-container').classList.add('hidden');
+            document.getElementById('landing-page').classList.remove('hidden');
+            window.location.hash = "portales";
+        }
+
+        // ==========================================
+        // LÓGICA DMS: NEXTCLOUD INTERACTIVO
+        // ==========================================
+        function navegarDMS(ruta) {
+            document.getElementById('dms-path').innerText = `Ruta actual: / Empresa Cliente A ${ruta}`;
+        }
+
+        function simularSubidaDMS(event) {
+            const input = event.target;
+            if (input.files.length === 0) return;
+
+            const filename = input.files[0].name;
+            const size = (input.files[0].size / (1024 * 1024)).toFixed(1) + " MB";
+
+            const progressContainer = document.getElementById('upload-progress-container');
+            const progressBar = document.getElementById('upload-progress-bar');
+            const statusText = document.getElementById('upload-status-text');
+
+            progressContainer.classList.remove('hidden');
+            progressBar.style.width = '0%';
+            statusText.innerText = "Subiendo archivo a Elestio Cloud...";
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 25;
+                progressBar.style.width = `${progress}%`;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    statusText.innerText = "¡Archivo encriptado y resguardado!";
+                    setTimeout(() => {
+                        progressContainer.classList.add('hidden');
+                        
+                        // Añadir archivo a la tabla
+                        const fileList = document.getElementById('dms-file-list');
+                        const newRow = document.createElement('tr');
+                        newRow.className = "hover:bg-slate-800/40 transition bg-indigo-500/5";
+                        newRow.innerHTML = `
+                            <td class="p-4 flex items-center gap-3 font-semibold text-slate-200">
+                                <span>📄</span> ${filename}
+                            </td>
+                            <td class="p-4 text-slate-400 font-mono">${size}</td>
+                            <td class="p-4 text-indigo-400 font-bold">Carga de Prueba</td>
+                            <td class="p-4 text-right">
+                                <button onclick="alert('Descarga de prueba exitosa')" class="text-indigo-400 font-bold hover:underline">Descargar</button>
+                            </td>
+                        `;
+                        fileList.prepend(newRow);
+                        
+                        // Actualizar contador
+                        const currentCount = parseInt(document.getElementById('dms-count').innerText);
+                        document.getElementById('dms-count').innerText = `${currentCount + 1} documentos`;
+                    }, 800);
+                }
+            }, 300);
+        }
+
+        // ==========================================
+        // LÓGICA CRM: TABLERO KANBAN INTERACTIVO
+        // ==========================================
+        function avanzarCRM(empresaNombre, columnaActual) {
+            const containerViejo = document.getElementById(`crm-col-${columna_actual = columnaActual(columnaActualMap[columnaActual])}`);
+            // Simple mapping transitions
+        }
+
+        const colMap = {
+            1: "Investigada",
+            2: "Diagnóstico",
+            3: "Propuesta",
+            4: "Piloto"
+        };
+
+        function avanzarCRM(nombre, pasoActual) {
+            const siguientePaso = pasoActual + 1;
+            if (siguientePaso > 4) return;
+
+            // Encontrar elemento
+            const origen = document.getElementById(`crm-col-${pasoActual}`);
+            const destino = document.getElementById(`crm-col-${siguientePaso}`);
+
+            // Buscar la tarjeta
+            let tarjeta = null;
+            for (let child of origen.children) {
+                if (child.innerHTML.includes(nombre)) {
+                    tarjeta = child;
+                    break;
+                }
+            }
+
+            if (tarjeta) {
+                origen.removeChild(tarjeta);
+                
+                // Modificar el botón
+                if (siguientePaso === 4) {
+                    tarjeta.innerHTML = `
+                        <h4 class="font-bold text-sm text-slate-200">${nombre}</h4>
+                        <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
+                            <span>RUT: Modificado</span>
+                            <span>Avanzado</span>
+                        </div>
+                        <div class="mt-3 text-center text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 py-1 rounded-lg">
+                            Piloto Firmado 6 UF
+                        </div>
+                    `;
+                } else {
+                    tarjeta.innerHTML = `
+                        <h4 class="font-bold text-sm text-slate-200">${nombre}</h4>
+                        <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
+                            <span>RUT: Modificado</span>
+                            <span>Avanzado</span>
+                        </div>
+                        <button onclick="avanzarCRM('${nombre}', ${siguientePaso})" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                            <span>Avanzar a ${colMap[siguientePaso + 1]}</span> →
+                        </button>
+                    `;
+                }
+
+                destino.appendChild(tarjeta);
+                actualizarCRMContadores();
+            }
+        }
+
+        function actualizarCRMContadores() {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`crm-col-${i}-count`).innerText = document.getElementById(`crm-col-${i}`).children.length;
+            }
+        }
+
+        function abrirModalCRM() {
+            document.getElementById('crm-modal').classList.remove('hidden');
+        }
+
+        function cerrarModalCRM() {
+            document.getElementById('crm-modal').classList.add('hidden');
+        }
+
+        function crearProspectoCRM() {
+            const name = document.getElementById('crm-in-name').value;
+            const rut = document.getElementById('crm-in-rut').value;
+            const workers = document.getElementById('crm-in-workers').value;
+
+            if (!name || !rut || !workers) {
+                alert("Por favor rellene todos los campos.");
+                return;
+            }
+
+            const col1 = document.getElementById('crm-col-1');
+            const card = document.createElement('div');
+            card.className = "bg-slate-950/80 p-4 rounded-xl border border-slate-800 hover:border-slate-700/50 transition";
+            card.innerHTML = `
+                <h4 class="font-bold text-sm text-slate-200">${name}</h4>
+                <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
+                    <span>RUT: ${rut}</span>
+                    <span>${workers} Trab.</span>
+                </div>
+                <button onclick="avanzarCRM('${name}', 1)" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                    <span>Avanzar a Diagnóstico</span> →
+                </button>
+            `;
+            col1.prepend(card);
+            actualizarCRMContadores();
+            cerrarModalCRM();
+
+            // Limpiar inputs
+            document.getElementById('crm-in-name').value = "";
+            document.getElementById('crm-in-rut').value = "";
+            document.getElementById('crm-in-workers').value = "";
+        }
+
+        // ==========================================
+        // LÓGICA CLIENTES: BUSCADOR DE TRABAJADORES
+        // ==========================================
+        function buscarPersonal() {
+            const query = document.getElementById('buscador-clientes').value.toLowerCase();
+            const rows = document.querySelectorAll('#tabla-clientes tbody tr');
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    row.classList.remove('hidden');
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
+        }
+
+        // ==========================================
+        // LÓGICA TRABAJADOR: PORTAL DEL TELÉFONO
+        // ==========================================
+        function simularCamaraTrabajador() {
+            document.getElementById('camera-simulation').classList.remove('hidden');
+            document.getElementById('worker-btn-upload').classList.add('hidden');
+        }
+
+        function capturarFotoTrabajador() {
+            const captureText = document.getElementById('camera-capture-text');
+            const cameraPhoto = document.getElementById('camera-photo');
+            const captureBtn = document.getElementById('camera-btn-capture');
+
+            captureText.innerText = "Capturando...";
+            setTimeout(() => {
+                cameraPhoto.classList.remove('hidden');
+                captureText.classList.add('hidden');
+                captureBtn.innerText = "Confirmar Envío";
+                captureBtn.onclick = enviarExamenAprobacion;
+            }, 1000);
+        }
+
+        function enviarExamenAprobacion() {
+            alert("Enviando examen médico firmado a Elestio Cloud...");
+            
+            // Simular recarga a aprobado en revisión
+            const card = document.getElementById('worker-doc-card');
+            card.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h6 class="font-semibold text-slate-200">Examen de Altura Física</h6>
+                        <span class="text-[10px] text-amber-400 font-bold">🟡 En Revisión por HRINSER</span>
+                    </div>
+                    <span class="text-amber-400">⏳</span>
+                </div>
+                <p class="text-[10px] text-slate-500 leading-normal mt-2">Tu documento fue cargado hoy de forma inmutable. Te notificaremos por WhatsApp cuando sea validado.</p>
+            `;
+
+            document.getElementById('camera-simulation').classList.add('hidden');
+        }
+
+        // LÓGICA DE TRADUCCIÓN MULTILINGÜE
+        const translations = {
+            es: {
+                "nav-inicio": "Inicio",
+                "nav-empresa": "La Empresa",
+                "nav-riesgos": "Riesgos",
+                "nav-sectores": "Sectores",
+                "nav-cotejador": "Cotejador Legal",
+                "nav-planes": "Planes",
+                "btn-portales": "Acceder a Portales",
+                "btn-piloto": "Agendar Piloto 6 UF",
+                "sectors-subtitle": "Industrias de Alta Exigencia",
+                "sectors-title": "Sectores Soportados",
+                "sectors-desc": "Adaptamos nuestros flujos de acreditación y control documental a las normativas específicas de cada industria clave en Chile.",
+                "sector-mineria-title": "Minería y Energía",
+                "sector-mineria-desc": "Control riguroso de DS 72, pases de acceso a faenas críticas, inducciones de seguridad y exámenes de salud ocupacional.",
+                "sector-construccion-title": "Construcción",
+                "sector-construccion-desc": "Gestión documental para obras civiles, control de subcontratación en cascada, entrega de EPP y cumplimiento de DS 594.",
+                "sector-transporte-title": "Transporte y Logística",
+                "sector-transporte-desc": "Acreditación ágil de conductores, hojas de ruta inmutables, control de fatiga y cumplimiento de cargas peligrosas.",
+                "sector-retail-title": "Servicios Generales & Retail",
+                "sector-retail-desc": "Homologación rápida para contratistas de aseo, seguridad, mantenimiento y personal de apoyo en centros de distribución.",
+                "sector-flow-title": "Flujo Operacional del Sector",
+                "sector-flow-rule": "Marco Normativo",
+                "sector-flow-desc": "Haz clic en cualquiera de las tarjetas de sectores arriba para visualizar su flujo operativo y los documentos clave requeridos."
+            },
+            en: {
+                "nav-inicio": "Home",
+                "nav-empresa": "Company",
+                "nav-riesgos": "Risks",
+                "nav-sectores": "Sectors",
+                "nav-cotejador": "Legal Checker",
+                "nav-planes": "Plans",
+                "btn-portales": "Access Portals",
+                "btn-piloto": "Book Pilot 6 UF",
+                "sectors-subtitle": "High Demand Industries",
+                "sectors-title": "Supported Sectors",
+                "sectors-desc": "We adapt our accreditation and document control workflows to the specific regulations of each key industry in Chile.",
+                "sector-mineria-title": "Mining & Energy",
+                "sector-mineria-desc": "Rigorous control of DS 72, access passes to critical sites, safety inductions, and occupational health exams.",
+                "sector-construccion-title": "Construction",
+                "sector-construccion-desc": "Document management for civil works, control of cascaded subcontracting, PPE delivery, and DS 594 compliance.",
+                "sector-transporte-title": "Transport & Logistics",
+                "sector-transporte-desc": "Agile accreditation for drivers, immutable roadmaps, fatigue control, and hazardous cargo compliance.",
+                "sector-retail-title": "General Services & Retail",
+                "sector-retail-desc": "Fast-track onboarding for cleaning, security, maintenance, and support staff in distribution centers.",
+                "sector-flow-title": "Sector Operational Flow",
+                "sector-flow-rule": "Regulatory Framework",
+                "sector-flow-desc": "Click on any of the sector cards above to view its operational flow and key document requirements."
+            }
+        };
+
+        let currentLang = 'es';
+
+        function toggleLangDropdown() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function selectLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('current-lang-label').innerText = lang.toUpperCase();
+            document.getElementById('lang-dropdown').classList.add('hidden');
+            document.documentElement.setAttribute('lang', lang);
+            applyTranslations();
+            if (window.selectedSectorClave) {
+                mostrarSector(window.selectedSectorClave);
+            }
+        }
+
+        function applyTranslations() {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+        }
+
+        window.addEventListener('click', function(e) {
+            const langBtn = document.getElementById('lang-btn');
+            const langDropdown = document.getElementById('lang-dropdown');
+            if (langBtn && !langBtn.contains(e.target) && langDropdown && !langDropdown.contains(e.target)) {
+                langDropdown.classList.add('hidden');
+            }
+        });
+
+        // LÓGICA DE SECTORES SOPORTADOS INTERACTIVOS
+        const sectoresData = {
+            mineria: {
+                titulo: { es: "Minería y Energía", en: "Mining & Energy" },
+                normas: { es: "Regulado por: DS 72 / Sernageomin", en: "Regulated by: DS 72 / Sernageomin" },
+                flujo: {
+                    es: "Bloqueo automático de pases de acceso 30 días antes del vencimiento del examen de altura. Integración directa con portales mineros y subida encriptada de credenciales.",
+                    en: "Automatic blocking of access passes 30 days before height medical exam expiration. Direct integration with mining portals and encrypted credential uploading."
+                },
+                documentos: {
+                    es: ["Examen de Altura Física y Geográfica", "Charla de Inducción Sernageomin", "Licencia Municipal e Interna de Conducción", "ODI Específica de Faena"],
+                    en: ["Physical and Geographical Height Exam", "Sernageomin Induction Talk", "Municipal and Internal Driving License", "Site-Specific ODI"]
+                }
+            },
+            construccion: {
+                titulo: { es: "Construcción", en: "Construction" },
+                normas: { es: "Regulado por: DS 594 / Ley de Subcontratación 20.123", en: "Regulated by: DS 594 / Subcontracting Law 20.123" },
+                flujo: {
+                    es: "Trazabilidad completa de contratistas y subcontratistas en cascada. Registro inmutable de entrega de EPP y firmas electrónicas de charlas de inducción en terreno.",
+                    en: "Complete traceability of contractors and cascaded subcontractors. Immutable record of PPE delivery and electronic signatures for field induction talks."
+                },
+                documentos: {
+                    es: ["Certificados F30 y F30-1 mensuales", "Registro de Entrega de EPP", "Matriz de Identificación de Peligros (MIP)", "Inducción DAS / Charla de Seguridad"],
+                    en: ["Monthly F30 and F30-1 Certificates", "PPE Delivery Record", "Hazard Identification Matrix (MIP)", "DAS Induction / Safety Talk"]
+                }
+            },
+            transporte: {
+                titulo: { es: "Transporte y Logística", en: "Transport & Logistics" },
+                normas: { es: "Regulado por: Ley de Tránsito / Normativa de Carga Peligrosa", en: "Regulated by: Traffic Law / Hazardous Cargo Regulations" },
+                flujo: {
+                    es: "Acreditación express de choferes y flotas. Verificación automatizada de vigencia de licencias profesionales y hojas de vida del conductor ante el Registro Civil.",
+                    en: "Express accreditation for drivers and fleets. Automated validation of professional licenses and driving records with the Civil Registry."
+                },
+                documentos: {
+                    es: ["Licencia de Conducir Clase A4/A5", "Hoja de Vida del Conductor vigente", "Examen Psicosensotécnico Riguroso", "Checklist Diario de Seguridad Vehicular"],
+                    en: ["Class A4/A5 Driver's License", "Current Driving Record", "Rigorous Psychosensotechnical Exam", "Daily Vehicle Safety Checklist"]
+                }
+            },
+            retail: {
+                titulo: { es: "Servicios Generales y Retail", en: "General Services & Retail" },
+                normas: { es: "Regulado por: Código del Trabajo / Seremi de Salud", en: "Regulated by: Labor Code / Seremi of Health" },
+                flujo: {
+                    es: "Alta masiva y homologación rápida de personal externo para eventos, aseo, seguridad física y reposición. Control estricto de contratos vigentes y cotizaciones.",
+                    en: "Massive onboarding and fast-track approval of external staff for events, cleaning, security, and restocking. Strict control of current contracts and social security payments."
+                },
+                documentos: {
+                    es: ["Contrato de Trabajo firmado", "Comprobante de Cotizaciones Previsionales", "Certificado de Antecedentes vigente", "Registro de Inducción Rápida y EPP"],
+                    en: ["Signed Employment Contract", "Social Security Payment Voucher", "Current Criminal Record Certificate", "Quick Induction & PPE Record"]
+                }
+            }
+        };
+
+        window.selectedSectorClave = null;
+
+        function mostrarSector(clave) {
+            window.selectedSectorClave = clave;
+            const data = sectoresData[clave];
+            
+            // Actualizar textos en el visor
+            document.getElementById('sector-detail-norm').innerText = data.normas[currentLang];
+            document.getElementById('sector-detail-title').innerText = data.titulo[currentLang];
+            document.getElementById('sector-detail-flow').innerText = data.flujo[currentLang];
+            
+            // Actualizar lista de documentos
+            const docsUl = document.getElementById('sector-detail-docs');
+            docsUl.innerHTML = '';
+            
+            data.documentos[currentLang].forEach(doc => {
+                const li = document.createElement('li');
+                li.className = "flex items-center gap-2";
+                li.innerHTML = `<span class="text-amber-500">✓</span> <span>${doc}</span>`;
+                docsUl.appendChild(li);
+            });
+
+            // Dar un efecto de feedback visual al cuadro de detalles
+            const box = document.getElementById('sector-details-box');
+            box.classList.remove('border-slate-800');
+            
+            // Cambiar color del borde según sector
+            if (clave === 'mineria') {
+                box.style.borderColor = 'rgba(245, 158, 11, 0.5)'; // Amber
+            } else if (clave === 'construccion') {
+                box.style.borderColor = 'rgba(59, 130, 246, 0.5)'; // Blue
+            } else if (clave === 'transporte') {
+                box.style.borderColor = 'rgba(16, 185, 129, 0.5)'; // Emerald
+            } else if (clave === 'retail') {
+                box.style.borderColor = 'rgba(99, 102, 241, 0.5)'; // Indigo
+            }
+        }
+    </script>
+</body>
+</html>
