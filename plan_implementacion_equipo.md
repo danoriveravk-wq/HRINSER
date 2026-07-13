@@ -78,37 +78,98 @@ EspoCRM requiere la ejecución de un cron cada 1 minuto para procesar notificaci
 1. Ir a **Avanzado -> Tareas Cron** en el panel de Hostinger (hPanel).
 2. Crear una nueva tarea cron con la siguiente configuración:
    * **Tipo de Cron:** PHP script (o comando personalizado).
-   * **Comando:** `/usr/bin/php /home/uXXXXX/public_html/crm/cron.php` (reemplazar `/home/uXXXXX/public_html/crm/` por la ruta absoluta de instalación provista en el Administrador de Archivos).
+   * **Comando:** `/usr/bin/php8.2 /home/uXXXXX/public_html/crm/cron.php > /dev/null 2>&1` (reemplazar `/home/uXXXXX/public_html/crm/` por la ruta absoluta de instalación y forzar el uso del binario `/usr/bin/php8.2` para evitar discrepancias de versión en la CLI).
    * **Frecuencia:** Cada minuto (`* * * * *`).
 3. Guardar la tarea cron y verificar en el registro de EspoCRM (en **Administración -> Jobs**) que el cron se esté ejecutando exitosamente.
 
-#### D. Configuración de Entidades y Pipeline Comercial
-Acceder al Panel de Administración de EspoCRM mediante la cuenta de administrador creada:
+#### D. Ocultar la API de Lead Capture y Evitar Ataques DoS/Spam
+Para evitar exponer la API Key y el endpoint de EspoCRM en el código JavaScript del frontend (lo que dejaría el hosting vulnerable a inundaciones de spam y caídas por CPU/MySQL), los desarrolladores deben implementar un handler proxy en PHP.
 
-1. **Campos Personalizados en la Entidad Oportunidad (`Opportunity`) / Cliente Potencial (`Lead`):**
-   Añadir mediante **Administration -> Entity Manager -> Opportunity -> Fields -> Add Field**:
-   * `rutEmpresa` (Type: Varchar, Label: "RUT Empresa", con validación de formato RUT chileno en el cliente).
-   * `numeroTrabajadores` (Type: Integer, Label: "Número de Trabajadores").
-   * `mandantePrincipal` (Type: Varchar, Label: "Mandante Principal").
-   * `plataformaAcreditacion` (Type: Enum, Label: "Plataforma de Acreditación", Options: `SUCAL`, `Workmate`, `SAP`, `Sistemas Internos`).
+1. **Crear el script `submit_lead.php` en Hostinger:**
+   Subir este archivo PHP al directorio raíz de la Landing Page:
 
-2. **Personalización del Pipeline Comercial (Etapas de la Oportunidad):**
-   Editar el campo `stage` (Etapa) en la entidad `Opportunity` para desplegar las 10 etapas comerciales del negocio:
-   * **Identificada** (Identified)
-   * **Investigada** (Investigated)
-   * **Contactada** (Contacted)
-   * **Respondió** (Replied)
-   * **Reunión Agendada** (Meeting Scheduled)
-   * **Diagnóstico Realizado** (Discovery / Diagnosis Done)
-   * **Propuesta Enviada** (Proposal Sent)
-   * **Piloto** (Pilot)
-   * **Cliente Activo** (Active Client / Closed Won)
-   * **No Interesado** (Not Interested / Closed Lost)
+```php
+<?php
+// submit_lead.php - Handler Seguro para Captura de Leads en Hostinger Shared Hosting
+header('Content-Type: application/json');
 
-3. **Integración del Formulario API (Lead Capture):**
-   * Ir a **Administration -> Lead Capture**. Crear una nueva campaña de captura.
-   * EspoCRM generará un **Access Key** de API y un Payload en formato JSON.
-   * Configurar el script de procesamiento del formulario de la Landing Page en Hostinger para enviar un POST HTTP con los datos ingresados al endpoint de EspoCRM `/api/v1/LeadCapture/YOUR_ACCESS_KEY`.
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['error' => 'Method Not Allowed']);
+    exit;
+}
+
+// 1. Validar Google reCAPTCHA v3 en el Backend
+$recaptchaSecret = 'TU_RECAPTCHA_SECRET_KEY_AQUI'; // Reemplazar con clave secreta
+$recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
+
+if (empty($recaptchaResponse)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Falta validación de seguridad recaptcha.']);
+    exit;
+}
+
+$verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecret}&response={$recaptchaResponse}");
+$responseData = json_decode($verify);
+
+if (!$responseData->success || $responseData->score < 0.5) {
+    http_response_code(403);
+    echo json_encode(['error' => 'Fallo en la validación anti-bot.']);
+    exit;
+}
+
+// 2. Sanitizar datos recibidos
+$rut = filter_var($_POST['rutEmpresa'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+$trabajadores = filter_var($_POST['numeroTrabajadores'] ?? 0, FILTER_VALIDATE_INT);
+$mandante = filter_var($_POST['mandantePrincipal'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+$plataforma = filter_var($_POST['plataformaAcreditacion'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+$firstName = filter_var($_POST['firstName'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+$lastName = filter_var($_POST['lastName'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+$email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
+
+if (!$email) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Email no válido.']);
+    exit;
+}
+
+// 3. Reenviar Payload vía cURL seguro a la API interna de EspoCRM
+$crmUrl = 'https://crm.hrinser.cl/api/v1/LeadCapture/TU_ACCESS_KEY_DE_ESPOCRM';
+$payload = json_encode([
+    'firstName' => $firstName,
+    'lastName' => $lastName,
+    'emailAddress' => $email,
+    'rutEmpresa' => $rut,
+    'numeroTrabajadores' => $trabajadores,
+    'mandantePrincipal' => $mandante,
+    'plataformaAcreditacion' => $plataforma
+]);
+
+$ch = curl_init($crmUrl);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($payload)
+]);
+
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($httpCode === 200 || $httpCode === 201) {
+    echo json_encode(['status' => 'success', 'message' => 'Lead registrado correctamente.']);
+} else {
+    error_log("Fallo en LeadCapture de EspoCRM: " . $response);
+    http_response_code(502);
+    echo json_encode(['error' => 'No se pudo conectar con el servidor CRM de destino.']);
+}
+?>
+```
+
+2. **Configuración de Oportunidades y Pipeline:**
+   Ingresar a **Administración -> Entity Manager -> Opportunity** y configurar los campos personalizados (`rutEmpresa`, `numeroTrabajadores`, `mandantePrincipal`, `plataformaAcreditacion`) y las 10 etapas del pipeline comercial como se describió anteriormente.
 
 ---
 
@@ -149,7 +210,7 @@ RUN chown -R www-data:www-data /var/www/html
 ```
 
 ### Paso 3.4: Archivo de Orquestación Docker Compose (`docker-compose.yml`)
-Este archivo define el stack con límites estrictos de CPU y memoria RAM para evitar que los picos de OCR consuman toda la memoria física del host y activen el kernel **OOM Killer** del sistema operativo.
+Este archivo define el stack con límites estrictos de CPU y memoria RAM para evitar que los picos de OCR consuman toda la memoria física del host y activen el kernel **OOM Killer** del sistema operativo. Los límites se reajustan a un total de **3.0 GB** de RAM, reservando 1 GB para el sistema operativo Host del VPS.
 
 ```yaml
 version: '3.8'
@@ -172,8 +233,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1024M
+          cpus: '0.8'
+          memory: 768M      # Reducido de 1024M para evitar OOM
         reservations:
           memory: 256M
     healthcheck:
@@ -196,10 +257,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 512M
+          cpus: '0.3'
+          memory: 256M      # Reducido de 512M para optimización
         reservations:
-          memory: 128M
+          memory: 64M
     healthcheck:
       test: ["CMD", "redis-cli", "-a", "SecurePass_Redis_32Char!", "ping"]
       interval: 10s
@@ -238,8 +299,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.5'
-          memory: 2048M
+          cpus: '1.2'
+          memory: 1536M     # Reducido de 2048M para evitar OOM
         reservations:
           memory: 512M
     healthcheck:
@@ -249,7 +310,7 @@ services:
       retries: 3
 
   # ----------------------------------------------------------------------------
-  # CRON SERVICE: Demonio asíncrono para la ejecución de tareas de fondo
+  # CRON SERVICE: Ejecución de tareas de fondo usando el script oficial cron.sh
   # ----------------------------------------------------------------------------
   cron:
     build:
@@ -259,14 +320,7 @@ services:
     restart: always
     volumes:
       - nextcloud_data:/var/www/html
-    entrypoint: |
-      bash -c "
-      echo 'Iniciando demonio cron interno para Nextcloud...'
-      while true; do
-        su -s /bin/bash www-data -c 'php -f /var/www/html/cron.php'
-        sleep 300
-      done
-      "
+    entrypoint: /cron.sh   # Reemplaza bucles personalizados para evitar fallas de inicio
     depends_on:
       db:
         condition: service_healthy
@@ -275,10 +329,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 512M
+          cpus: '0.25'
+          memory: 256M      # Ajustado para ejecución secuencial
         reservations:
-          memory: 128M
+          memory: 64M
 
 volumes:
   db_data:
@@ -305,25 +359,35 @@ Para garantizar la confidencialidad de los exámenes de salud y liquidaciones de
    ```bash
    docker exec -u www-data hrinser-nextcloud-app php occ encryption:enable
    ```
+3. Activar el uso de la Master Key para posibilitar recuperaciones centralizadas ante olvido de contraseñas de usuarios:
+   ```bash
+   docker exec -u www-data hrinser-nextcloud-app php occ encryption:enable-master-key
+   ```
 
 ### Paso 4.2: Enforzar Doble Factor de Autenticación (2FA) Obligatorio
 Para impedir el uso de contraseñas débiles o accesos no autorizados:
-1. Habilitar la app de autenticación de dos factores (ej: `twofactor_totp`):
+1. Habilitar la app de autenticación de dos factores TOTP:
    ```bash
    docker exec -u www-data hrinser-nextcloud-app php occ app:enable twofactor_totp
    ```
-2. Forzar que todos los grupos de usuarios deban configurar obligatoriamente el 2FA en su primer inicio de sesión:
+2. Forzar que todos los usuarios deban configurar obligatoriamente el 2FA en su primer inicio de sesión:
    ```bash
-   docker exec -u www-data hrinser-nextcloud-app php occ twofactor:enforce
+   docker exec -u www-data hrinser-nextcloud-app php occ twofactorauth:enforce --all
    ```
 
-### Paso 4.3: Registro de Actividades Inmutable (Audit Trail)
-Activar el log administrativo de accesos para contar con registros forenses válidos ante mandantes y tribunales:
-1. Habilitar el módulo de auditoría:
+### Paso 4.3: Registro de Actividades Inmutable y Redirección a Standard Output
+Para evitar que un intruso con privilegios de administrador pueda borrar el log de auditoría local, se re-direcciona el flujo de logs de Nextcloud hacia el motor de logs del Host (stderr/systemd) y se configura el loglevel necesario para el módulo `admin_audit`:
+1. Habilitar el módulo de auditoría administrativa:
    ```bash
    docker exec -u www-data hrinser-nextcloud-app php occ app:enable admin_audit
    ```
-2. Configurar el archivo `config.php` de Nextcloud para redirigir los logs de auditoría a la salida estándar o a un archivo dedicado `/var/www/html/data/audit.log`, asegurando que registre la IP origen del cliente y el identificador de usuario en cada lectura, descarga o borrado de archivos.
+2. Inyectar los parámetros de log en el archivo `config.php`:
+   ```bash
+   # Configurar log_type a errorlog o systemd para enviar las trazas fuera del volumen de Docker
+   docker exec -u www-data hrinser-nextcloud-app php occ config:system:set log_type --value="errorlog"
+   # Ajustar nivel de logs a 1 (Info) para capturar lecturas y escrituras de archivos
+   docker exec -u www-data hrinser-nextcloud-app php occ config:system:set loglevel --value=1 --type=int
+   ```
 
 ### Paso 4.4: Estructura de Carpetas Estandarizada (Skeleton)
 Configurar la plantilla base de Nextcloud para que, al crear la cuenta del cliente contratista, se genere la estructura obligatoria de acreditación laboral de forma automática.
@@ -354,20 +418,87 @@ Para transferir los 100 GB históricos sin cortes por carga de navegador:
 Tesseract OCR consume dinámicamente un hilo completo de CPU al digitalizar imágenes y PDFs. Para evitar cuellos de botella durante horario de oficina:
 1. En el panel de administración de Nextcloud, ir a **Ajustes de Administración -> Ajustes Básicos -> Tareas en Segundo Plano** y seleccionar la opción **Cron**.
 2. Instalar y habilitar la aplicación **OCR** de la tienda de aplicaciones de Nextcloud.
-3. Configurar la ruta de ejecución en la configuración de la app de OCR como `/usr/bin/tesseract` y el idioma a `Spanish (spa)`.
-4. Configurar el programador del host VPS para ejecutar la cola de OCR en horario no hábil (madrugada) para procesar los documentos en bloque:
+3. Desactivar el procesamiento OCR automático al cargar archivos, obligándolo a encolarse:
+   ```bash
+   docker exec -u www-data hrinser-nextcloud-app php occ config:app:set files_ocr ocr_process_on_upload --value="false"
+   docker exec -u www-data hrinser-nextcloud-app php occ config:app:set files_ocr ocr_process_mode --value="cron"
+   ```
+4. Sincronizar la zona horaria del host VPS a la hora oficial de Chile para evitar desfases con UTC:
+   ```bash
+   sudo timedatectl set-timezone America/Santiago
+   ```
+5. Configurar el programador del host VPS para ejecutar la cola de OCR en horario no hábil (madrugada):
    ```bash
    sudo crontab -e
    ```
-5. Añadir la siguiente regla cron programada diariamente a las **03:00 AM (hora local chilena)**:
+6. Añadir la siguiente regla cron programada diariamente a las **03:00 AM (hora local chilena)**:
    ```text
    0 3 * * * docker exec -u www-data hrinser-nextcloud-app php occ ocr:process
    ```
-6. Guardar y salir. Esto garantiza que la carga pesada de CPU de Tesseract ocurra cuando la concurrencia en la plataforma es nula.
 
 ---
 
-## 6. Flujo de Onboarding Técnico de un Nuevo Cliente Contratista
+## 6. Automatización de Copias de Seguridad (Backups)
+
+El cumplimiento normativo de la Ley 21.719 exige salvaguardas de disponibilidad y cifrado para los respaldos del sistema.
+
+### 6.1. Copias de Seguridad de EspoCRM (Hostinger Shared Hosting)
+Se debe programar una rutina semanal para archivar y respaldar la base de datos de EspoCRM. Hostinger realiza copias diarias automatizadas en su plan Unlimited. Para contar con un respaldo local adicional seguro, se puede estructurar un script de exportación MySQL y descargas mediante SSH.
+
+### 6.2. Copias de Seguridad de Nextcloud DMS (Elestio Multi-VPS)
+Crear un archivo script en el Host VPS en `/opt/hrinser-dms/scripts/backup_nextcloud.sh`:
+
+```bash
+#!/bin/bash
+# Backup Nextcloud DMS - Elestio VPS (Cifrado GPG + Modo Mantenimiento)
+set -e
+
+BACKUP_DIR="/var/backups/nextcloud"
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_PATH="$BACKUP_DIR/nextcloud_backup_$DATE"
+APP_CONTAINER="hrinser-nextcloud-app"
+DB_CONTAINER="hrinser-nextcloud-db"
+
+mkdir -p $BACKUP_DIR
+
+echo "=== Iniciando Respaldo DMS ==="
+
+# 1. Forzar Modo Mantenimiento en Nextcloud
+docker exec -u www-data $APP_CONTAINER php occ maintenance:mode --on
+
+# 2. Dump de la Base de Datos PostgreSQL
+docker exec $DB_CONTAINER pg_dump -U nextcloud_usr -d nextcloud_db > "$BACKUP_PATH.sql"
+
+# 3. Comprimir dump y volumen de datos
+tar -czf "$BACKUP_PATH.tar.gz" \
+    -C /var/lib/docker/volumes/opt_nextcloud_data/_data . \
+    -C "$BACKUP_DIR" "nextcloud_backup_$DATE.sql"
+
+# 4. Limpiar dump temporal
+rm "$BACKUP_PATH.sql"
+
+# 5. Apagar Modo Mantenimiento
+docker exec -u www-data $APP_CONTAINER php occ maintenance:mode --off
+
+# 6. Cifrar el archivo de respaldo con clave simétrica AES-256
+# IMPORTANTE: Definir la clave y aislar el respaldo de /var/www/html/data/files_encryption/ en otra bóveda externa
+echo "ClaveGPG_NextcloudDMS_2026" | gpg --batch --yes --passphrase-fd 0 -c "$BACKUP_PATH.tar.gz"
+rm "$BACKUP_PATH.tar.gz"
+
+# 7. Mantener solo los últimos 14 respaldos (Rotación automática)
+find $BACKUP_DIR -name "nextcloud_backup_*.tar.gz.gpg" -mtime +14 -delete
+
+echo "=== Respaldo DMS Finalizado: $BACKUP_PATH.tar.gz.gpg ==="
+```
+
+Programar la ejecución diaria del backup a las **04:00 AM** en el crontab del Host VPS:
+```text
+0 4 * * * /bin/bash /opt/hrinser-dms/scripts/backup_nextcloud.sh >> /var/log/backup_nextcloud.log 2>&1
+```
+
+---
+
+## 7. Flujo de Onboarding Técnico de un Nuevo Cliente Contratista
 
 Cuando una oportunidad comercial se cierra como ganada y el cliente pasa a estado **"Cliente Activo"** en EspoCRM, se ejecuta el siguiente flujo técnico de aprovisionamiento:
 
@@ -399,18 +530,21 @@ Cuando una oportunidad comercial se cierra como ganada y el cliente pasa a estad
 
 ---
 
-## 7. Plan de Verificación y Pruebas (UAT) para Desarrolladores
+## 8. Plan de Verificación y Pruebas (UAT) para Desarrolladores
 
 Antes de entregar los portales de clientes y el CRM a producción, los desarrolladores deben validar las siguientes pruebas de aceptación:
 
 | Test Case | Objetivo | Procedimiento de Validación | Resultado Esperado |
 | :--- | :--- | :--- | :--- |
-| **TC-01** | Validar aislamiento de red y archivos | Intentar acceder desde el contenedor del Cliente A al volumen y base de datos del Cliente B. | Error de conexión (redes de Docker completamente aisladas por VPS dedicado). |
+| **TC-01** | Validar aislamiento de red y firewall de puertos | Desde una máquina externa, ejecutar un escaneo de puertos: `nmap -p 5432,6379,80,443 IP_VPS_CLIENTE`. | Solo los puertos 80 y 443 deben figurar como abiertos. 5432 (Postgres) y 6379 (Redis) deben estar bloqueados. |
 | **TC-02** | Validar cifrado en reposo | Acceder por terminal al volumen físico del host y ejecutar `cat` en un archivo PDF subido en la carpeta del cliente. | El texto devuelto debe ser ilegible / binario encriptado (Server-Side Encryption activo). |
 | **TC-03** | Validar enforzamiento de 2FA | Crear un usuario de prueba en Nextcloud e intentar iniciar sesión sin configurar 2FA. | El sistema debe bloquear el dashboard y exigir obligatoriamente el enrolamiento de 2FA. |
-| **TC-04** | Validar inmutabilidad de logs | Descargar un archivo con el usuario de prueba, acceder al contenedor de base de datos/archivos y leer el archivo `audit.log`. | Debe existir una entrada JSON conteniendo la IP origen, el usuario, la acción `file_download` y el archivo exacto. |
-| **TC-05** | Validar OCR en horario no hábil | Subir un archivo PDF escaneado (imagen), ejecutar manualmente el comando de OCR `php occ ocr:process` y verificar que el texto del PDF ahora sea seleccionable y buscable. Verificar que el cronjob del host está activo con `crontab -l`. | El texto del PDF se digitaliza exitosamente y la tarea cron está programada a las 03:00 AM. |
+| **TC-04** | Validar inmutabilidad de logs | Descargar un archivo con el usuario de prueba, acceder al logs del Host (syslog/systemd) y buscar eventos de `admin_audit`. | Debe existir una entrada JSON conteniendo la IP origen real, el usuario, la acción `file_download` y el archivo exacto. |
+| **TC-05** | Validar OCR en horario no hábil y zona horaria | 1. Ejecutar `timedatectl` en el host para confirmar la zona horaria `America/Santiago`. <br>2. Verificar en el log de OCR que las tareas de digitalización se encolaron y se ejecutaron a las 03:00 AM. | El texto de la imagen del PDF es seleccionable/buscable y la tarea se ejecutó en la madrugada. |
 | **TC-06** | Validar Lead Capture en EspoCRM | Completar el formulario de la Landing Page y verificar en la consola de administración de EspoCRM que se cree el Lead y los datos de RUT y trabajadores se guarden. | El contacto se crea automáticamente en la base de datos de EspoCRM con los campos correspondientes. |
+| **TC-07** | Validar Recuperación ante Desastres (DR) | 1. Ejecutar el script `backup_nextcloud.sh`. <br>2. Destruir la instancia y volúmenes (`docker compose down -v`). <br>3. Restaurar base de datos y archivos. | El sistema web vuelve a estar operativo con la data recuperada en menos de 20 minutos. |
+| **TC-08** | Aislamiento de llaves de cifrado | Comprobar que el script de backups no almacene el directorio `/var/www/html/data/files_encryption/` en el mismo destino físico que el backup del volumen de datos principal. | Las llaves de cifrado se respaldan de manera independiente en una bóveda o servidor separado. |
+| **TC-09** | Validar Rate Limiting y Google reCAPTCHA v3 | Utilizar herramientas de testeo de carga (ej: `ab` o script en bucle) para enviar 50 peticiones consecutivas al script `submit_lead.php`. | El script intermediario de Hostinger rechaza las peticiones por falta de token de reCAPTCHA o devuelve HTTP `429 Too Many Requests`. |
 
 ---
 *(Fin del Documento)*
