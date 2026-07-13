@@ -11,38 +11,39 @@
 
 Esta guía detalla las tareas técnicas y de infraestructura necesarias para implementar y desplegar el ecosistema digital de **HRINSER** (Gestión Comercial SpA). La solución está compuesta por:
 1. **Landing Page Corporativa:** Un frontend estático avanzado con soporte multi-idioma (Español/Inglés/Chino) y selector de modo claro/oscuro.
-2. **Backoffice CRM (HubSpot):** Parametrización del pipeline de ventas de 10 etapas con campos obligatorios para el control de prospectos.
+2. **Backoffice CRM de Código Abierto (EspoCRM):** Despliegue de la solución self-hosted EspoCRM en Docker con base de datos MariaDB. Parametrización del pipeline de ventas de 10 etapas en la entidad Oportunidades y adición de campos personalizados (RUT, dotación, mandante, plataforma de acreditación) mediante el Entity Manager.
 3. **Plataforma de Gestión Documental (DMS Nextcloud):** Arquitectura **Multi-VPS en Elestio**. Cada cliente contratista opera en una máquina virtual dedicada con su propio stack aislado en Docker (Nextcloud Core + PostgreSQL + Redis + Cron), cumpliendo de manera estricta las exigencias de privacidad de la **Ley 21.719**.
 
 ```
 [Cliente Web] ---> [DNS Cloudflare]
                           │
-       ┌──────────────────┴──────────────────┐ (HTTPS / TLS 1.3)
-       ▼                                     ▼
-┌──────────────┐                      ┌──────────────┐
-│ VPS Cliente1 │                      │ VPS Cliente2 │
-│ (Elestio)    │                      │ (Elestio)    │
-├──────────────┤                      ├──────────────┤
-│ NC App       │                      │ NC App       │
-│ Postgres DB  │                      │ Postgres DB  │
-│ Redis Cache  │                      │ Redis Cache  │
-│ Vol. Cifrado │                      │ Vol. Cifrado │
-└──────────────┘                      └──────────────┘
+       ┌──────────────────┴────────────────────────────────────────────────┐ (HTTPS / TLS 1.3)
+       ▼                                   ▼                               ▼
+┌──────────────┐                    ┌──────────────┐               ┌──────────────┐
+│ VPS EspoCRM  │                    │ VPS Cliente1 │               │ VPS Cliente2 │
+│ (MariaDB)    │                    │ (Elestio NC) │               │ (Elestio NC) │
+├──────────────┤                    ├──────────────┤               ├──────────────┤
+│ EspoApp      │                    │ NC App       │               │ NC App       │
+│ MariaDB DB   │                    │ Postgres DB  │               │ Postgres DB  │
+│              │                    │ Redis Cache  │               │ Redis Cache  │
+│              │                    │ Vol. Cifrado │               │ Vol. Cifrado │
+└──────────────┘                    └──────────────┘               └──────────────┘
 ```
 
 ---
 
-## 2. Fase 1: Configuración de DNS, Landing Page y HubSpot CRM
+## 2. Fase 1: Configuración de DNS, Landing Page y Despliegue de EspoCRM
 
 ### Paso 2.1: Gestión de DNS y Zonas en Cloudflare
 1. Configurar la zona DNS del dominio `hrinser.cl` en Cloudflare.
-2. Crear registros de tipo `A` comodín (Wildcard) o subdominios específicos apuntando a las IPs de los servidores aprovisionados:
+2. Crear registros de tipo `A` comodín (Wildcard) o subdominios específicos apuntando a las IPs de los servidores de DMS y de CRM:
+   * `crm.hrinser.cl` -> `IP_VPS_CRM_ESPO`
    * `alfa.hrinser.cl` -> `IP_VPS_ALFA`
    * `beta.hrinser.cl` -> `IP_VPS_BETA`
 3. Habilitar la política de seguridad SSL/TLS en modo **Strict (Estricto)** en Cloudflare para forzar conexiones HTTPS cifradas de extremo a extremo.
 
 ### Paso 2.2: Despliegue de la Landing Page Corporativa
-1. **Estructura del Proyecto:** La Landing Page debe ser un desarrollo liviano (HTML/CSS Vanilla o Vite/React estático) estructurado para evitar cuellos de botella de renderizado.
+1. **Estructura del Proyecto:** La Landing Page debe ser un desarrollo liviano (HTML/CSS Vanilla o Vite/React estático).
 2. **Soporte Multi-Idioma (i18n):**
    * Configurar un selector de idiomas en el header que modifique de forma reactiva las cadenas de texto del sitio (Español, Inglés y Chino).
    * Almacenar la preferencia de idioma del navegador en el `localStorage` del cliente.
@@ -51,19 +52,100 @@ Esta guía detalla las tareas técnicas y de infraestructura necesarias para imp
    * Por defecto, leer la preferencia del sistema operativo del usuario (`prefers-color-scheme`).
 4. **Formulario de Captación de Leads:**
    * Diseñar un formulario de contacto seguro que valide en el cliente los campos obligatorios: Nombre, Correo Corporativo, Teléfono, Empresa, RUT y Número de Trabajadores.
-   * Conectar el envío del formulario a la API de HubSpot o mediante Webhooks seguros.
+   * Conectar el envío del formulario mediante una petición HTTP POST a la API de Captura de Leads de EspoCRM (`api/v1/Lead`).
 
-### Paso 2.3: Configuración de HubSpot CRM
-1. **Configuración de la Cuenta:** Acceder a la consola de desarrollador o administrador de HubSpot.
-2. **Creación del Pipeline Comercial:** Configurar un pipeline de negocios con las siguientes 10 etapas exactas:
-   $$\text{Identificada} \rightarrow \text{Investigada} \rightarrow \text{Contactada} \rightarrow \text{Respondió} \rightarrow \text{Reunión Agendada} \rightarrow \text{Diagnóstico Realizado} \rightarrow \text{Propuesta Enviada} \rightarrow \text{Piloto} \rightarrow \text{Cliente Activo} \rightarrow \text{No Interesado}$$
-3. **Propiedades Personalizadas y Obligatoriedad:**
-   Crear y exigir los siguientes campos para que un negocio pueda ser avanzado a la etapa de "Propuesta Enviada":
-   * `rut_empresa` (Formato RUT chileno validado por expresión regular).
-   * `numero_trabajadores` (Número entero).
-   * `mandante_principal` (Texto).
-   * `plataforma_acreditacion` (Menú desplegable: SUCAL, Workmate, SAP, Sistemas Internos).
-   * `fecha_proximo_seguimiento` (Fecha, campo obligatorio).
+### Paso 2.3: Despliegue e Integración de EspoCRM (Self-Hosted)
+El CRM se despliega en su propio VPS utilizando Docker Compose y MariaDB.
+
+#### A. Archivo `docker-compose.yml` para EspoCRM
+Crear el archivo de despliegue para el CRM en `/opt/espocrm/`:
+
+```yaml
+version: '3.8'
+
+services:
+  espocrm-db:
+    image: mariadb:10.11-jammy
+    container_name: espocrm-db
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: RootSecurePass_EspoDB2026! # MODIFICAR EN PRODUCCIÓN
+      MARIADB_DATABASE: espocrm
+      MARIADB_USER: espocrm_user
+      MARIADB_PASSWORD: SecurePass_EspoDB2026!       # MODIFICAR EN PRODUCCIÓN
+    volumes:
+      - espocrm_db_data:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+
+  espocrm:
+    image: espocrm/espocrm:latest
+    container_name: espocrm
+    restart: always
+    expose:
+      - "80"
+    # Para pruebas locales o mapear puertos detrás de Nginx Proxy Manager:
+    # ports:
+    #   - "8088:80"
+    environment:
+      ESPOCRM_DATABASE_HOST: espocrm-db
+      ESPOCRM_DATABASE_USER: espocrm_user
+      ESPOCRM_DATABASE_PASSWORD: SecurePass_EspoDB2026!
+      ESPOCRM_DATABASE_NAME: espocrm
+      ESPOCRM_LANGUAGE: es_ES
+    volumes:
+      - espocrm_custom:/var/www/html/custom
+      - espocrm_data:/var/www/html/data
+      - espocrm_client_custom:/var/www/html/client/custom
+    depends_on:
+      - espocrm-db
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1536M
+
+volumes:
+  espocrm_db_data:
+    driver: local
+  espocrm_custom:
+    driver: local
+  espocrm_data:
+    driver: local
+  espocrm_client_custom:
+    driver: local
+```
+
+#### B. Configuración de Entidades y Pipeline Comercial en EspoCRM
+Para parametrizar el CRM según el modelo de negocio, el desarrollador debe ingresar al Panel de Administración de EspoCRM y realizar los siguientes ajustes mediante el **Entity Manager**:
+
+1. **Campos Personalizados en la Entidad Oportunidad (`Opportunity`) / Cliente Potencial (`Lead`):**
+   Añadir mediante **Administration -> Entity Manager -> Opportunity -> Fields -> Add Field**:
+   * `rutEmpresa` (Type: Varchar, Label: "RUT Empresa", con validación de formato RUT chileno en el cliente).
+   * `numeroTrabajadores` (Type: Integer, Label: "Número de Trabajadores").
+   * `mandantePrincipal` (Type: Varchar, Label: "Mandante Principal").
+   * `plataformaAcreditacion` (Type: Enum, Label: "Plataforma de Acreditación", Options: `SUCAL`, `Workmate`, `SAP`, `Sistemas Internos`).
+
+2. **Personalización del Pipeline Comercial (Etapas de la Oportunidad):**
+   Editar el campo `stage` (Etapa) en la entidad `Opportunity` para desplegar las 10 etapas comerciales del negocio:
+   * **Identificada** (Identified)
+   * **Investigada** (Investigated)
+   * **Contactada** (Contacted)
+   * **Respondió** (Replied)
+   * **Reunión Agendada** (Meeting Scheduled)
+   * **Diagnóstico Realizado** (Discovery / Diagnosis Done)
+   * **Propuesta Enviada** (Proposal Sent)
+   * **Piloto** (Pilot)
+   * **Cliente Activo** (Active Client / Closed Won)
+   * **No Interesado** (Not Interested / Closed Lost)
+
+3. **Integración del Formulario API (Lead Capture):**
+   * Ir a **Administration -> Lead Capture**. Crear una nueva campaña de captura.
+   * EspoCRM generará un **Access Key** de API y un Payload en formato JSON.
+   * Configurar el script de procesamiento del formulario de la Landing Page para enviar un POST HTTP con los datos ingresados al endpoint de EspoCRM `/api/v1/LeadCapture/YOUR_ACCESS_KEY`.
 
 ---
 
@@ -322,9 +404,41 @@ Tesseract OCR consume dinámicamente un hilo completo de CPU al digitalizar imá
 
 ---
 
-## 6. Plan de Verificación y Pruebas (UAT) para Desarrolladores
+## 6. Flujo de Onboarding Técnico de un Nuevo Cliente Contratista
 
-Antes de entregar los portales de clientes a producción, los desarrolladores deben validar las siguientes pruebas de aceptación:
+Cuando una oportunidad comercial se cierra como ganada y el cliente pasa a estado **"Cliente Activo"** en EspoCRM, se ejecuta el siguiente flujo técnico de aprovisionamiento:
+
+```
+[Cambio de Estado en EspoCRM]
+              │
+              ▼
+1. Aprovisionamiento Cloud (Desarrollador DevOps)
+   - Levantar VPS Dedicado de 2 vCPUs y 4 GB de RAM en Elestio.
+   - Apuntar subdominio de Cloudflare (ej: cliente.hrinser.cl) a la IP.
+   - Activar cifrado en reposo LUKS a nivel de disco del host.
+              │
+              ▼
+2. Configuración y Endurecimiento DMS (Desarrollador DevOps)
+   - Ejecutar docker-compose up -d.
+   - Activar Cifrado Server-Side y 2FA obligatorio vía occ CLI.
+   - Estructurar el skeleton de carpetas básicas de control documental.
+              │
+              ▼
+3. Ingesta de Datos Históricos (Desarrollador DevOps)
+   - Cargar los documentos previos del contratista vía SFTP.
+   - Sincronizar indexación de base de datos con occ files:scan.
+              │
+              ▼
+4. Entrega de Credenciales e Inducción (Vanessa Galdames)
+   - Generar el usuario final de acceso en Nextcloud.
+   - Enrolar 2FA del cliente y realizar capacitación de 30 minutos.
+```
+
+---
+
+## 7. Plan de Verificación y Pruebas (UAT) para Desarrolladores
+
+Antes de entregar los portales de clientes y el CRM a producción, los desarrolladores deben validar las siguientes pruebas de aceptación:
 
 | Test Case | Objetivo | Procedimiento de Validación | Resultado Esperado |
 | :--- | :--- | :--- | :--- |
@@ -333,6 +447,7 @@ Antes de entregar los portales de clientes a producción, los desarrolladores de
 | **TC-03** | Validar enforzamiento de 2FA | Crear un usuario de prueba en Nextcloud e intentar iniciar sesión sin configurar 2FA. | El sistema debe bloquear el dashboard y exigir obligatoriamente el enrolamiento de 2FA. |
 | **TC-04** | Validar inmutabilidad de logs | Descargar un archivo con el usuario de prueba, acceder al contenedor de base de datos/archivos y leer el archivo `audit.log`. | Debe existir una entrada JSON conteniendo la IP origen, el usuario, la acción `file_download` y el archivo exacto. |
 | **TC-05** | Validar OCR en horario no hábil | Subir un archivo PDF escaneado (imagen), ejecutar manualmente el comando de OCR `php occ ocr:process` y verificar que el texto del PDF ahora sea seleccionable y buscable. Verificar que el cronjob del host está activo con `crontab -l`. | El texto del PDF se digitaliza exitosamente y la tarea cron está programada a las 03:00 AM. |
+| **TC-06** | Validar Lead Capture en EspoCRM | Completar el formulario de la Landing Page y verificar en la consola de administración de EspoCRM que se cree el Lead y los datos de RUT y trabajadores se guarden. | El contacto se crea automáticamente en la base de datos de EspoCRM con los campos correspondientes. |
 
 ---
 *(Fin del Documento)*
