@@ -7,18 +7,18 @@
 
 ---
 
-## 1. Resumen de la Arquitectura del Sistema
+## 1. Distribución de Infraestructura y Resumen Arquitectónico
 
-Esta guía detalla las tareas técnicas y de infraestructura necesarias para implementar y desplegar el ecosistema digital de **HRINSER** (Gestión Comercial SpA). 
+Para evitar confusiones en el desarrollo y despliegue, se establece explícitamente la distribución física de cada componente del ecosistema digital de **HRINSER** (Gestión Comercial SpA):
 
-Dado que se cuenta contratado el plan **Hostinger Shared Web Hosting (Plan Unlimited)**, la arquitectura se optimiza para no requerir un VPS adicional para el CRM, reduciendo costos operacionales. La Landing Page y el CRM se desplegarán de forma nativa (sin contenedores) en Hostinger. La plataforma de almacenamiento documental (DMS), por sus requisitos de OCR pesado, volumen e inmutabilidad, se mantiene sobre servidores dedicados en Elestio:
-
-1. **Landing Page Corporativa:** Frontend estático desplegado en **Hostinger Web Hosting (Plan Unlimited)**.
-2. **Backoffice CRM de Código Abierto (EspoCRM):** Instalación nativa basada en la pila **PHP / MySQL** dentro del mismo plan **Hostinger Shared Web Hosting**. Se configuran las bases de datos y la ejecución del script cron mediante el hPanel, parametrizando el pipeline de ventas de 10 etapas en la entidad Oportunidades y campos personalizados mediante el Entity Manager.
-3. **Plataforma de Gestión Documental (DMS Nextcloud):** Arquitectura **Multi-VPS en Elestio**. Cada cliente contratista opera en una máquina virtual dedicada con su propio stack aislado en Docker (Nextcloud Core + PostgreSQL + Redis + Cron), cumpliendo de manera estricta las exigencias de privacidad de la **Ley 21.719**.
+| Componente | Tipo de Aplicación | Proveedor de Hosting / Servidor | Razón Técnica / Operativa |
+| :--- | :--- | :--- | :--- |
+| **Landing Page** | Frontend estático (HTML/CSS/JS) | **Hostinger Shared Web Hosting** (Plan Unlimited) | Consumo mínimo de recursos, bajo costo, despliegue simple. |
+| **EspoCRM** | Aplicación PHP Nativa + DB MariaDB | **Hostinger Shared Web Hosting** (Plan Unlimited) | Instalación directa sin contenedores, aprovechando la base de datos MySQL y el soporte PHP nativo contratado para ahorrar costos. |
+| **DMS (Nextcloud)** | Stack Docker (App, Postgres, Redis, Cron) | **Elestio Multi-VPS** (Un VPS dedicado de 4GB por Cliente) | Requisitos de CPU intensiva para procesamiento de OCR (Tesseract) en PDF e inmutabilidad de almacenamiento bajo la **Ley 21.719**. |
 
 ```
-[Cliente Web] ---> [DNS Cloudflare / Hostinger]
+[Cliente Web] ---> [DNS Cloudflare (Proxy SSL/TLS)]
                           │
        ┌──────────────────┴────────────────────────────────────────────────┐ (HTTPS / TLS 1.3)
        ▼                                   ▼                               ▼
@@ -32,6 +32,10 @@ Dado que se cuenta contratado el plan **Hostinger Shared Web Hosting (Plan Unlim
 │              │                    │ Vol. Cifrado │               │ Vol. Cifrado │
 └──────────────┘                    └──────────────┘               └──────────────┘
 ```
+
+> [!IMPORTANT]
+> **Regla de Enrutamiento DNS y SSL:**
+> El dominio principal `hrinser.cl` y sus subdominios se gestionan mediante **Cloudflare** para proteger la infraestructura contra ataques de denegación de servicio (DDoS). Dado que forzamos HTTPS en todos los servidores, en el panel de Cloudflare se debe configurar obligatoriamente el modo SSL/TLS como **Full (strict)**. Si se deja en "Flexible", se provocará un bucle infinito de redirecciones en el navegador del usuario.
 
 ---
 
@@ -47,7 +51,7 @@ Dado que se cuenta contratado el plan **Hostinger Shared Web Hosting (Plan Unlim
 3. En Cloudflare o Hostinger, habilitar el certificado SSL gratuito para el dominio principal y el subdominio `crm.hrinser.cl`, forzando la redirección automática a HTTPS.
 
 ### Paso 2.2: Despliegue de la Landing Page en Hostinger
-1. **Pipeline de CI/CD (GitHub Actions):** Si la landing page requiere una compilación previa (como empaquetadores de Tailwind o Vite), utilizar la plantilla de GitHub Actions `.github/workflows/deploy.yml` para compilar y desplegar vía SFTP de manera automática:
+1. **CI/CD Pipeline (GitHub Actions):** Si la landing page requiere una compilación previa (como empaquetadores de Tailwind o Vite), utilizar la plantilla de GitHub Actions `.github/workflows/deploy.yml` para compilar y desplegar vía SFTP de manera automática:
 
 ```yaml
 name: Deploy Landing Page to Hostinger
@@ -121,6 +125,7 @@ jobs:
 1. **Crear Base de Datos MySQL:**
    * Ir a **Bases de datos -> Bases de datos MySQL** en hPanel.
    * Crear la base de datos `uXXXXX_espocrm` y el usuario `uXXXXX_espo_usr` con contraseña de 24 caracteres.
+   * **Nota de Advertencia:** En Hostinger Shared Hosting, el host de la base de datos a menudo **no es localhost**, sino una dirección específica del servidor MySQL (ej: `sql123.main-hosting.eu`). Copiar la dirección exacta del host desde hPanel.
    * Configurar el conjunto de caracteres en **`utf8mb4`** y la colación en **`utf8mb4_unicode_ci`** para evitar fallos de ejecución con caracteres especiales en los formularios:
      ```sql
      ALTER DATABASE uXXXXX_espocrm CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -141,7 +146,10 @@ jobs:
      /usr/bin/php8.2 /home/uXXXXX/domains/hrinser.cl/public_html/crm/cron.php >> /home/uXXXXX/domains/hrinser.cl/public_html/crm/data/logs/cron_errors.log 2>&1
      ```
 
-#### C. Seguridad de Formulario (Validación RUT y reCAPTCHA v3)
+#### C. Envío de Correos (SMTP Corporativo)
+* **Requisito:** Para evitar que las notificaciones de leads del CRM y los emails de bienvenida caigan en SPAM o sean bloqueados por el hosting, ir a **Administración -> Outbound Emails** en EspoCRM y configurar un servidor **SMTP Externo** utilizando la casilla de correos corporativos creada en Hostinger (ej: `contacto@hrinser.cl`) con autenticación SSL/TLS y puerto `465` o `587`.
+
+#### D. Seguridad de Formulario (Validación RUT y reCAPTCHA v3)
 Para evitar inyectar leads duplicados y proteger la capacidad de procesamiento de MySQL y CPU de la cuenta compartida de Hostinger (evitando errores *508 Resource Limit Reached*):
 
 1. **Validación de RUT en el Frontend (Módulo 11):**
@@ -300,7 +308,7 @@ if ($httpCode === 200 || $httpCode === 201) {
 
 ---
 
-## 3. Fase 2: Aprovisionamiento de Servidores y Orquestación Docker DMS
+## 3. Fase 2: Aprovisionamiento de Servidores y Orquestación Docker DMS (Elestio)
 
 Por cada cliente contratista de HRINSER se debe desplegar una máquina virtual VPS dedicada en **Elestio**.
 
@@ -349,13 +357,6 @@ Este archivo define el stack con límites de memoria de un total de **3.0 GB** d
 
 ```yaml
 version: '3.8'
-
-networks:
-  hrinser-network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.28.0.0/16
 
 services:
   # ----------------------------------------------------------------------------
@@ -497,6 +498,13 @@ services:
         reservations:
           memory: 64M
 
+networks:
+  hrinser-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
 volumes:
   db_data:
     driver: local
@@ -527,8 +535,7 @@ Para garantizar la confidencialidad de los exámenes de salud y liquidaciones de
    docker exec -u www-data hrinser-nextcloud-app php occ encryption:enable-master-key
    ```
 
-### Paso 4.2: Enforzar Doble Factor de Autenticación (2FA) Obligatorio
-Para impedir el uso de contraseñas débiles o accesos no autorizados:
+### Paso 4.2: Enforzar Doble Factor de Autenticación (2FA) y Dominios de Confianza
 1. Habilitar la app de autenticación de dos factores TOTP:
    ```bash
    docker exec -u www-data hrinser-nextcloud-app php occ app:enable twofactor_totp
@@ -536,6 +543,11 @@ Para impedir el uso de contraseñas débiles o accesos no autorizados:
 2. Forzar que todos los usuarios deban configurar obligatoriamente el 2FA en su primer inicio de sesión:
    ```bash
    docker exec -u www-data hrinser-nextcloud-app php occ twofactorauth:enforce --all
+   ```
+3. **Registrar subdominio del cliente en Trusted Domains:**
+   Nextcloud rechaza conexiones que no estén en su lista blanca. Para evitar el bloqueo del subdominio del cliente, registrarlo de forma explícita:
+   ```bash
+   docker exec -u www-data hrinser-nextcloud-app php occ config:system:set trusted_domains 2 --value="alfa.hrinser.cl"
    ```
 
 ### Paso 4.3: Registro de Actividades Inmutable y Redirección a Standard Output
@@ -552,13 +564,25 @@ Para evitar que un intruso con privilegios de administrador pueda borrar el log 
    docker exec -u www-data hrinser-nextcloud-app php occ config:system:set loglevel --value=1 --type=int
    ```
 
-### Paso 4.4: Estructura de Carpetas Estandarizada (Skeleton)
-Configurar la plantilla base de Nextcloud para que, al crear la cuenta del cliente contratista, se genere la estructura obligatoria de acreditación laboral de forma automática.
+### Paso 4.4: Envío de Correos (SMTP de Nextcloud)
+* **Requisito:** Configurar las notificaciones transaccionales y de recuperación del DMS utilizando un servidor SMTP externo. Ejecutar el asistente de configuración en la GUI en **Ajustes de Administración -> Ajustes Básicos -> Servidor de Correo** o inyectando los parámetros en `config.php`:
+  ```bash
+  docker exec -u www-data hrinser-nextcloud-app php occ config:system:set mail_smtpmode --value="smtp"
+  docker exec -u www-data hrinser-nextcloud-app php occ config:system:set mail_smtphost --value="smtp.hostinger.com"
+  docker exec -u www-data hrinser-nextcloud-app php occ config:system:set mail_smtpport --value="465"
+  docker exec -u www-data hrinser-nextcloud-app php occ config:system:set mail_smtpsecure --value="ssl"
+  docker exec -u www-data hrinser-nextcloud-app php occ config:system:set mail_smtpauth --value=true --type=boolean
+  docker exec -u www-data hrinser-nextcloud-app php occ config:system:set mail_smtpname --value="notificaciones@hrinser.cl"
+  docker exec -u www-data hrinser-nextcloud-app php occ config:system:set mail_smtppassword --value="TU_PASSWORD_SMTP"
+  ```
+
+### Paso 4.5: Estructura de Carpetas Estandarizada (Skeleton) y Previsualización
 1. Acceder al directorio de la plantilla base en el contenedor: `/var/www/html/core/skeleton/`.
 2. Crear los siguientes directorios por defecto eliminando los archivos demostrativos de Nextcloud:
    * `/01_Contratos_y_Anexos/`
    * `/02_Liquidaciones_y_Cotizaciones/`
    * `/03_Examenes_y_Certificados_Salud/`
+3. **Previsualizador de PDF e Imágenes:** Nextcloud previsualiza nativamente imágenes y archivos PDF. Para visualizar o editar documentos Office (.docx, .xlsx, .pptx) sin necesidad de descargarlos, los desarrolladores deberán instalar la app **ONLYOFFICE** en Nextcloud y configurar el conector a un servidor de documentos ONLYOFFICE independiente en la Fase 3 del Hito 3.
 
 ---
 
@@ -761,11 +785,12 @@ Cuando una oportunidad comercial se cierra como ganada y el cliente pasa a estad
 2. Configuración y Endurecimiento DMS (Desarrollador DevOps)
    - Ejecutar docker-compose up -d.
    - Activar Cifrado Server-Side y 2FA obligatorio vía occ CLI.
+   - Registrar el subdominio en Trusted Domains del Nextcloud.
    - Estructurar el skeleton de carpetas básicas de control documental.
               │
               ▼
 3. Ingesta de Datos Históricos (Desarrollador DevOps)
-   - Cargar los documentos previos del contratista vía SFTP o WebDAV.
+   - Cargar los documentos previos del contratista vía WebDAV.
    - Sincronizar e invocar cifrado en bloque mediante encrypt-all.
               │
               ▼
