@@ -15,7 +15,7 @@ Para evitar confusiones en el desarrollo y despliegue, se establece explícitame
 | :--- | :--- | :--- | :--- |
 | **Landing Page** | Frontend estático (HTML/CSS/JS) | **Hostinger Shared Web Hosting** (Plan Unlimited) | Consumo mínimo de recursos, bajo costo, despliegue simple. |
 | **EspoCRM** | Aplicación PHP Nativa + DB MariaDB | **Hostinger Shared Web Hosting** (Plan Unlimited) | Instalación directa sin contenedores, aprovechando la base de datos MySQL y el soporte PHP nativo contratado para ahorrar costos. |
-| **DMS (Nextcloud)** | Stack Docker (App, Postgres, Redis, Cron) | **Elestio Multi-VPS** (Un VPS dedicado de 4GB por Cliente) | Requisitos de CPU intensiva para procesamiento de OCR (Tesseract) en PDF e inmutabilidad de almacenamiento bajo la **Ley 21.719**. |
+| **DMS (Nextcloud)** | Stack Docker (App, Postgres, Redis, Cron) | **Elestio Multi-VPS** (Un VPS de 4GB por Cliente) | Requisitos de CPU para procesamiento de OCR (Tesseract) en PDF e inmutabilidad de almacenamiento bajo la **Ley 21.719**. |
 | **DNS Manager** | Gestión y resolución de nombres | **Hostinger DNS Zone Editor** (Incluido en el Hosting) | Centraliza la resolución de nombres del dominio `hrinser.cl` y subdominios en Hostinger sin requerir proveedores externos adicionales. |
 
 ```
@@ -51,8 +51,8 @@ Para evitar confusiones en el desarrollo y despliegue, se establece explícitame
    * **Registro A (Cliente Beta DMS):** Crear `beta` apuntando a la IP pública del segundo VPS de Elestio (ej: `IP_VPS_ELESTIO_BETA`).
 3. Activar el SSL gratuito para el dominio principal y el subdominio `crm.hrinser.cl` desde la sección **Seguridad -> SSL** en el hPanel de Hostinger.
 
-### Paso 2.2: Despliegue de la Landing Page en Hostinger
-1. **CI/CD Pipeline (GitHub Actions):** Si la landing page requiere una compilación previa (como empaquetadores de Tailwind o Vite), utilizar la plantilla de GitHub Actions `.github/workflows/deploy.yml` para compilar y desplegar vía SFTP de manera automática:
+### Paso 2.2: Despliegue de la Landing Page en Hostinger y Ley 21.719
+1. **CI/CD Pipeline (GitHub Actions):** Si la landing page requiere una compilación previa (como empaquetadores de Tailwind o Vite), utilizar la plantilla de GitHub Actions `.github/workflows/deploy.yml` para compilar y despliegue vía SFTP de manera automática:
 
 ```yaml
 name: Deploy Landing Page to Hostinger
@@ -92,14 +92,22 @@ jobs:
 ```
 *(Nota: Configurar `SFTP_SERVER`, `SFTP_USERNAME` y `SFTP_PASSWORD` en los Secretos del repositorio GitHub).*
 
-2. **Optimización de i18n (Multi-Idioma ES/EN/ZH):**
+2. **Diseño de Formulario con Consentimiento Explícito (Ley 21.719):**
+   * El formulario de la Landing Page debe incluir un **checkbox obligatorio (no pre-marcado)** de aceptación de tratamiento de datos personales:
+     ```html
+     <input type="checkbox" id="consentimiento" name="consentimiento" required>
+     <label for="consentimiento">Acepto el tratamiento de mis datos personales según la <a href="/politica-privacidad.html">Política de Privacidad</a> de HRINSER.</label>
+     ```
+   * Enlazar el documento `/politica-privacidad.html` indicando expresamente los derechos ARCO de los usuarios y que la información recopilada se utilizará exclusivamente para el proceso de onboarding comercial.
+
+3. **Optimización de i18n (Multi-Idioma ES/EN/ZH):**
    * **Diseño Líquido:** Diseñar componentes (cajas de texto, botones, contenedores) con medidas elásticas (`min-width`, `height: auto` en Flexbox y CSS Grid) evitando tamaños fijos horizontales y verticales. El español es un 20% más expansivo que el inglés, y el chino es extremadamente corto pero con mayor densidad vertical.
-   * **Fuentes del Sistema para Chino:** Para evitar la descarga de fuentes web de chino de varios megabytes (que arruinarían el LCP y el SEO), utilizar el stack de fuentes del sistema operativo:
+   * **Fuentes del Sistema para Chino:** Para evitar la descarga de fuentes de chino de varios megabytes, utilizar el stack de fuentes del sistema operativo:
      ```css
      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
      ```
    * **Actualizar Atributo Lang:** Al alternar de idioma vía JavaScript, inyectar dinámicamente `document.documentElement.lang = selectedLangCode;`. Para SEO internacional óptimo, preferir carpetas físicas (`/en/index.html` y `/zh/index.html`) y configurar reglas de redirección en el archivo `.htaccess`.
-3. **Optimización de Modo Claro/Oscuro (Theme Toggle):**
+4. **Optimización de Modo Claro/Oscuro (Theme Toggle):**
    * **Script Bloqueante Anti-Parpadeo (FOUC):** Colocar el siguiente bloque de JavaScript inline al principio del `<head>` del HTML antes de cargar las hojas de estilo:
      ```html
      <script>
@@ -148,7 +156,7 @@ jobs:
      ```
 
 #### C. Envío de Correos (SMTP Corporativo)
-* **Requisito:** Para evitar que las notificaciones de leads del CRM y los emails de bienvenida caigan en SPAM o sean bloqueados por el hosting, ir a **Administración -> Outbound Emails** en EspoCRM y configurar un servidor **SMTP Externo** utilizando la casilla de correos corporativos creada en Hostinger (ej: `contacto@hrinser.cl`) con autenticación SSL/TLS y puerto `465` o `587`.
+* **Requisito:** Para evitar que las notificaciones de leads del CRM y los emails de bienvenida caigan en SPAM o sean bloqueados por el hosting, ir a **Administración -> Outbound Emails** en EspoCRM y configurar un servidor **SMTP Externo** utilizando la casilla de correos corporativas creada en Hostinger (ej: `contacto@hrinser.cl`) con autenticación SSL/TLS y puerto `465` o `587`.
 
 #### D. Seguridad de Formulario (Validación RUT y reCAPTCHA v3)
 Para evitar inyectar leads duplicados y proteger la capacidad de procesamiento de MySQL y CPU de la cuenta compartida de Hostinger (evitando errores *508 Resource Limit Reached*):
@@ -181,7 +189,7 @@ Para evitar inyectar leads duplicados y proteger la capacidad de procesamiento d
    ?>
    ```
 4. **Crear script Proxy Seguro PHP (`submit_lead.php`):**
-   Este archivo incluye control de tasa local (**Rate Limiting** de 5 peticiones por minuto por IP) para bloquear ataques de inundación localmente y evitar que tiren el hosting compartido:
+   Este archivo incluye control de tasa local (**Rate Limiting** de 5 peticiones por minuto por IP) almacenando los logs en un directorio privado seguro dentro de la cuenta (evitando el directorio compartido `/tmp` de Hostinger) e implementa bloqueos de archivos exclusivas (`flock`) contra condiciones de carrera, además de duplicar la validación matemática del RUT en el backend:
 
 ```php
 <?php
@@ -192,29 +200,63 @@ error_reporting(E_ALL);
 
 require_once 'config.php';
 
-// A. Control de Tasa (Rate Limiting) - 5 peticiones por minuto por IP
+// Validar RUT en Backend
+function validarRutBackend($rut) {
+    $rut = preg_replace('/[^kK0-9]/', '', $rut);
+    if (strlen($rut) < 2) return false;
+    $dv = substr($rut, -1);
+    $numero = substr($rut, 0, -1);
+    $suma = 0; $factor = 2;
+    for ($i = strlen($numero) - 1; $i >= 0; $i--) {
+        $suma += $numero[$i] * $factor;
+        $factor = $factor === 7 ? 2 : $factor + 1;
+    }
+    $dvEsperado = 11 - ($suma % 11);
+    $dvCalculado = $dvEsperado === 11 ? '0' : ($dvEsperado === 10 ? 'k' : (string)$dvEsperado);
+    return strtolower($dv) === $dvCalculado;
+}
+
+// A. Control de Tasa (Rate Limiting) con bloqueo flock en directorio privado
 $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-$limitFile = sys_get_temp_dir() . '/rate_limit_' . md5($ip) . '.json';
+$limitDir = '/home/uXXXXX/rate_limits'; // Cambiar a la ruta absoluta correcta en Hostinger
+if (!file_exists($limitDir)) {
+    mkdir($limitDir, 0700, true);
+}
+$limitFile = $limitDir . '/rate_limit_' . md5($ip) . '.json';
 $currentTime = time();
 $window = 60; // 1 minuto
 $limit = 5;
 
-if (file_exists($limitFile)) {
-    $data = json_decode(file_get_contents($limitFile), true);
+// Abrir o crear archivo con bloqueo flock para evitar condiciones de carrera
+$fp = fopen($limitFile, 'c+');
+if ($fp) {
+    flock($fp, LOCK_EX);
+    $fileSize = filesize($limitFile);
+    $content = $fileSize > 0 ? fread($fp, $fileSize) : '';
+    $data = json_decode($content, true) ?: ['requests' => []];
+
+    // Filtrar solicitudes antiguas
     $data['requests'] = array_filter($data['requests'], function($ts) use ($currentTime, $window) {
         return $ts > ($currentTime - $window);
     });
+
     if (count($data['requests']) >= $limit) {
+        flock($fp, LOCK_UN);
+        fclose($fp);
         http_response_code(429);
         header('Retry-After: ' . $window);
         echo json_encode(['error' => 'Demasiadas solicitudes. Por favor intente más tarde.']);
         exit;
     }
+
     $data['requests'][] = $currentTime;
-} else {
-    $data = ['requests' => [$currentTime]];
+    ftruncate($fp, 0);
+    rewind($fp);
+    fwrite($fp, json_encode($data));
+    fflush($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
 }
-file_put_contents($limitFile, json_encode($data));
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -222,7 +264,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// B. Validar Google reCAPTCHA v3 en el Backend con Timeout
+// B. Validar RUT
+$rut = $_POST['rutEmpresa'] ?? '';
+if (!validarRutBackend($rut)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'El RUT de empresa ingresado es inválido.']);
+    exit;
+}
+
+// C. Validar Google reCAPTCHA v3 en el Backend con Timeout
 $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
 if (empty($recaptchaResponse)) {
@@ -256,8 +306,8 @@ if (!$responseData->success || $responseData->score < 0.5) {
     exit;
 }
 
-// C. Sanitizar datos recibidos
-$rut = filter_var($_POST['rutEmpresa'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+// D. Sanitizar datos restantes
+$rutSanitized = filter_var($rut, FILTER_SANITIZE_SPECIAL_CHARS);
 $trabajadores = filter_var($_POST['numeroTrabajadores'] ?? 0, FILTER_VALIDATE_INT);
 $mandante = filter_var($_POST['mandantePrincipal'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 $plataforma = filter_var($_POST['plataformaAcreditacion'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -271,13 +321,13 @@ if (!$email) {
     exit;
 }
 
-// D. Reenviar Payload vía cURL a EspoCRM con Timeout de 5s
+// E. Reenviar Payload vía cURL a EspoCRM con Timeout de 5s
 $crmUrl = 'https://crm.hrinser.cl/api/v1/LeadCapture/' . ESPOCRM_ACCESS_KEY;
 $payload = json_encode([
     'firstName' => $firstName,
     'lastName' => $lastName,
     'emailAddress' => $email,
-    'rutEmpresa' => $rut,
+    'rutEmpresa' => $rutSanitized,
     'numeroTrabajadores' => $trabajadores,
     'mandantePrincipal' => $mandante,
     'plataformaAcreditacion' => $plataforma
@@ -354,14 +404,14 @@ RUN chown -R www-data:www-data /var/www/html
 ```
 
 ### Paso 3.4: Archivo de Orquestación Docker Compose (`docker-compose.yml`)
-Este archivo define el stack con límites de memoria de un total de **3.0 GB** de RAM, reservando 1 GB para el sistema operativo Host del VPS. Utiliza variables de entorno cargadas de `nextcloud.env`, aísla el tráfico interno en una red personalizada y tunea el rendimiento de PG y Redis.
+Este archivo define el stack con límites de memoria de un total de **3.0 GB** de RAM, reservando 1 GB para el sistema operativo Host del VPS. Utiliza variables de entorno cargadas dinámicamente de `nextcloud.env` para evitar credenciales hardcoded.
 
 ```yaml
 version: '3.8'
 
 services:
   # ----------------------------------------------------------------------------
-  # BASE DE DATOS: PostgreSQL dedicada con tuning de memoria
+  # BASE DE DATOS: PostgreSQL dedicada con tuning de memoria y variables .env
   # ----------------------------------------------------------------------------
   db:
     image: postgres:15-alpine
@@ -396,7 +446,7 @@ services:
       retries: 5
 
   # ----------------------------------------------------------------------------
-  # CACHÉ Y LOCKING: Redis configurado con directivas Maxmemory contra caídas OOM
+  # CACHÉ Y LOCKING: Redis configurado con directivas Maxmemory y variables .env
   # ----------------------------------------------------------------------------
   redis:
     image: redis:7-alpine
@@ -404,7 +454,7 @@ services:
     restart: always
     networks:
       - hrinser-network
-    command: redis-server --requirepass SecurePass_Redis_32Char! --maxmemory 180mb --maxmemory-policy allkeys-lru
+    command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 180mb --maxmemory-policy allkeys-lru
     volumes:
       - redis_data:/data
     environment:
@@ -417,7 +467,7 @@ services:
         reservations:
           memory: 64M
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "SecurePass_Redis_32Char!", "ping"]
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -449,7 +499,7 @@ services:
     environment:
       - POSTGRES_HOST=db
       - REDIS_HOST=redis
-      - REDIS_HOST_PASSWORD=SecurePass_Redis_32Char!
+      - REDIS_HOST_PASSWORD=${REDIS_PASSWORD}
       - PHP_MEMORY_LIMIT=1024M
       - PHP_UPLOAD_LIMIT=10G
       - TRUSTED_PROXIES=172.28.0.0/16 10.0.0.0/8
@@ -489,6 +539,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    env_file:
+      - nextcloud.env
     environment:
       - TZ=America/Santiago
     deploy:
@@ -536,7 +588,7 @@ Para garantizar la confidencialidad de los exámenes de salud y liquidaciones de
    docker exec -u www-data hrinser-nextcloud-app php occ encryption:enable-master-key
    ```
 
-### Paso 4.2: Enforzar Doble Factor de Autenticación (2FA) y Dominios de Confianza
+### Paso 4.2: Enforzar Doble Factor de Autenticación (2FA), Dominios de Confianza y ARCO
 1. Habilitar la app de autenticación de dos factores TOTP:
    ```bash
    docker exec -u www-data hrinser-nextcloud-app php occ app:enable twofactor_totp
@@ -550,6 +602,12 @@ Para garantizar la confidencialidad de los exámenes de salud y liquidaciones de
    ```bash
    docker exec -u www-data hrinser-nextcloud-app php occ config:system:set trusted_domains 2 --value="alfa.hrinser.cl"
    ```
+4. **Procedimientos para el Ejercicio de Derechos ARCO (Ley N° 21.719):**
+   * Los administradores de Nextcloud deben canalizar las solicitudes de Acceso, Rectificación, Cancelación y Oposición del contratista a través de un ticket de soporte.
+   * El borrado definitivo de datos personales y sensibles (Derecho de Cancelación) se debe ejecutar de forma segura mediante los comandos `files:cleanup` y el purgado de la papelera del usuario respectivo:
+     ```bash
+     docker exec -u www-data hrinser-nextcloud-app php occ trashbin:cleanup --all-users
+     ```
 
 ### Paso 4.3: Registro de Actividades Inmutable y Redirección a Standard Output
 Para evitar que un intruso con privilegios de administrador pueda borrar el log de auditoría local, se re-direcciona el flujo de logs de Nextcloud hacia el motor de logs del Host (stderr/systemd) y se configura el loglevel necesario para el módulo `admin_audit`:
@@ -644,17 +702,21 @@ mysqldump -u uXXXXX_espo_usr -p'CONTRASEÑA_BD' uXXXXX_espocrm | gzip > /home/uX
 ```
 
 ### 6.2. Copias de Seguridad de Nextcloud DMS (Elestio Multi-VPS)
-Crear un archivo script en el Host VPS en `/opt/hrinser-dms/scripts/backup_nextcloud.sh`. El script realiza el dump PostgreSQL no interactivo, el cifrado asimétrico GPG por llave pública y la segregación física obligatoria de llaves criptográficas (aborta inmediatamente si la compresión de llaves falla):
+Crear un archivo script en el Host VPS en `/opt/hrinser-dms/scripts/backup_nextcloud.sh`. El script realiza el dump PostgreSQL de forma no interactiva importando las credenciales desde `nextcloud.env`, realiza el **cifrado asimétrico GPG por llave pública**, **segrega lógicamente las llaves** y añade un paso de **transmisión externa** mandatorio a una bóveda fuera del VPS local, borrando la llave en caliente del servidor host para cumplir con el control **TC-08**:
 
 ```bash
 #!/bin/bash
 # ==============================================================================
-# Backup Nextcloud DMS - Elestio VPS (Cifrado Asimétrico GPG + Segregación de Llaves)
-# Código de Control: HR-SEC-BACKUP-v2
+# Backup Nextcloud DMS - Elestio VPS (Cifrado Asimétrico GPG + Segregación Física)
+# Código de Control: HR-SEC-BACKUP-v3
 # ==============================================================================
 set -e
 
-# Configuración de variables
+# Cargar variables de entorno del archivo .env de Docker para evitar contraseñas hardcoded
+if [ -f "/opt/hrinser-dms/nextcloud.env" ]; then
+    export $(grep -v '^#' /opt/hrinser-dms/nextcloud.env | xargs)
+fi
+
 PROJECT_NAME="hrinser-dms"
 BACKUP_DIR="/var/backups/nextcloud"
 DATE=$(date +%Y%m%d_%H%M%S)
@@ -663,36 +725,35 @@ KEYS_BACKUP_PATH="$BACKUP_DIR/keys_backup_$DATE"
 
 APP_CONTAINER="hrinser-nextcloud-app"
 DB_CONTAINER="hrinser-nextcloud-db"
-DB_PASS="SecurePass_Postgres_32Char!" # Se debe configurar externamente en producción
-GPG_RECIPIENT="backup-key@hrinser.cl"  # Correo de la llave pública GPG importada en el Host
+DB_PASS="${POSTGRES_PASSWORD}"
+GPG_RECIPIENT="backup-key@hrinser.cl"  # Llave pública GPG del administrador importada
 
-# Rutas del sistema de archivos de Docker
+# Rutas de almacenamiento
 VOLUME_DATA_DIR="/var/lib/docker/volumes/${PROJECT_NAME}_nextcloud_data/_data"
 
-# Validar que la llave pública GPG existe en el host antes de iniciar
+# Validar llave pública GPG en el host
 if ! gpg --list-keys "$GPG_RECIPIENT" >/dev/null 2>&1; then
-    echo "ERROR: La llave pública GPG para $GPG_RECIPIENT no está importada en el Host." >&2
+    echo "ERROR: La llave pública GPG para $GPG_RECIPIENT no está instalada en el Host." >&2
     exit 1
 fi
 
 mkdir -p "$BACKUP_DIR"
 echo "=== [${DATE}] Iniciando Respaldo DMS Segurizado ==="
 
-# 1. Activar Modo Mantenimiento en Nextcloud
+# 1. Activar Modo Mantenimiento
 docker exec -u www-data "$APP_CONTAINER" php occ maintenance:mode --on
 
-# 2. Dump de Base de Datos inyectando contraseña de forma segura
+# 2. Dump de BD sin prompt interactivo
 docker exec -e PGPASSWORD="$DB_PASS" "$DB_CONTAINER" pg_dump -U nextcloud_usr -d nextcloud_db > "$BACKUP_PATH.sql"
 
 # 3. Comprimir Datos del Sistema (EXCLUYENDO llaves de cifrado)
-# Esto cumple con TC-08 al segregar datos de llaves criptográficas.
 tar -czf "$BACKUP_PATH.tar.gz" \
     --exclude="./data/files_encryption" \
     --exclude="./data/*/files_encryption" \
     -C "$VOLUME_DATA_DIR" . \
     -C "$BACKUP_DIR" "nextcloud_backup_$DATE.sql"
 
-# 4. Comprimir Llaves de Cifrado por separado (Aborta si hay error, sin || true)
+# 4. Comprimir Llaves de Cifrado por separado (Aborta si hay error)
 tar -czf "$KEYS_BACKUP_PATH.tar.gz" \
     -C "$VOLUME_DATA_DIR" \
     "./data/files_encryption" \
@@ -700,26 +761,27 @@ tar -czf "$KEYS_BACKUP_PATH.tar.gz" \
 
 # 5. Desactivar Modo Mantenimiento
 docker exec -u www-data "$APP_CONTAINER" php occ maintenance:mode --off
-
-# 6. Limpiar archivo SQL temporal
 rm "$BACKUP_PATH.sql"
 
-# 7. Cifrar asimétricamente los respaldos con GPG (solo cifrar, no descifrar en el Host)
+# 6. Cifrar asimétricamente los respaldos con la clave pública GPG
 gpg --encrypt --recipient "$GPG_RECIPIENT" --trust-model always "$BACKUP_PATH.tar.gz"
 gpg --encrypt --recipient "$GPG_RECIPIENT" --trust-model always "$KEYS_BACKUP_PATH.tar.gz"
-
-# Eliminar comprimidos temporales en texto plano
 rm "$BACKUP_PATH.tar.gz"
 rm "$KEYS_BACKUP_PATH.tar.gz"
 
-# 8. Mantener solo los últimos 14 respaldos (Rotación automática)
+# 7. MANDATORIO: Transmitir llave cifrada externamente y borrarla localmente (TC-08)
+# Ejemplo usando SCP a un servidor frío de auditoría externo
+scp -i /home/dano/.ssh/id_rsa_backup "$KEYS_BACKUP_PATH.tar.gz.gpg" auditor@seguro.hrinser.cl:/boveda/keys/
+# Eliminar copia de llave local de forma permanente tras la copia externa exitosa
+rm "$KEYS_BACKUP_PATH.tar.gz.gpg"
+
+# 8. Rotación automática local de volumen de datos a 14 días
 find "$BACKUP_DIR" -name "nextcloud_backup_*.tar.gz.gpg" -mtime +14 -delete
-find "$BACKUP_DIR" -name "keys_backup_*.tar.gz.gpg" -mtime +14 -delete
 
 echo "=== Respaldo DMS Finalizado Exitosamente ==="
 ```
 
-Programar la ejecución diaria del backup a las **04:00 AM** en el crontab del Host VPS:
+Programar en el crontab del Host:
 ```text
 0 4 * * * /bin/bash /opt/hrinser-dms/scripts/backup_nextcloud.sh >> /var/log/backup_nextcloud.log 2>&1
 ```
@@ -739,33 +801,41 @@ Para cumplir con el tiempo objetivo de recuperación (**RTO < 20 minutos**) esta
    *(Requiere ingresar la llave privada del administrador mediante agente GPG seguro)*:
    ```bash
    gpg --decrypt /var/backups/nextcloud/nextcloud_backup_DATE.tar.gz.gpg > nextcloud_backup_DATE.tar.gz
+   # Descargar la llave criptográfica desde la bóveda fría externa de auditoría
+   scp auditor@seguro.hrinser.cl:/boveda/keys/keys_backup_DATE.tar.gz.gpg /var/backups/nextcloud/
    gpg --decrypt /var/backups/nextcloud/keys_backup_DATE.tar.gz.gpg > keys_backup_DATE.tar.gz
    ```
-3. **Restaurar el Volumen de Datos (Excluyendo Llaves):**
+3. **Restaurar el Volumen de Datos y Llaves:**
    ```bash
    # Crear volumen vacío montándolo de nuevo
    docker compose up db redis -d
    # Extraer los datos en el volumen físico correspondiente
    tar -xzf nextcloud_backup_DATE.tar.gz -C /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/
-   ```
-4. **Restaurar las Llaves Cifradas Segregadas:**
-   ```bash
+   # Extraer las llaves criptográficas segregadas en su ubicación original
    tar -xzf keys_backup_DATE.tar.gz -C /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/
    ```
-5. **Restaurar la Base de Datos PostgreSQL:**
-   * Mover el archivo SQL recuperado (`nextcloud_backup_DATE.sql`) al contenedor de base de datos o inyectarlo directamente:
+4. **Restaurar la Base de Datos PostgreSQL:**
+   * Cargar la variable de base de datos e importar el dump SQL de forma no interactiva:
    ```bash
-   docker exec -i hrinser-nextcloud-db psql -U nextcloud_usr -d nextcloud_db < /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/nextcloud_backup_DATE.sql
+   docker exec -i -e PGPASSWORD="SecurePass_Postgres_32Char!" hrinser-nextcloud-db psql -U nextcloud_usr -d nextcloud_db < /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/nextcloud_backup_DATE.sql
    # Eliminar el archivo SQL residual
    rm /var/lib/docker/volumes/hrinser-dms_nextcloud_data/_data/nextcloud_backup_DATE.sql
    ```
-6. **Arrancar Contenedores y Limpiar Modo Mantenimiento:**
+5. **Corregir Permisos y Levantar la Aplicación:**
    ```bash
    docker compose up -d
+   # Forzar corrección de permisos del volumen en caliente a www-data
+   docker exec -u root hrinser-nextcloud-app chown -R www-data:www-data /var/www/html
    docker exec -u www-data hrinser-nextcloud-app php occ maintenance:mode --off
    # Limpiar archivos .tar.gz residuales del host
    rm nextcloud_backup_DATE.tar.gz keys_backup_DATE.tar.gz
    ```
+
+### 7.1. Protocolo de Notificación de Brechas de Seguridad (Obligatoriedad Ley 21.719)
+En caso de que durante el desastre o restauración se detecte una intrusión, robo de datos o filtración de datos sensibles de peritajes:
+1. **Reporte Interno Inmediato:** El DevOps a cargo debe levantar una alerta roja a Vanessa Galdames.
+2. **Notificación APDP:** HRINSER deberá notificar formalmente a la **Agencia de Protección de Datos Personales (APDP)** de Chile dentro de un plazo máximo de **72 horas** contadas desde que se tomó conocimiento del incidente, detallando la naturaleza del incidente, categorías de datos afectados y medidas correctoras en curso.
+3. **Notificación a Afectados:** Si el incidente representa un riesgo para los derechos de los titulares (trabajadores de contratistas), notificar individualmente mediante correo transaccional seguro sobre la brecha.
 
 ---
 
