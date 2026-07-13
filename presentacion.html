@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación de Viabilidad: Ecosistema Digital HRINSER</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-primary: #030712;
+            --bg-secondary: #0b1528;
+            --bg-card: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-blue: #2563eb;
+            --accent-indigo: #6366f1;
+            --accent-emerald: #10b981;
+            --accent-red: #ef4444;
+            --accent-gold: #f59e0b;
+            --font-title: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --shadow-glow: 0 0 30px rgba(37, 99, 235, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            user-select: none;
+        }
+
+        /* Background gradients */
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(99, 102, 241, 0.02) 70%, transparent 100%);
+            top: -200px;
+            left: -200px;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 20s infinite alternate;
+        }
+
+        .bg-glow-right {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, rgba(16, 185, 129, 0.01) 70%, transparent 100%);
+            bottom: -300px;
+            right: -200px;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 25s infinite alternate-reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* Top Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-indigo));
+            box-shadow: 0 0 10px var(--accent-blue);
+            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Slide Engine Container */
+        .slides-container {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .slides-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 6%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Custom scrollbar for slides */
+        .slide::-webkit-scrollbar {
+            width: 6px;
+        }
+        .slide::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Slide Content Animations */
+        .slide-content {
+            width: 100%;
+            max-width: 1100px;
+            opacity: 0;
+            transform: translateY(25px) scale(0.98);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition-delay: 0.2s;
+        }
+
+        .slide.active .slide-content {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Typography & Layout elements */
+        h1, h2, h3 {
+            font-family: var(--font-title);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #d1d5db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Glassmorphism Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Grid layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* Controls / Footer Navigation */
+        .controls-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(3, 7, 18, 0.85);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.primary {
+            background: var(--accent-blue);
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-btn.primary:hover {
+            background: #1d4ed8;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        .slide-counter {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        /* Custom styling for specific slide elements */
+        /* Slide 1 - Title slide */
+        .title-slide {
+            text-align: center;
+        }
+
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #60a5fa;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 25px;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            font-weight: 300;
+        }
+
+        /* Slide 2 - Ley 21.719 */
+        .ley-red-card {
+            border-left: 5px solid var(--accent-red);
+            background: linear-gradient(to right, rgba(239, 68, 68, 0.03), rgba(17, 24, 39, 0.7));
+        }
+
+        .ley-green-card {
+            border-left: 5px solid var(--accent-emerald);
+            background: linear-gradient(to right, rgba(16, 185, 129, 0.03), rgba(17, 24, 39, 0.7));
+        }
+
+        .ley-title {
+            color: var(--accent-red);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .ley-title.green {
+            color: var(--accent-emerald);
+        }
+
+        .ley-list {
+            margin-top: 15px;
+            list-style-type: none;
+        }
+
+        .ley-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .ley-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        .ley-list.green li::before {
+            color: var(--accent-emerald);
+            content: "✓";
+        }
+
+        /* Slide 3 - Custom vs Open Source (Interactive simulation) */
+        .dilema-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        .dilema-table th, .dilema-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dilema-table th {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .dilema-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .price-badge {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-gold);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .price-badge.green {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-emerald);
+        }
+
+        .price-badge.red {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+        }
+
+        /* Interactive ROI Simulator */
+        .roi-simulator {
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sim-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sim-control {
+            margin-bottom: 18px;
+        }
+
+        .sim-control label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sim-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        .sim-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-blue);
+            transition: transform 0.1s ease;
+        }
+
+        .sim-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .sim-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sim-stat {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .sim-stat-val {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-emerald);
+            font-family: var(--font-title);
+            margin-top: 5px;
+        }
+
+        .sim-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Slide 4 - Architecture Diagram */
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .diagram-node {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .diagram-node.active-node {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .diagram-node.highlight {
+            border-color: var(--accent-indigo);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .diagram-arrow {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--accent-blue), var(--accent-indigo));
+            position: relative;
+        }
+
+        .diagram-arrow::after {
+            content: "▼";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(1.3);
+            font-size: 0.6rem;
+            color: var(--accent-indigo);
+        }
+
+        .diagram-row-split {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            position: relative;
+        }
+
+        .diagram-row-split::before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            background: var(--accent-indigo);
+            z-index: 1;
+        }
+
+        .split-connector-left {
+            position: absolute;
+            left: 25%;
+            top: -15px;
+            width: 2px;
+            height: 15px;
+            background: var(--accent-indigo);
+        }
+
+        .split-connector-right {
+            position: absolute;
+            right: 25%;
+            top: -15px;
+            width: 2px;
+            height: 15px;
+            background: var(--accent-indigo);
+        }
+
+        .tenant-box {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px dashed rgba(99, 102, 241, 0.25);
+            border-radius: 12px;
+            padding: 15px;
+            width: 42%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .db-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--accent-emerald);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .storage-badge {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            color: var(--accent-gold);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Slide 5 - Unified Portal Mockup */
+        .portal-mockup {
+            background: #020617;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .mockup-header {
+            background: #0f172a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .mockup-dot:nth-child(1) { background: var(--accent-red); }
+        .mockup-dot:nth-child(2) { background: var(--accent-gold); }
+        .mockup-dot:nth-child(3) { background: var(--accent-emerald); }
+
+        .mockup-address {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4px 15px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+            width: 50%;
+            text-align: center;
+        }
+
+        .mockup-body {
+            flex: 1;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: linear-gradient(135deg, #090f1d 0%, #030712 100%);
+            position: relative;
+        }
+
+        .portal-links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .portal-card-mini {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .portal-card-mini:hover {
+            background: rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        .portal-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .portal-card-mini:hover .portal-icon {
+            background: rgba(37, 99, 235, 0.2);
+            color: #fff;
+        }
+
+        .view-portal-btn {
+            background: transparent;
+            border: 1px solid var(--accent-indigo);
+            color: var(--accent-indigo);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .view-portal-btn:hover {
+            background: var(--accent-indigo);
+            color: white;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Slide 6 - Budget & Milestones */
+        .milestone-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .milestone-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px 20px;
+            transition: all 0.2s ease;
+        }
+
+        .milestone-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .milestone-badge {
+            background: var(--accent-blue);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .milestone-info {
+            flex: 1;
+        }
+
+        .milestone-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .milestone-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .milestone-price {
+            color: var(--accent-emerald);
+            font-weight: 700;
+        }
+
+        /* Responsive changes */
+        @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+                height: auto;
+            }
+            .slides-container {
+                height: auto;
+            }
+            .slides-wrapper {
+                flex-direction: column;
+                width: 100%;
+                height: auto;
+                transform: none !important;
+            }
+
+            .slide {
+                flex: none;
+                width: 100%;
+                height: auto;
+                padding: 60px 20px;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .slide-content {
+                opacity: 1;
+                transform: none;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .controls-footer {
+                display: none;
+            }
+            .tenant-box {
+                width: 100%;
+            }
+            .diagram-row-split {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .diagram-row-split::before, .split-connector-left, .split-connector-right {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+    <div class="bg-glow-right"></div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Slides Viewport -->
+    <div class="slides-container">
+        <div class="slides-wrapper" id="slidesWrapper">
+
+            <!-- SLIDE 1: PORTADA -->
+            <div class="slide active" id="slide1">
+                <div class="slide-content title-slide">
+                    <div class="logo-badge">
+                        <span>🛡️</span> HRINSER COMPLIANCE TECH
+                    </div>
+                    <h1 class="main-title">Ecosistema Digital de Gestión Documental</h1>
+                    <p class="subtitle">Propuesta de arquitectura segura y viable para garantizar el cumplimiento de la Ley 21.719 en Gestión Comercial SpA.</p>
+                    <div style="margin-top: 30px; display: inline-flex; gap: 15px;">
+                        <button onclick="goToSlide(1)" class="nav-btn primary" style="padding: 12px 24px;">Iniciar Presentación</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: EL DESAFÍO LEGAL (LEY 21.719) -->
+            <div class="slide" id="slide2">
+                <div class="slide-content">
+                    <h2 style="text-align: center; margin-bottom: 30px;">El Desafío Legal: Ley 21.719 en Chile</h2>
+                    <div class="grid-2">
+                        <div class="card ley-red-card">
+                            <div class="ley-title">
+                                <span>🔴</span> La Línea Roja (Riesgo Crítico)
+                            </div>
+                            <p style="font-size: 0.95rem;">La mezcla o filtración de información confidencial laboral de los trabajadores contratistas (liquidaciones, cotizaciones, fichas médicas) entre diferentes empresas cliente.</p>
+                            <ul class="ley-list">
+                                <li><strong>Multas directas</strong> superiores a 150 UTM por operario expuesto.</li>
+                                <li><strong>Suspensión o paralización</strong> inmediata del frente de trabajo/faena.</li>
+                                <li><strong>Responsabilidad solidaria</strong> de la empresa mandante ante deudas previsionales de terceros.</li>
+                            </ul>
+                        </div>
+                        <div class="card ley-green-card">
+                            <div class="ley-title green">
+                                <span>🟢</span> Solución Preventiva Exigida
+                            </div>
+                            <p style="font-size: 0.95rem;">Garantizar por diseño (Privacy by Design) el aislamiento total de los datos de cada cliente, con auditoría de logs inmutables.</p>
+                            <ul class="ley-list green">
+                                <li><strong>Aislamiento Físico:</strong> Separación estricta de bases de datos por RUT de cliente.</li>
+                                <li><strong>Trazabilidad Absoluta:</strong> Logs inmutables de quién, cuándo y desde qué IP se leyó un documento.</li>
+                                <li><strong>Acceso Seguro:</strong> Doble factor de autenticación (2FA) obligatorio.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: CÓDIGO A MEDIDA VS OPEN SOURCE -->
+            <div class="slide" id="slide3">
+                <div class="slide-content">
+                    <h2 style="text-align: center; margin-bottom: 25px;">Código a Medida vs. Ecosistema Open Source</h2>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 style="font-size: 1.3rem; margin-bottom: 15px; color: #fff;">Comparación de Alternativas</h3>
+                            <table class="dilema-table">
+                                <thead>
+                                    <tr>
+                                        <th>Criterio</th>
+                                        <th>Desarrollo Propio</th>
+                                        <th>Ecosistema OS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Tiempo de Desarrollo</strong></td>
+                                        <td><span class="price-badge red">400 - 600 hrs</span></td>
+                                        <td><span class="price-badge green">15 - 25 hrs (Setup)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Inversión Inicial</strong></td>
+                                        <td><span class="price-badge red">$12M - $18M CLP</span></td>
+                                        <td><span class="price-badge green">$1.800.000 CLP</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mantención Mensual</strong></td>
+                                        <td><span class="price-badge red">$400k - $800k CLP</span></td>
+                                        <td><span class="price-badge green">$120.000 CLP</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Licencias / Usuario</strong></td>
+                                        <td>$0 (A medida)</td>
+                                        <td><span class="price-badge green">$0 (Nextcloud/EspoCRM)</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="font-size: 0.8rem; margin-top: 20px; font-style: italic;">
+                                * El ecosistema open source incluye Landing Page, Nextcloud (DMS) y EspoCRM (Ventas), autohospedados sin pagar licencias mensuales a terceros.
+                            </p>
+                        </div>
+
+                        <!-- Interactive Simulator -->
+                        <div class="card roi-simulator">
+                            <div class="sim-title">
+                                <span>📊</span> Analizador de Retorno (ROI)
+                            </div>
+                            <div class="sim-control">
+                                <label>
+                                    <span>Usuarios en el equipo:</span>
+                                    <span id="userCountText" style="font-weight: 700; color: var(--accent-indigo);">10 usuarios</span>
+                                </label>
+                                <input type="range" min="3" max="30" value="10" class="sim-slider" id="userSlider">
+                            </div>
+                            <div class="sim-control">
+                                <label>
+                                    <span>Meses de proyección:</span>
+                                    <span id="monthCountText" style="font-weight: 700; color: var(--accent-indigo);">12 meses</span>
+                                </label>
+                                <input type="range" min="1" max="36" value="12" class="sim-slider" id="monthSlider">
+                            </div>
+                            <div class="sim-results">
+                                <div class="sim-stat">
+                                    <div class="sim-stat-label">Costo SaaS Licencias</div>
+                                    <div class="sim-stat-val" id="saasCostText" style="color: var(--accent-red);">$4.440.000</div>
+                                </div>
+                                <div class="sim-stat">
+                                    <div class="sim-stat-label">Ahorro con Ecosistema</div>
+                                    <div class="sim-stat-val" id="savingsText">$1.200.000</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary); text-align: center; margin-top: 15px;">
+                                Payback de la inversión inicial de <strong>$1.800.000 CLP</strong> en sólo <strong>7.2 meses</strong>. Ahorro acumulado a 3 años: <strong>$7.200.000 CLP</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: LA SOLUCIÓN VIABLE (NEXTCLOUD MULTI-INSTANCIA) -->
+            <div class="slide" id="slide4">
+                <div class="slide-content">
+                    <h2 style="text-align: center; margin-bottom: 20px;">La Solución: Nextcloud Multi-Instancia en Docker</h2>
+                    <p style="text-align: center; max-width: 800px; margin: 0 auto 30px auto; font-size: 0.95rem;">
+                        Para eliminar de raíz el riesgo de acceso cruzado entre competidores, levantamos contenedores Docker independientes. Es una separación física real, no lógica.
+                    </p>
+                    
+                    <div class="grid-2" style="align-items: center;">
+                        <div class="card">
+                            <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 15px;">Beneficios Clave del Aislamiento</h3>
+                            <ul class="ley-list green" style="font-size: 0.9rem;">
+                                <li><strong>Cero Riesgo de Fugas:</strong> Si Vanessa comete un error configurando un rol en un cliente, el resto de los clientes están físicamente aislados en contenedores y bases de datos diferentes.</li>
+                                <li><strong>Resiliencia Operativa:</strong> Si la base de datos de la Empresa A se llena o se cae, las Empresas B y C siguen operando al 100%.</li>
+                                <li><strong>Backups Independientes:</strong> Respaldo y restauración individual de base de datos y archivos por cliente.</li>
+                                <li><strong>UI Familiar:</strong> Interfaz moderna, rápida e idéntica a Google Drive / Dropbox.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Architecture Visualizer -->
+                        <div class="card">
+                            <h3 style="font-size: 1.1rem; color: #fff; text-align: center; margin-bottom: 10px;">Arquitectura de Contenedores Aislados</h3>
+                            <div class="diagram-container">
+                                <div class="diagram-node active-node">
+                                    <strong>Tráfico Web / SSL</strong><br>
+                                    <span style="font-size:0.75rem; color: var(--text-secondary);">Nginx Proxy Manager</span>
+                                </div>
+                                <div class="diagram-arrow"></div>
+                                <div class="diagram-row-split">
+                                    <div class="split-connector-left"></div>
+                                    <div class="split-connector-right"></div>
+                                    <div class="tenant-box">
+                                        <span style="font-size:0.8rem; font-weight:700; color:#fff;">Cliente Alfa</span>
+                                        <div class="diagram-node" style="padding: 8px 12px; font-size:0.75rem;">Nextcloud App 1</div>
+                                        <div class="db-badge">DB PostgreSQL 1</div>
+                                        <div class="storage-badge">Volumen Alfa</div>
+                                    </div>
+                                    <div class="tenant-box">
+                                        <span style="font-size:0.8rem; font-weight:700; color:#fff;">Cliente Beta</span>
+                                        <div class="diagram-node" style="padding: 8px 12px; font-size:0.75rem;">Nextcloud App 2</div>
+                                        <div class="db-badge">DB PostgreSQL 2</div>
+                                        <div class="storage-badge">Volumen Beta</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: EL PORTAL UNIFICADO -->
+            <div class="slide" id="slide5">
+                <div class="slide-content">
+                    <h2 style="text-align: center; margin-bottom: 20px;">El Portal Unificado de HRINSER</h2>
+                    <div class="grid-2" style="align-items: center;">
+                        <div class="card">
+                            <h3 style="font-size: 1.25rem; color: #fff; margin-bottom: 15px;">Punto de Acceso Centralizado</h3>
+                            <p style="font-size: 0.9rem; margin-bottom: 15px;">
+                                Para dar cohesión comercial a la arquitectura multi-instancia, se implementa una "puerta de entrada" única en <strong>/home/francisca/proyecto_hrinser</strong>.
+                            </p>
+                            <p style="font-size: 0.9rem; margin-bottom: 20px;">
+                                Este portal actúa como enrutador inteligente y seguro a cada uno de los subdominios de Nextcloud, CRM, portal del cliente y del trabajador, manteniendo una identidad corporativa unificada.
+                            </p>
+                            <a href="file:///home/francisca/proyecto_hrinser/HRINSER_Portal_Unificado.html" target="_blank" class="view-portal-btn">
+                                <span>🌐</span> Abrir Portal Unificado de Pruebas
+                            </a>
+                        </div>
+
+                        <!-- Visual Mockup of the Portal -->
+                        <div class="portal-mockup">
+                            <div class="mockup-header">
+                                <div class="mockup-dots">
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                </div>
+                                <div class="mockup-address">hrinser.cl/portal</div>
+                                <div></div>
+                            </div>
+                            <div class="mockup-body">
+                                <div style="text-align: center; margin-bottom: 10px;">
+                                    <span style="font-family: var(--font-title); font-weight:800; font-size:1.2rem; color: var(--accent-blue);">HRINSER</span>
+                                    <p style="font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">Compliance & Acreditación</p>
+                                </div>
+                                <div class="portal-links-grid">
+                                    <div class="portal-card-mini">
+                                        <div class="portal-icon" style="color: var(--accent-indigo);">📁</div>
+                                        <div>
+                                            <div style="font-size:0.75rem; font-weight:700; color:#fff;">DMS Seguro</div>
+                                            <div style="font-size:0.6rem; color:var(--text-secondary)">dms.hrinser.cl</div>
+                                        </div>
+                                    </div>
+                                    <div class="portal-card-mini">
+                                        <div class="portal-icon" style="color: var(--accent-emerald);">📈</div>
+                                        <div>
+                                            <div style="font-size:0.75rem; font-weight:700; color:#fff;">CRM Ventas</div>
+                                            <div style="font-size:0.6rem; color:var(--text-secondary)">crm.hrinser.cl</div>
+                                        </div>
+                                    </div>
+                                    <div class="portal-card-mini">
+                                        <div class="portal-icon" style="color: var(--accent-indigo);">💼</div>
+                                        <div>
+                                            <div style="font-size:0.75rem; font-weight:700; color:#fff;">Portal Mandante</div>
+                                            <div style="font-size:0.6rem; color:var(--text-secondary)">clientes.hrinser.cl</div>
+                                        </div>
+                                    </div>
+                                    <div class="portal-card-mini">
+                                        <div class="portal-icon" style="color: var(--accent-gold);">👤</div>
+                                        <div>
+                                            <div style="font-size:0.75rem; font-weight:700; color:#fff;">Mi Perfil</div>
+                                            <div style="font-size:0.6rem; color:var(--text-secondary)">miperfil.hrinser.cl</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: CRONOGRAMA Y PRESUPUESTO -->
+            <div class="slide" id="slide6">
+                <div class="slide-content">
+                    <h2 style="text-align: center; margin-bottom: 20px;">Presupuesto y Hitos de Pago</h2>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 style="font-size: 1.25rem; color: #fff; margin-bottom: 15px;">Resumen Financiero</h3>
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Inversión Desarrollo (Pago Único)</span>
+                                    <span style="font-weight: 700; color: #fff; font-size: 1.1rem;">$1.800.000 CLP</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Soporte & Mantención Mensual</span>
+                                    <span style="font-weight: 700; color: var(--accent-emerald); font-size: 1.1rem;">$120.000 CLP</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Servidor e Infraestructura</span>
+                                    <span style="font-weight: 700; color: var(--accent-blue); font-size: 1.1rem;">$0* (Servidor Hostinger ya Adquirido)</span>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.8rem; margin-top: 20px; font-style: italic; color: var(--text-secondary);">
+                                * El almacenamiento inmutable adicional se configura con Cloudflare R2 sin costo para los primeros 10 GB y ~$0.015 USD por GB adicional, haciéndolo extremadamente rentable.
+                            </p>
+                        </div>
+
+                        <!-- Milestones timeline -->
+                        <div class="card" style="padding: 20px 25px;">
+                            <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 15px;">Hitos de Desarrollo</h3>
+                            <div class="milestone-timeline">
+                                <div class="milestone-item">
+                                    <div class="milestone-badge">Hito 1 (30%)</div>
+                                    <div class="milestone-info">
+                                        <div class="milestone-title">Inicio del Proyecto <span class="milestone-price">$540.000</span></div>
+                                        <div class="milestone-desc">Aprovisionamiento del servidor, vinculación DNS y diseño UX/UI.</div>
+                                    </div>
+                                </div>
+                                <div class="milestone-item">
+                                    <div class="milestone-badge">Hito 2 (40%)</div>
+                                    <div class="milestone-info">
+                                        <div class="milestone-title">Prototipo Funcional <span class="milestone-price">$720.000</span></div>
+                                        <div class="milestone-desc">Landing page arriba, Nextcloud y CRM configurados con datos de prueba.</div>
+                                    </div>
+                                </div>
+                                <div class="milestone-item">
+                                    <div class="milestone-badge">Hito 3 (30%)</div>
+                                    <div class="milestone-info">
+                                        <div class="milestone-title">Puesta en Marcha <span class="milestone-price">$540.000</span></div>
+                                        <div class="milestone-desc">Capacitación a Vanessa, entrega de accesos y lanzamiento oficial.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: CONCLUSIÓN -->
+            <div class="slide" id="slide7">
+                <div class="slide-content title-slide">
+                    <div class="logo-badge" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); color: #34d399;">
+                        <span>✓</span> INVERSIÓN INTELIGENTE Y SEGURA
+                    </div>
+                    <h1 class="main-title" style="font-size: 3.5rem; margin-bottom: 30px;">Construye un Activo Tecnológico</h1>
+                    <p class="subtitle" style="font-size: 1.15rem; max-width: 800px; margin-bottom: 45px;">
+                        "Con esta arquitectura, HRINSER no depende de licencias de terceros que suben su precio mensualmente. Eres dueño de tu propia plataforma, garantizas compliance legal absoluto ante tus clientes y blindas el negocio ante la Ley 21.719."
+                    </p>
+                    <div style="display: flex; gap: 20px; justify-content: center;">
+                        <a href="file:///home/francisca/proyecto_hrinser/HRINSER_Portal_Unificado.html" target="_blank" class="nav-btn primary" style="padding: 15px 30px; font-size: 1rem; text-decoration: none;">
+                            <span>🌐</span> Probar Portal Unificado
+                        </a>
+                        <button onclick="goToSlide(0)" class="nav-btn" style="padding: 15px 25px; font-size: 1rem;">
+                            <span>↺</span> Reiniciar Presentación
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Controls Footer -->
+    <div class="controls-footer">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+            <span>←</span> Anterior
+        </button>
+        <div class="slide-counter" id="slideCounter">DIAPOSITIVA 1 DE 7</div>
+        <button class="nav-btn primary" id="nextBtn" onclick="nextSlide()">
+            Siguiente <span>→</span>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 7;
+        const slidesWrapper = document.getElementById('slidesWrapper');
+        const progressBar = document.getElementById('progressBar');
+        const slideCounter = document.getElementById('slideCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Update progress and controls on start
+        updatePresentation();
+
+        function updatePresentation() {
+            // Translate the wrapper to show the correct slide
+            slidesWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Manage active classes for animations
+            document.querySelectorAll('.slide').forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update Progress Bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Update Counter Text
+            slideCounter.innerText = `DIAPOSITIVA ${currentSlide + 1} DE ${totalSlides}`;
+
+            // Manage buttons state
+            prevBtn.disabled = currentSlide === 0;
+            
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.innerText = "Reiniciar ↺";
+                nextBtn.classList.remove('primary');
+            } else {
+                nextBtn.innerHTML = "Siguiente <span>→</span>";
+                nextBtn.classList.add('primary');
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+            } else {
+                currentSlide = 0; // Restart
+            }
+            updatePresentation();
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updatePresentation();
+            }
+        }
+
+        function goToSlide(index) {
+            if (index >= 0 && index < totalSlides) {
+                currentSlide = index;
+                updatePresentation();
+            }
+        }
+
+        // Keyboard Controls
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') {
+                event.preventDefault();
+                nextSlide();
+            } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+                event.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // ROI Simulator Logic
+        const userSlider = document.getElementById('userSlider');
+        const monthSlider = document.getElementById('monthSlider');
+        const userCountText = document.getElementById('userCountText');
+        const monthCountText = document.getElementById('monthCountText');
+        const saasCostText = document.getElementById('saasCostText');
+        const savingsText = document.getElementById('savingsText');
+
+        function calculateROI() {
+            const users = parseInt(userSlider.value);
+            const months = parseInt(monthSlider.value);
+
+            // Update range slider labels
+            userCountText.innerText = `${users} usuarios`;
+            monthCountText.innerText = `${months} meses`;
+
+            // Standard SaaS Costs (Hubspot, GWorkspace, Asana)
+            // CRM HubSpot: $15.000 per user/month average (or base of 150k + scale)
+            const baseHubspot = 150000;
+            const workspacePerUser = 12000;
+            const asanaPerUser = 10000;
+            
+            const saasMonthly = baseHubspot + (workspacePerUser * users) + (asanaPerUser * users);
+            const totalSaasCost = saasMonthly * months;
+
+            // Our Open Source System Cost
+            // Initial Implementation: $1.800.000
+            // Monthly Maintenance: $120.000
+            const ourCost = 1800000 + (120000 * months);
+
+            // Savings
+            const savings = totalSaasCost - ourCost;
+
+            // Render stats
+            saasCostText.innerText = formatCLP(totalSaasCost);
+            
+            if (savings > 0) {
+                savingsText.innerText = formatCLP(savings);
+                savingsText.style.color = 'var(--accent-emerald)';
+            } else {
+                // If months are very low (below payback period)
+                savingsText.innerText = formatCLP(savings);
+                savingsText.style.color = 'var(--accent-red)';
+            }
+        }
+
+        function formatCLP(value) {
+            return new Intl.NumberFormat('es-CL', {
+                style: 'currency',
+                currency: 'CLP',
+                minimumFractionDigits: 0
+            }).format(value).replace('CLP', '').trim();
+        }
+
+        // Add events for simulator
+        userSlider.addEventListener('input', calculateROI);
+        monthSlider.addEventListener('input', calculateROI);
+
+        // Run initial calculation
+        calculateROI();
+
+    </script>
+</body>
+</html>

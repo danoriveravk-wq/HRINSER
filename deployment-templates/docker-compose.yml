@@ -1,0 +1,158 @@
+# ==============================================================================
+# PROYECTO: DMS - Portal Unificado HRINSER (Ley 21.719 - Chile)
+# PLANTILLA DE DESPLIEGUE: Arquitectura Multi-VPS Optimizada
+# COMPONENTES: Nextcloud (Apache-PHP) + PostgreSQL (Database) + Redis (Cache & File Locking)
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # BASE DE DATOS: PostgreSQL dedicada para la instancia
+  # ----------------------------------------------------------------------------
+  db:
+    image: postgres:15-alpine
+    container_name: hrinser-nextcloud-db
+    restart: always
+    # Evita que el contenedor caiga abruptamente ante micro-cortes
+    stop_grace_period: 1m30s
+    volumes:
+      # Volumen persistente para la base de datos relacional
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=nextcloud_db
+      - POSTGRES_USER=nextcloud_usr
+      # ¡IMPORTANTE! Reemplazar con una contraseña robusta en producción
+      - POSTGRES_PASSWORD=your_secure_postgres_password_here
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'       # Máximo 2 cores de CPU para evitar throttling generalizado
+          memory: 2048M     # Límite estricto de RAM para evitar invocación del OOM Killer
+        reservations:
+          memory: 512M      # Garantiza 512MB mínimos para buffer de PostgreSQL
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nextcloud_usr -d nextcloud_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------------------------------------
+  # CACHÉ Y SEGUIMIENTO: Redis para caché de metadatos y File Locking
+  # Redundará en una reducción de más del 60% en I/O de disco (WAL de Postgres)
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: hrinser-nextcloud-redis
+    restart: always
+    command: redis-server --requirepass your_secure_redis_password_here
+    volumes:
+      # Almacenamiento persistente del estado de la caché
+      - redis_data:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          memory: 128M
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "your_secure_redis_password_here", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------------------------------------
+  # APLICACIÓN: Nextcloud Enterprise/Community Core (Apache/PHP-mod)
+  # ----------------------------------------------------------------------------
+  app:
+    image: nextcloud:28-apache
+    container_name: hrinser-nextcloud-app
+    restart: always
+    expose:
+      - "80"
+    # NOTA: En Elestio o en un esquema Multi-VPS, el tráfico externo se maneja
+    # a través de un Proxy Reverso (Nginx Proxy Manager o Traefik) con TLS.
+    # Si requiere mapear un puerto local directamente para pruebas rápidas:
+    # ports:
+    #   - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      # Persistencia de archivos de usuario, temas, apps instaladas y configuraciones
+      - nextcloud_data:/var/www/html
+    environment:
+      # Configuración de base de datos
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=nextcloud_db
+      - POSTGRES_USER=nextcloud_usr
+      - POSTGRES_PASSWORD=your_secure_postgres_password_here
+      # Configuración de Redis
+      - REDIS_HOST=redis
+      - REDIS_HOST_PASSWORD=your_secure_redis_password_here
+      # Ajustes de desempeño PHP
+      - PHP_MEMORY_LIMIT=1024M
+      - PHP_UPLOAD_LIMIT=10G
+      # Configuración de Proxy Reverso (Requerido para Elestio / SSL terminación)
+      - TRUSTED_PROXIES=172.18.0.0/16 172.19.0.0/16 10.0.0.0/8  # Rango de IPs del Proxy
+      - OVERWRITEPROTOCOL=https
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'       # Límite de CPU para la aplicación (Apache/PHP y OCR Tesseract interno)
+          memory: 2048M     # RAM máxima para el portal antes de reciclaje
+        reservations:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/cron.php"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ----------------------------------------------------------------------------
+  # SERVICIO DE SEGUIMIENTO CRON:
+  # Ejecuta las tareas de fondo de Nextcloud de forma asíncrona mediante cron
+  # del sistema contenedor, liberando el frontend de Apache.
+  # ----------------------------------------------------------------------------
+  cron:
+    image: nextcloud:28-apache
+    container_name: hrinser-nextcloud-cron
+    restart: always
+    volumes:
+      # Debe compartir los mismos datos que la aplicación principal
+      - nextcloud_data:/var/www/html
+    entrypoint: |
+      bash -c "
+      echo 'Iniciando demonio cron interno para Nextcloud...'
+      while true; do
+        # Ejecuta cron.php con el usuario de Apache cada 5 minutos
+        su -s /bin/bash www-data -c 'php -f /var/www/html/cron.php'
+        sleep 300
+      done
+      "
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          memory: 256M
+
+# ==============================================================================
+# PERSISTENCIA DE VOLÚMENES
+# ==============================================================================
+volumes:
+  db_data:
+    driver: local
+  redis_data:
+    driver: local
+  nextcloud_data:
+    driver: local

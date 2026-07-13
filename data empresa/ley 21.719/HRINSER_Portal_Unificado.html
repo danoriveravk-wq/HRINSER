@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRINSER | Gestión y Acreditación Documental Inteligente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white overflow-x-hidden">
+
+    <!-- Header / Barra de Navegación Corporativa -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <span class="text-2xl font-black tracking-wider text-blue-500">HRINSER</span>
+                <span class="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full font-bold border border-blue-500/20 uppercase tracking-widest hidden sm:inline-block">Compliance Tech</span>
+            </div>
+            
+            <!-- Menú de Navegación Desktop -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+                <a href="#inicio" class="hover:text-blue-400 transition-colors">Inicio</a>
+                <a href="#nosotros" class="hover:text-blue-400 transition-colors">Quiénes Somos</a>
+                <a href="#servicios" class="hover:text-blue-400 transition-colors">Servicios</a>
+                <a href="#contacto" class="hover:text-blue-400 transition-colors">Contacto</a>
+            </nav>
+
+            <!-- CTA Acceso -->
+            <div class="flex items-center gap-4">
+                <a href="#portales" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 shadow-lg shadow-blue-600/20 active:scale-95">
+                    Ingresar al Portal
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative py-24 md:py-32 overflow-hidden border-b border-slate-900">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.08),transparent_45%)]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Texto Hero -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold border border-blue-500/20">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                        Seguridad Documental Garantizada para Contratistas
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-none text-white">
+                        La forma inteligente de <br class="hidden md:inline">
+                        <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">acreditar su personal</span>
+                    </h1>
+                    <p class="text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Reducimos los tiempos de acreditación en faenas mineras, industriales y de transporte. Aseguramos la continuidad operacional mitigando riesgos de multas y paralizaciones.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#portales" class="w-full sm:w-auto text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-500/10">
+                            Acceder a mi Portal
+                        </a>
+                        <a href="#nosotros" class="w-full sm:w-auto text-center bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold px-8 py-4 rounded-xl border border-slate-800 transition-all">
+                            Saber Más
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ilustración / Feature Card en Hero -->
+                <div class="lg:col-span-5 relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-indigo-500/10 rounded-3xl filter blur-xl"></div>
+                    <div class="relative bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-sm shadow-2xl">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                            <span class="text-xs font-semibold text-slate-400">KPI DE CUMPLIMIENTO GLOBAL</span>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-bold">Óptimo</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-slate-300">Minera Centinela - Acreditados</span>
+                                    <span class="text-blue-400 font-semibold">100%</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-blue-500 h-full w-[100%] transition-all duration-1000"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-slate-300">Transportes Andes - Documentación</span>
+                                    <span class="text-blue-400 font-semibold">94%</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-indigo-500 h-full w-[94%] transition-all duration-1000"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-slate-300">Exámenes Médicos Vigentes</span>
+                                    <span class="text-emerald-400 font-semibold">98%</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-emerald-500 h-full w-[98%] transition-all duration-1000"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Quiénes Somos -->
+    <section id="nosotros" class="py-24 bg-slate-950 border-b border-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Nuestra Misión</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2">
+                    Liderando el control operacional con rigurosidad
+                </h2>
+                <p class="text-slate-400 mt-4 leading-relaxed">
+                    Nacimos para solucionar la brecha que existe entre los mandantes industriales y sus empresas colaboradoras. Nos especializamos en la estructuración de la documentación laboral, previendo riesgos operacionales bajo los más altos estándares normativos chilenos.
+                </p>
+            </div>
+
+            <!-- Valores / Diferenciadores -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-900/40 p-8 rounded-3xl border border-slate-800/80">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6 text-xl">🛡️</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Mitigación de Riesgos</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Control exhaustivo para evitar detenciones por licencias vencidas, exámenes fuera de plazo o falta de firma de contratos.
+                    </p>
+                </div>
+                <div class="bg-slate-900/40 p-8 rounded-3xl border border-slate-800/80">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6 text-xl">⚡</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Agilidad en Procesos</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Automatizamos la visualización y trazabilidad documental para que sus operaciones estén acreditadas en tiempo récord.
+                    </p>
+                </div>
+                <div class="bg-slate-900/40 p-8 rounded-3xl border border-slate-800/80">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6 text-xl">📂</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Orden Jerárquico</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Estructura estricta por empresa, proyecto y colaborador, asegurando auditorías rápidas y eficientes frente a fiscalizaciones.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Servicios -->
+    <section id="servicios" class="py-24 bg-slate-900/30 border-b border-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Servicios Digitales</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2">
+                    Módulos diseñados para cada perfil
+                </h2>
+                <p class="text-slate-400 mt-4 leading-relaxed">
+                    Nuestro ecosistema separa la gestión interna de la vista pública, garantizando la confidencialidad de la información confidencial de sus trabajadores de acuerdo a las leyes chilenas de protección de datos.
+                </p>
+            </div>
+
+            <!-- Grid de Módulos Operacionales -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 bg-slate-900/50 rounded-3xl border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-blue-400 uppercase bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Módulo Backoffice</span>
+                        <h3 class="text-2xl font-bold text-white mt-4 mb-2">Ecosistema Interno de Administración</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Para nuestro equipo de analistas y operaciones. Permite la carga directa en almacenamiento seguro (DMS), actualización del CRM de contratos y seguimiento de embudos comerciales.
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-slate-300 text-sm border-t border-slate-800 pt-4">
+                        <li class="flex items-center gap-2">✔ Centralización documental en Cloud Storage</li>
+                        <li class="flex items-center gap-2">✔ CRM de clientes sin límites de licenciamiento</li>
+                    </ul>
+                </div>
+
+                <div class="p-8 bg-slate-900/50 rounded-3xl border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-purple-400 uppercase bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">Módulo Externo</span>
+                        <h3 class="text-2xl font-bold text-white mt-4 mb-2">Acreditación para Clientes y Trabajadores</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Permite a sus mandantes o empresas contratistas verificar de manera visual y segura el cumplimiento de sus dotaciones sin ingresar a carpetas internas.
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-slate-300 text-sm border-t border-slate-800 pt-4">
+                        <li class="flex items-center gap-2">✔ Portal seguro de descarga de firmas y contratos</li>
+                        <li class="flex items-center gap-2">✔ Acceso autogestionable para el perfil del trabajador</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN INTERACTIVA DE ACCESO A PORTALES -->
+    <section id="portales" class="py-24 bg-slate-950 relative">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.05),transparent_40%)]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Acceso Unificado</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2">
+                    Seleccione su Portal de Trabajo
+                </h2>
+                <p class="text-slate-400 mt-4">
+                    Por favor, seleccione el área o rol al que desea ingresar para redirigirlo a los servidores dedicados.
+                </p>
+            </div>
+
+            <!-- Panel de Accesos Unificado -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                
+                <!-- PORTAL INTERNO -->
+                <div class="bg-slate-900/30 rounded-3xl p-8 border border-slate-800/80 hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Operaciones Internas</span>
+                            <span class="text-2xl">🛡️</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Portal del Equipo (Backoffice)</h2>
+                        <p class="text-sm text-slate-400 mb-8 leading-relaxed">
+                            Acceso restringido para colaboradores de HRINSER. Centraliza la administración de contratos, base de datos de trabajadores, acreditaciones y embudos de venta.
+                        </p>
+
+                        <!-- Lista de Accesos Subdominios -->
+                        <div class="space-y-4">
+                            <!-- Botón DMS -->
+                            <div onclick="mostrarSimulacion('dms')" class="group p-4 bg-slate-950/60 rounded-2xl border border-slate-800 hover:bg-slate-800/40 transition-all cursor-pointer flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-11 h-11 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">📁</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-200 text-sm group-hover:text-blue-400 transition-colors">Gestión Documental (DMS - Nextcloud)</h4>
+                                        <p class="text-xs text-slate-500 mt-0.5">dms.hrinser.cl</p>
+                                    </div>
+                                </div>
+                                <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                            </div>
+
+                            <!-- Botón CRM -->
+                            <div onclick="mostrarSimulacion('crm')" class="group p-4 bg-slate-950/60 rounded-2xl border border-slate-800 hover:bg-slate-800/40 transition-all cursor-pointer flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">📈</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-200 text-sm group-hover:text-blue-400 transition-colors">CRM de Clientes (EspoCRM)</h4>
+                                        <p class="text-xs text-slate-500 mt-0.5">crm.hrinser.cl</p>
+                                    </div>
+                                </div>
+                                <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-slate-850 flex items-center gap-2 text-xs text-slate-500">
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Ambas plataformas operan bajo servidores seguros autohospedados.
+                    </div>
+                </div>
+
+                <!-- PORTAL CLIENTES / EXTERNOS -->
+                <div class="bg-slate-900/30 rounded-3xl p-8 border border-slate-800/80 hover:border-purple-500/30 transition-all duration-300 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-bold uppercase tracking-widest text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">Portal de cara al Cliente</span>
+                            <span class="text-2xl">👥</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Portal de Clientes & Empresas</h2>
+                        <p class="text-sm text-slate-400 mb-8 leading-relaxed">
+                            Punto de acceso para que tus clientes contratistas o mandantes (como las faenas mineras o de transporte) verifiquen la validez de los documentos cargados.
+                        </p>
+
+                        <!-- Lista de Accesos Clientes -->
+                        <div class="space-y-4">
+                            <!-- Botón Portal Clientes -->
+                            <div onclick="mostrarSimulacion('clientes')" class="group p-4 bg-slate-950/60 rounded-2xl border border-slate-800 hover:bg-slate-800/40 transition-all cursor-pointer flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-11 h-11 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">💼</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-200 text-sm group-hover:text-purple-400 transition-colors">Portal de Acreditación (Clientes)</h4>
+                                        <p class="text-xs text-slate-500 mt-0.5">clientes.hrinser.cl</p>
+                                    </div>
+                                </div>
+                                <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                            </div>
+
+                            <!-- Botón Registro Externos -->
+                            <div onclick="mostrarSimulacion('trabajadores')" class="group p-4 bg-slate-950/60 rounded-2xl border border-slate-800 hover:bg-slate-800/40 transition-all cursor-pointer flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-11 h-11 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">👤</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-200 text-sm group-hover:text-purple-400 transition-colors">Portal del Trabajador</h4>
+                                        <p class="text-xs text-slate-500 mt-0.5">miperfil.hrinser.cl</p>
+                                    </div>
+                                </div>
+                                <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-850 flex items-center gap-2 text-xs text-slate-500">
+                        <span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                        Seguridad perimetral y encriptación de datos SSL activa.
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SIMULADOR INTERACTIVO (Consola de simulación técnica) -->
+            <div id="pantalla-consola" class="hidden bg-slate-950 rounded-3xl border border-blue-500/30 p-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        <span class="text-xs text-slate-500 font-mono ml-2">CONSOLA DE REDIRECCIONAMIENTO_</span>
+                    </div>
+                    <button onclick="cerrarConsola()" class="text-xs text-slate-500 hover:text-white bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">Cerrar Simulación ✕</button>
+                </div>
+
+                <!-- Contenedor dinámico de simulación -->
+                <div id="consola-contenido" class="font-mono text-sm space-y-4">
+                    <!-- Se inyecta por JS -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto" class="py-24 bg-slate-900/20 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <h2 class="text-3xl font-extrabold text-white">¿Quiere optimizar la acreditación de su empresa?</h2>
+                <p class="text-slate-400">
+                    Establezca contacto directo con nuestro equipo comercial o agende una reunión técnica con nuestros analistas en minutos.
+                </p>
+                <div class="pt-4">
+                    <a href="mailto:contacto@hrinser.cl" class="inline-flex items-center gap-3 bg-slate-900 hover:bg-slate-800 text-white font-medium px-6 py-3 rounded-xl border border-slate-800 transition-all">
+                        <span>✉</span> contacto@hrinser.cl
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Corporativo -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-12 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p>© 2026 HRINSER SPA. Todos los derechos reservados. Diseñado por el Core Engineering Team.</p>
+            <div class="flex gap-6 text-slate-400">
+                <a href="#" class="hover:text-blue-400 transition-colors">Términos y Privacidad</a>
+                <span>•</span>
+                <a href="#" class="hover:text-blue-400 transition-colors">Seguridad Cloud</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lógica de Simulación Interactiva -->
+    <script>
+        function mostrarSimulacion(plataforma) {
+            const consola = document.getElementById('pantalla-consola');
+            const contenido = document.getElementById('consola-contenido');
+            consola.classList.remove('hidden');
+            
+            // Scroll suave hacia la consola
+            consola.scrollIntoView({ behavior: 'smooth' });
+
+            let html = '';
+
+            switch(plataforma) {
+                case 'dms':
+                    html = `
+                        <div class="text-blue-400 font-bold">> Ejecutando redirección segura hacia Nextcloud...</div>
+                        <div class="text-slate-400">[OK] Resolviendo DNS: dms.hrinser.cl -> Servidor de Almacenamiento Seguro</div>
+                        <div class="text-slate-400">[OK] Autenticando token de sesión del Workspace de Francisca...</div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-indigo-500/20 mt-4 font-sans">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                                <span class="font-bold text-indigo-400 flex items-center gap-2">📁 Nextcloud HRINSER</span>
+                                <span class="text-xs text-emerald-400">● Conectado (SSL)</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3 text-xs mb-3">
+                                <div class="bg-slate-800 p-2.5 rounded-lg text-center text-slate-300">📁 Empresa A (Minera)</div>
+                                <div class="bg-slate-800 p-2.5 rounded-lg text-center text-slate-300">📁 Proyecto Norte</div>
+                                <div class="bg-slate-800 p-2.5 rounded-lg text-center text-slate-300">📁 Trabajador_RUT</div>
+                            </div>
+                            <p class="text-[11px] text-slate-500 text-center">Almacenamiento directo conectado con Cloudflare R2 (100 GB+ listos).</p>
+                        </div>
+                    `;
+                    break;
+                case 'crm':
+                    html = `
+                        <div class="text-emerald-400 font-bold">> Abriendo EspoCRM Autohospedado...</div>
+                        <div class="text-slate-400">[OK] Servidor web PHP en Hostinger listo.</div>
+                        <div class="text-slate-400">[OK] Base de datos MySQL conectada en hrinser.cl.</div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-emerald-500/20 mt-4 font-sans">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                                <span class="font-bold text-emerald-400 flex items-center gap-2">📈 EspoCRM (Mesa de Ventas)</span>
+                                <span class="text-xs text-slate-400">Usuario: Vanessa Galdames</span>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center bg-slate-800/60 p-2 rounded-lg text-xs">
+                                    <span>Prospecto: Minera del Sur</span>
+                                    <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded text-[10px]">Propuesta Enviada</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-slate-800/60 p-2 rounded-lg text-xs">
+                                    <span>Prospecto: Transportes Andes</span>
+                                    <span class="px-2 py-0.5 bg-amber-500/20 text-amber-300 rounded text-[10px]">En Negociación</span>
+                                </div>
+                            </div>
+                            <p class="text-[11px] text-slate-500 text-center mt-3">Sin límites de usuarios. Daniel y Vanessa pueden trabajar simultáneamente gratis.</p>
+                        </div>
+                    `;
+                    break;
+                case 'clientes':
+                    html = `
+                        <div class="text-purple-400 font-bold">> Accediendo a clientes.hrinser.cl...</div>
+                        <div class="text-slate-400">[OK] Cargando Portal de Acreditación Pública para Mandantes.</div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-purple-500/20 mt-4 font-sans">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                                <span class="font-bold text-purple-400">💼 Portal de Clientes</span>
+                                <span class="text-xs text-purple-300">Vista de Auditoría</span>
+                            </div>
+                            <div class="bg-slate-800/60 p-4 rounded-xl mb-3">
+                                <p class="text-xs text-slate-400">Empresa Cliente: <strong>Consorcio Minero S.A.</strong></p>
+                                <div class="flex justify-between items-center mt-3 text-xs bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                                    <span>Estado General de Trabajadores:</span>
+                                    <span class="text-emerald-400 font-bold">98% Aprobado</span>
+                                </div>
+                            </div>
+                            <p class="text-[11px] text-slate-500 text-center">Este portal solo extrae las firmas aprobadas del DMS principal, protegiendo las carpetas internas.</p>
+                        </div>
+                    `;
+                    break;
+                case 'trabajadores':
+                    html = `
+                        <div class="text-amber-400 font-bold">> Cargando Portal Autogestionable de Trabajadores...</div>
+                        <div class="text-slate-400">[OK] miperfil.hrinser.cl respondiendo.</div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-amber-500/20 mt-4 font-sans">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                                <span class="font-bold text-amber-400">👤 Mi Perfil HRINSER</span>
+                                <span class="text-xs text-slate-400">Trabajador: Juan Pérez</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between bg-slate-800 p-2 rounded-lg text-xs">
+                                    <span>Contrato de Trabajo (.pdf)</span>
+                                    <span class="text-emerald-400">✓ Cargado</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-slate-800 p-2 rounded-lg text-xs">
+                                    <span>Certificado de Altura Física (.pdf)</span>
+                                    <span class="text-red-400 font-bold">⚠ Vencido (Reemplazar)</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            contenido.innerHTML = html;
+        }
+
+        function cerrarConsola() {
+            document.getElementById('pantalla-consola').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
+
