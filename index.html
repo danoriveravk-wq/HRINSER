@@ -13,7 +13,7 @@
 
         /* Efecto Parallax Fijo para el Atardecer en el Hero (Inicio) */
         .hero-parallax {
-            background-image: linear-gradient(to bottom, rgba(248, 250, 252, 0.45) 0%, rgba(248, 250, 252, 0.95) 75%, rgba(248, 250, 252, 1) 100%), url('assets/wallpaper.jpg');
+            background-image: linear-gradient(to bottom, rgba(248, 250, 252, 0.45) 0%, rgba(248, 250, 252, 0.95) 75%, rgba(248, 250, 252, 1) 100%), url('assets/wallpaper.webp');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -22,12 +22,19 @@
 
         /* Efecto Parallax Fijo para la Bota de Seguridad (Sección Final) */
         .footer-parallax {
-            background-image: linear-gradient(to bottom, rgba(248, 250, 252, 1) 0%, rgba(248, 250, 252, 0.85) 20%, rgba(248, 250, 252, 0.85) 80%, rgba(248, 250, 252, 1) 100%), url('assets/7df06148be985dd15b4407c468fe9a94.jpg');
+            background-image: linear-gradient(to bottom, rgba(248, 250, 252, 1) 0%, rgba(248, 250, 252, 0.85) 20%, rgba(248, 250, 252, 0.85) 80%, rgba(248, 250, 252, 1) 100%), url('assets/wallpaper.webp');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+
+        /* Estilos para la Galería Dinámica del Video */
+        .hero-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out;
+        }
+        .hero-image.active { opacity: 1; }
     </style>
 </head>
 <body class="bg-white text-slate-800 min-h-screen flex flex-col justify-between selection:bg-amber-600 selection:text-white scroll-smooth overflow-x-hidden">
@@ -104,14 +111,20 @@
                         
                         <!-- Columna Izquierda (Video Simulado Premium) -->
                         <div class="relative group rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-2xl transition-all duration-300 hover:border-sky-300 p-2">
-                            <div class="relative aspect-video w-full bg-cover bg-center overflow-hidden" style="background-image: url('assets/chile_desde_espacio.png');">
-                                <!-- Esquinas de coordenadas técnicas / Brackets angulares -->
+                            <div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-slate-950">
+                                <!-- Galería de Imágenes Dinámica en el Video -->
+                                <div class="absolute inset-0 z-0">
+                                    <img src="assets/chile_desde_espacio.webp" alt="Chile desde el espacio" class="hero-image active absolute inset-0 w-full h-full object-cover" id="hero-img-chile">
+                                    <img src="assets/wallpaper.webp" alt="Trabajadores en terreno" class="hero-image absolute inset-0 w-full h-full object-cover" id="hero-img-trabajadores">
+                                    <img src="assets/watermarked_img.webp" alt="Faena minera" class="hero-image absolute inset-0 w-full h-full object-cover" id="hero-img-faena">
+                                </div>
+                                <!-- Esquinas de coordenadas técnicas / Brackets angulares (z-20) -->
                                 <div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-slate-400/80 z-20"></div>
                                 <div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-slate-400/80 z-20"></div>
                                 <div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-slate-400/80 z-20"></div>
                                 <div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-slate-400/80 z-20"></div>
-                                <!-- Overlay oscuro de gradiente -->
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/10 to-slate-900/20"></div>
+                                <!-- Overlay oscuro de gradiente (z-10) -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/10 to-slate-900/20 z-10"></div>
                                 
                                 <!-- Etiqueta superior izquierda -->
                                 <!-- Coordenadas en la parte superior derecha -->
@@ -1409,7 +1422,7 @@
                                 <div id="camera-simulation" class="hidden bg-slate-900 border border-slate-800 rounded-lg p-3 text-center space-y-2">
                                     <div class="w-full h-32 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-center font-mono text-[10px] text-slate-500 relative overflow-hidden">
                                         <div id="camera-capture-text">Enfoque la hoja del examen de altura...</div>
-                                        <div id="camera-photo" class="hidden absolute inset-0 bg-cover bg-center" style="background-image: url('assets/7df06148be985dd15b4407c468fe9a94.jpg')"></div>
+                                        <div id="camera-photo" class="hidden absolute inset-0 bg-cover bg-center" style="background-image: url('assets/wallpaper.webp')"></div>
                                     </div>
                                     <button onclick="capturarFotoTrabajador()" id="camera-btn-capture" class="bg-emerald-500 text-slate-950 px-3 py-1 text-[10px] font-bold rounded-full">Capturar Examen</button>
                                 </div>
@@ -1454,6 +1467,31 @@
     <!-- LÓGICA DE SIMULACIÓN INTERACTIVA (JS) -->
     <!-- ========================================== -->
     <script>
+        // Galería dinámica de fondo del reproductor de video
+        const videoImages = [
+            'hero-img-chile',
+            'hero-img-trabajadores',
+            'hero-img-faena'
+        ];
+        let currentVideoIndex = 0;
+        
+        function rotateVideoGallery() {
+            const currentImg = document.getElementById(videoImages[currentVideoIndex]);
+            if (currentImg) {
+                currentImg.classList.remove('active');
+                currentImg.style.opacity = '0';
+            }
+            currentVideoIndex = (currentVideoIndex + 1) % videoImages.length;
+            const nextImg = document.getElementById(videoImages[currentVideoIndex]);
+            if (nextImg) {
+                nextImg.classList.add('active');
+                nextImg.style.opacity = '1';
+            }
+        }
+        
+        // Iniciar intervalo de 5 segundos para rotación de imágenes del video
+        setInterval(rotateVideoGallery, 5000);
+
         // Enviar Lead de Formulario a Slack en Tiempo Real
         async function enviarLeadSlack(event) {
             event.preventDefault();
