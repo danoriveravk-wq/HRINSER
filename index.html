@@ -80,7 +80,7 @@
                     <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">
                         Mitigación de Riesgos & Continuidad Operacional en Chile
                     </span>
-                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent mt-6 leading-tight">
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent mt-6 leading-tight">
                         Acreditación y Control de Contratistas Sin Multas ni Paralizaciones
                     </h1>
                     <p class="mt-6 text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
@@ -97,6 +97,32 @@
                 </div>
             </section>
 
+            <!-- SECCIÓN: MÉTRICAS DE CONFIANZA INDUSTRIAL (ESTILO CODELCO) -->
+            <section class="border-y border-slate-900 bg-slate-950 py-12 relative z-20">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-slate-900">
+                        <!-- Métrica 1 -->
+                        <div class="text-center md:text-left md:px-8 py-6 md:py-0 flex flex-col justify-center">
+                            <span class="text-4xl md:text-5xl font-black text-amber-500 tracking-tight leading-none">100%</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-200 font-extrabold mt-2" data-translate="metric-trazabilidad">Trazabilidad Ley 21.719</span>
+                            <span class="text-xs text-slate-500 mt-1" data-translate="metric-trazabilidad-desc">Registros inmutables en tiempo real</span>
+                        </div>
+                        <!-- Métrica 2 -->
+                        <div class="text-center md:text-left md:px-8 py-6 md:py-0 flex flex-col justify-center">
+                            <span class="text-4xl md:text-5xl font-black text-amber-500 tracking-tight leading-none">0%</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-200 font-extrabold mt-2" data-translate="metric-multas">Multas previsionales</span>
+                            <span class="text-xs text-slate-500 mt-1" data-translate="metric-multas-desc">Mitigación activa y control solidario</span>
+                        </div>
+                        <!-- Métrica 3 -->
+                        <div class="text-center md:text-left md:px-8 py-6 md:py-0 flex flex-col justify-center">
+                            <span class="text-4xl md:text-5xl font-black text-amber-500 tracking-tight leading-none">24/7</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-200 font-extrabold mt-2" data-translate="metric-control">Control de accesos</span>
+                            <span class="text-xs text-slate-500 mt-1" data-translate="metric-control-desc">Monitoreo y bloqueo de credenciales</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- SECCIONES INTERMEDIAS: Fondo Sólido Negro/Gris Muy Oscuro (Evita distracciones y asegura contraste) -->
             <div class="bg-slate-950 relative z-20">
 
@@ -106,7 +132,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div>
                                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">¿Quiénes Somos?</span>
-                                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 leading-tight">
+                                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3">
                                     Garantizamos Rigurosidad Técnica para Operaciones Complejas
                                 </h2>
                                 <p class="mt-6 text-slate-400 leading-relaxed">
@@ -147,7 +173,7 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
                             <span class="text-xs font-bold uppercase tracking-widest text-red-400">Impacto Real de Infracciones</span>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3">
                                 Riesgos Operacionales Inminentes
                             </h2>
                             <p class="text-slate-400 mt-4 text-sm md:text-base">
@@ -216,7 +242,7 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
                             <span class="text-xs font-bold uppercase tracking-widest text-amber-400" data-translate="sectors-subtitle">Industrias de Alta Exigencia</span>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3" data-translate="sectors-title">
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3" data-translate="sectors-title">
                                 Sectores Soportados
                             </h2>
                             <p class="text-slate-400 mt-4 text-sm md:text-base" data-translate="sectors-desc">
@@ -225,9 +251,9 @@
                         </div>
 
                         <!-- Grilla de Tarjetas con Hover Animado Premium -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                             <!-- Minería y Energía -->
-                            <div onclick="mostrarSector('mineria')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-amber-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                            <div onclick="mostrarSector('mineria')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 hover:border-amber-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
                                 <div>
                                     <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <!-- SVG Minería digitalizado -->
@@ -246,7 +272,7 @@
                             </div>
 
                             <!-- Construcción -->
-                            <div onclick="mostrarSector('construccion')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-blue-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                            <div onclick="mostrarSector('construccion')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 hover:border-blue-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
                                 <div>
                                     <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <!-- SVG Construcción digitalizado -->
@@ -265,7 +291,7 @@
                             </div>
 
                             <!-- Transporte y Logística -->
-                            <div onclick="mostrarSector('transporte')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-emerald-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                            <div onclick="mostrarSector('transporte')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 hover:border-emerald-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
                                 <div>
                                     <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <!-- SVG Transporte digitalizado -->
@@ -285,7 +311,7 @@
                             </div>
 
                             <!-- Servicios Generales y Retail -->
-                            <div onclick="mostrarSector('retail')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-indigo-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                            <div onclick="mostrarSector('retail')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 hover:border-indigo-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
                                 <div>
                                     <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <!-- SVG Retail digitalizado -->
@@ -332,7 +358,7 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
                             <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Autogestión de Cumplimiento</span>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3">
                                 El Manual de Límites Legales en Sencillo
                             </h2>
                             <p class="text-slate-400 mt-4 text-sm md:text-base">
@@ -420,7 +446,7 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
                             <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">Planes a tu Medida</span>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-4">Planes Permanentes de Gestión</h2>
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-4">Planes Permanentes de Gestión</h2>
                             <p class="text-slate-400 mt-4 text-sm md:text-base">
                                 Escala según las necesidades de tu empresa. Todos nuestros planes incluyen soporte técnico, DMS estructurado y CRM de ventas integrado.
                             </p>
@@ -444,7 +470,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                             
                             <!-- Esencial -->
-                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition">
+                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between hover:border-slate-700 transition">
                                 <div>
                                     <h4 class="font-bold text-lg text-slate-200">Esencial</h4>
                                     <p class="text-xs text-slate-500 mt-1">Pequeñas empresas</p>
@@ -476,11 +502,11 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#contacto" class="mt-8 block text-center bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white text-xs font-semibold py-2.5 rounded-xl transition">Cotizar</a>
+                                <a href="#contacto" class="mt-8 block text-center bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2.5 rounded-xl transition shadow-lg shadow-amber-500/10">Cotizar</a>
                             </div>
 
                             <!-- Operación -->
-                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition">
+                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between hover:border-slate-700 transition">
                                 <div>
                                     <h4 class="font-bold text-lg text-slate-200">Operación</h4>
                                     <p class="text-xs text-slate-500 mt-1">Empresas en crecimiento</p>
@@ -512,11 +538,11 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#contacto" class="mt-8 block text-center bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white text-xs font-semibold py-2.5 rounded-xl transition">Cotizar</a>
+                                <a href="#contacto" class="mt-8 block text-center bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2.5 rounded-xl transition shadow-lg shadow-amber-500/10">Cotizar</a>
                             </div>
 
                             <!-- Industrial -->
-                            <div class="bg-slate-900/50 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-600 transition relative">
+                            <div class="bg-slate-900/50 border border-slate-700 rounded-2xl p-8 flex flex-col justify-between hover:border-slate-600 transition relative">
                                 <span class="absolute -top-2.5 right-6 text-[9px] font-bold uppercase tracking-widest bg-amber-600 text-slate-950 px-2 py-0.5 rounded-full">Recomendado</span>
                                 <div>
                                     <h4 class="font-bold text-lg text-white">Industrial</h4>
@@ -549,11 +575,11 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#contacto" class="mt-8 block text-center bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2.5 rounded-xl transition">Cotizar</a>
+                                <a href="#contacto" class="mt-8 block text-center bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2.5 rounded-xl transition shadow-lg shadow-amber-500/10">Cotizar</a>
                             </div>
 
                             <!-- Corporativo -->
-                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition">
+                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between hover:border-slate-700 transition">
                                 <div>
                                     <h4 class="font-bold text-lg text-slate-200">Corporativo</h4>
                                     <p class="text-xs text-slate-500 mt-1">Grandes faenas</p>
@@ -585,7 +611,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#contacto" class="mt-8 block text-center bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white text-xs font-semibold py-2.5 rounded-xl transition">Cotizar</a>
+                                <a href="#contacto" class="mt-8 block text-center bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2.5 rounded-xl transition shadow-lg shadow-amber-500/10">Cotizar</a>
                             </div>
 
                         </div>
@@ -602,7 +628,7 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
                             <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">Centro de Mando Operativo</span>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-4">Redireccionamiento Unificado</h2>
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-4">Redireccionamiento Unificado</h2>
                             <p class="text-slate-300 mt-4 text-sm md:text-base">
                                 Ingresa a cada una de nuestras plataformas dedicadas. Cada sistema opera de manera aislada y robusta en la nube.
                             </p>
@@ -619,7 +645,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                                         </svg>
                                     </div>
-                                    <h2 class="text-2xl font-bold text-white mb-2">Portal del Equipo Interno</h2>
+                                    <h2 class="text-2xl font-extrabold tracking-tight leading-tight text-white mb-2">Portal del Equipo Interno</h2>
                                     <p class="text-sm text-slate-300 mb-8 leading-relaxed">
                                         Acceso restringido para colaboradores de HRINSER. Centraliza la administración de contratos, bases de datos, acreditaciones y embudos de venta.
                                     </p>
@@ -675,7 +701,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
                                     </div>
-                                    <h2 class="text-2xl font-bold text-white mb-2">Portal de Clientes & Empresas</h2>
+                                    <h2 class="text-2xl font-extrabold tracking-tight leading-tight text-white mb-2">Portal de Clientes & Empresas</h2>
                                     <p class="text-sm text-slate-300 mb-8 leading-relaxed">
                                         Punto de acceso para que tus clientes mandantes (como la gerencia de una faena) o subcontratistas ingresen a verificar el estado de su personal.
                                     </p>
@@ -733,7 +759,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div>
                                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Protege tu Operación Hoy</span>
-                                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">Agenda un Diagnóstico Operacional de 20 Minutos</h2>
+                                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3">Agenda un Diagnóstico Operacional de 20 Minutos</h2>
                                 <p class="mt-6 text-slate-300 leading-relaxed text-sm md:text-base">
                                     Durante la llamada, evaluaremos tus contratos actuales, el volumen de trabajadores activos y las plataformas que te exigen tus mandantes. Te entregaremos una estimación de riesgos y plazos sin costo para tu empresa.
                                 </p>
@@ -1655,7 +1681,13 @@
                 "sector-flow-rule": "Marco Normativo",
                 "sector-flow-desc": "Haz clic en cualquiera de las tarjetas de sectores arriba para visualizar su flujo operativo y los documentos clave requeridos.",
                 "privacy-accept": "Acepto la",
-                "privacy-link": "política de privacidad"
+                "privacy-link": "política de privacidad",
+                "metric-trazabilidad": "Trazabilidad Ley 21.719",
+                "metric-trazabilidad-desc": "Registros inmutables en tiempo real",
+                "metric-multas": "Multas previsionales",
+                "metric-multas-desc": "Mitigación activa y control solidario",
+                "metric-control": "Control de accesos",
+                "metric-control-desc": "Monitoreo y bloqueo de credenciales"
             },
             en: {
                 "nav-inicio": "Home",
@@ -1681,7 +1713,13 @@
                 "sector-flow-rule": "Regulatory Framework",
                 "sector-flow-desc": "Click on any of the sector cards above to view its operational flow and key document requirements.",
                 "privacy-accept": "I accept the",
-                "privacy-link": "privacy policy"
+                "privacy-link": "privacy policy",
+                "metric-trazabilidad": "Traceability Law 21.719",
+                "metric-trazabilidad-desc": "Immutable records in real-time",
+                "metric-multas": "Previsional fines",
+                "metric-multas-desc": "Active mitigation & joint liability control",
+                "metric-control": "Access control",
+                "metric-control-desc": "Credential monitoring & blocking"
             }
         };
 
