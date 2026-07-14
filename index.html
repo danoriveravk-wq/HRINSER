@@ -13,7 +13,7 @@
 
         /* Efecto Parallax Fijo para el Atardecer en el Hero (Inicio) */
         .hero-parallax {
-            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.4) 0%, rgba(2, 6, 23, 0.9) 70%, rgba(2, 6, 23, 1) 100%), url('assets/wallpaper.jpg');
+            background-image: linear-gradient(to bottom, rgba(248, 250, 252, 0.45) 0%, rgba(248, 250, 252, 0.95) 75%, rgba(248, 250, 252, 1) 100%), url('assets/wallpaper.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -22,7 +22,7 @@
 
         /* Efecto Parallax Fijo para la Bota de Seguridad (Sección Final) */
         .footer-parallax {
-            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 1) 0%, rgba(2, 6, 23, 0.8) 20%, rgba(2, 6, 23, 0.8) 80%, rgba(2, 6, 23, 1) 100%), url('assets/7df06148be985dd15b4407c468fe9a94.jpg');
+            background-image: linear-gradient(to bottom, rgba(248, 250, 252, 1) 0%, rgba(248, 250, 252, 0.85) 20%, rgba(248, 250, 252, 0.85) 80%, rgba(248, 250, 252, 1) 100%), url('assets/7df06148be985dd15b4407c468fe9a94.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -30,19 +30,19 @@
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-600 selection:text-white scroll-smooth overflow-x-hidden">
+<body class="bg-white text-slate-800 min-h-screen flex flex-col justify-between selection:bg-amber-600 selection:text-white scroll-smooth overflow-x-hidden">
 
     <!-- CONTENEDOR PRINCIPAL: LANDING PAGE -->
     <div id="landing-page" class="flex flex-col min-h-screen">
         
         <!-- Header / Barra de Navegación -->
-        <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <header class="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent">HRINSER</span>
-                    <span class="text-xs bg-slate-900 text-slate-400 px-2.5 py-1 rounded-full font-semibold border border-slate-800">COMPLIANCE TECH</span>
+                    <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">HRINSER</span>
+                    <span class="text-xs bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full font-semibold border border-slate-200">COMPLIANCE TECH</span>
                 </div>
-                <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-400">
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
                     <a href="#inicio" class="hover:text-white transition" data-translate="nav-inicio">Inicio</a>
                     <a href="#quienes-somos" class="hover:text-white transition" data-translate="nav-empresa">La Empresa</a>
                     <a href="#riesgos" class="hover:text-white transition" data-translate="nav-riesgos">Riesgos</a>
@@ -53,7 +53,7 @@
                 <div class="flex items-center gap-4 text-sm">
                     <!-- Selector de Idioma Premium -->
                     <div class="relative inline-block text-left">
-                        <button id="lang-btn" onclick="toggleLangDropdown()" class="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold px-3 py-2 rounded-xl transition text-xs">
+                        <button id="lang-btn" onclick="toggleLangDropdown()" class="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-semibold px-3 py-2 rounded-xl transition text-xs">
                             <span>🌐</span> <span id="current-lang-label">ES</span>
                         </button>
                         <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-28 bg-slate-900 border border-slate-800 rounded-xl shadow-xl z-50 overflow-hidden">
@@ -61,10 +61,10 @@
                             <button onclick="selectLanguage('en')" class="w-full text-left px-4 py-2 hover:bg-slate-800 text-xs text-slate-300 hover:text-white transition">English (EN)</button>
                         </div>
                     </div>
-                    <a href="#portales" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-semibold px-4 py-2 rounded-xl transition text-xs md:text-sm" data-translate="btn-portales">
+                    <a href="#portales" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-semibold px-4 py-2 rounded-xl transition text-xs md:text-sm" data-translate="btn-portales">
                         Acceder a Portales
                     </a>
-                    <a href="#contacto" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-4 py-2 rounded-xl transition text-xs md:text-sm shadow-lg shadow-amber-500/10" data-translate="btn-piloto">
+                    <a href="#contacto" class="bg-slate-900 hover:bg-slate-800 text-white font-semibold px-4 py-2 rounded-xl transition text-xs md:text-sm shadow-sm" data-translate="btn-piloto">
                         Agendar Piloto 6 UF
                     </a>
                 </div>
@@ -79,20 +79,21 @@
                 <div class="max-w-7xl mx-auto px-6 relative z-10">
                     <!-- Bloque de Título Principal -->
                     <div class="text-center max-w-4xl mx-auto mb-16">
-                        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">
+                        <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-sky-50 px-4 py-1.5 rounded-full border border-sky-100">
                             Mitigación de Riesgos & Continuidad Operacional en Chile
                         </span>
-                        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent mt-6">
+                        <div class="mt-4 font-mono text-[9px] tracking-wider text-slate-400">[ STATUS: SECURE ] &nbsp; [ LEY 21.719: OK ] &nbsp; [ ORG: WEYLAND CORP ]</div>
+                        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-slate-900 mt-6">
                             Acreditación y Control de Contratistas Sin Multas ni Paralizaciones
                         </h1>
-                        <p class="mt-6 text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+                        <p class="mt-6 text-base md:text-lg text-slate-655 max-w-2xl mx-auto leading-relaxed">
                             Evita la suspensión de operaciones y faenas. Controlamos de manera inmutable y con total trazabilidad exámenes médicos, contratos y obligaciones de seguridad bajo las normativas DS 72, DS 594 y la Ley de Subcontratación.
                         </p>
                         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <a href="#manual-limites" class="w-full sm:w-auto bg-slate-900/90 hover:bg-slate-800 text-white font-semibold px-6 py-3.5 rounded-xl border border-slate-800 transition">
+                            <a href="#manual-limites" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-semibold px-6 py-3.5 rounded-xl border border-slate-900 transition text-center shadow-sm">
                                 Verificar Límites Legales
                             </a>
-                            <a href="#portales" class="w-full sm:w-auto bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-amber-500/20">
+                            <a href="#portales" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-800 font-semibold px-6 py-3.5 rounded-xl border border-slate-200 transition text-center shadow-sm">
                                 Ingresar a Portales
                             </a>
                         </div>
@@ -102,23 +103,32 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         
                         <!-- Columna Izquierda (Video Simulado Premium) -->
-                        <div class="relative group rounded-3xl overflow-hidden border border-slate-800 bg-slate-950/80 shadow-2xl transition-all duration-300 hover:border-amber-500/30">
-                            <div class="relative aspect-video w-full bg-cover bg-center overflow-hidden" style="background-image: url('assets/wallpaper.jpg');">
+                        <div class="relative group rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-2xl transition-all duration-300 hover:border-sky-300 p-2">
+                            <div class="relative aspect-video w-full bg-cover bg-center overflow-hidden" style="background-image: url('assets/chile_desde_espacio.png');">
+                                <!-- Esquinas de coordenadas técnicas / Brackets angulares -->
+                                <div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-slate-400/80 z-20"></div>
+                                <div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-slate-400/80 z-20"></div>
+                                <div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-slate-400/80 z-20"></div>
+                                <div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-slate-400/80 z-20"></div>
                                 <!-- Overlay oscuro de gradiente -->
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/60"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/10 to-slate-900/20"></div>
                                 
                                 <!-- Etiqueta superior izquierda -->
+                                <!-- Coordenadas en la parte superior derecha -->
+                                <div class="absolute top-4 right-4 z-20 text-[8px] font-mono text-slate-300 bg-slate-900/80 px-2 py-1 rounded border border-slate-700/50">
+                                    LAT: 33° 26' 16" S | LON: 70° 39' 01" W
+                                </div>
                                 <div class="absolute top-4 left-4 z-20 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-                                    <span class="text-[10px] font-bold text-slate-300 uppercase tracking-wider bg-slate-950/90 px-3 py-1 rounded-full border border-slate-800">
-                                        Video Trabajadores Chilenos
+                                    <span class="text-[10px] font-bold text-slate-300 uppercase tracking-wider bg-slate-900/80 px-2.5 py-1 rounded border border-slate-700/50">
+                                        WEYLAND-SAT v4.12
                                     </span>
                                 </div>
 
                                 <!-- Botón de Play Circular con animación de pulso concéntrico -->
                                 <div class="absolute inset-0 flex items-center justify-center z-20">
-                                    <button class="relative flex items-center justify-center w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 transition-transform duration-300 hover:scale-110 shadow-lg shadow-amber-500/40 focus:outline-none">
-                                        <span class="absolute inset-0 rounded-full bg-amber-500 opacity-75 animate-ping"></span>
+                                    <button class="relative flex items-center justify-center w-16 h-16 rounded-full bg-slate-900 hover:bg-slate-800 text-white transition-transform duration-300 hover:scale-110 shadow-lg shadow-amber-500/40 focus:outline-none">
+                                        <span class="absolute inset-0 rounded-full bg-slate-900 opacity-75 animate-ping"></span>
                                         <svg class="w-6 h-6 fill-current translate-x-0.5" viewBox="0 0 24 24">
                                             <path d="M8 5v14l11-7z"/>
                                         </svg>
@@ -126,11 +136,11 @@
                                 </div>
 
                                 <!-- Controles del Reproductor (Interfaz Sofisticada) -->
-                                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 to-transparent p-4 z-20 flex flex-col gap-2">
-                                    <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden cursor-pointer">
-                                        <div class="w-1/3 h-full bg-amber-500 rounded-full"></div>
+                                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-900/80 to-transparent p-4 z-20 flex flex-col gap-2">
+                                    <div class="w-full h-1 bg-slate-700/60 rounded-full overflow-hidden cursor-pointer">
+                                        <div class="w-1/3 h-full bg-white rounded-full"></div>
                                     </div>
-                                    <div class="flex items-center justify-between text-[11px] text-slate-400">
+                                    <div class="flex items-center justify-between text-[11px] text-slate-300">
                                         <div class="flex items-center gap-3">
                                             <button class="hover:text-white transition">
                                                 <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -142,7 +152,7 @@
                                                     <path d="M7 9v6h4l5 5V4l-5 5H7z"/>
                                                 </svg>
                                             </button>
-                                            <span>01:15 / 03:45</span>
+                                            <span class="font-mono text-[10px]">01:15 / 03:45</span>
                                         </div>
                                         <button class="hover:text-white transition">
                                             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -160,75 +170,75 @@
                                 
                                 <!-- Rubro 1: Minería -->
                                 <div onclick="mostrarSector('mineria'); document.getElementById('sectores').scrollIntoView({ behavior: 'smooth' });" class="group cursor-pointer flex flex-col items-center gap-2.5">
-                                    <div class="relative w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center transition-all duration-300 hover:border-amber-500/50 hover:bg-slate-900/80 shadow-lg shadow-black/40 group-hover:shadow-amber-500/10 overflow-hidden">
+                                    <div class="relative w-20 h-20 rounded-full backdrop-blur-sm bg-white/60 border border-slate-200 flex items-center justify-center transition-all duration-300 hover:border-sky-500 hover:shadow-lg overflow-hidden">
                                         <div class="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-amber-500/0 to-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                        <svg class="w-8 h-8 text-amber-500 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <svg class="w-8 h-8 text-slate-500 group-hover:text-sky-600 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                         </svg>
                                     </div>
-                                    <span class="text-[10px] font-bold tracking-wider text-slate-300 group-hover:text-amber-400 transition-colors uppercase text-center">Minería</span>
+                                    <span class="text-[10px] font-bold tracking-wider text-slate-655 group-hover:text-sky-600 transition-colors uppercase text-center">Minería</span>
                                 </div>
 
                                 <!-- Rubro 2: Energía -->
                                 <div onclick="mostrarSector('mineria'); document.getElementById('sectores').scrollIntoView({ behavior: 'smooth' });" class="group cursor-pointer flex flex-col items-center gap-2.5">
-                                    <div class="relative w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center transition-all duration-300 hover:border-yellow-500/50 hover:bg-slate-900/80 shadow-lg shadow-black/40 group-hover:shadow-yellow-500/10 overflow-hidden">
+                                    <div class="relative w-20 h-20 rounded-full backdrop-blur-sm bg-white/60 border border-slate-200 flex items-center justify-center transition-all duration-300 hover:border-sky-500 hover:shadow-lg overflow-hidden">
                                         <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/0 via-yellow-500/0 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(234,179,8,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                        <svg class="w-8 h-8 text-yellow-500 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <svg class="w-8 h-8 text-slate-500 group-hover:text-sky-600 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                                         </svg>
                                     </div>
-                                    <span class="text-[10px] font-bold tracking-wider text-slate-300 group-hover:text-yellow-400 transition-colors uppercase text-center">Energía</span>
+                                    <span class="text-[10px] font-bold tracking-wider text-slate-655 group-hover:text-sky-600 transition-colors uppercase text-center">Energía</span>
                                 </div>
 
                                 <!-- Rubro 3: Construcción -->
                                 <div onclick="mostrarSector('construccion'); document.getElementById('sectores').scrollIntoView({ behavior: 'smooth' });" class="group cursor-pointer flex flex-col items-center gap-2.5">
-                                    <div class="relative w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center transition-all duration-300 hover:border-blue-500/50 hover:bg-slate-900/80 shadow-lg shadow-black/40 group-hover:shadow-blue-500/10 overflow-hidden">
+                                    <div class="relative w-20 h-20 rounded-full backdrop-blur-sm bg-white/60 border border-slate-200 flex items-center justify-center transition-all duration-300 hover:border-sky-500 hover:shadow-lg overflow-hidden">
                                         <div class="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-blue-500/0 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                        <svg class="w-8 h-8 text-blue-500 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <svg class="w-8 h-8 text-slate-500 group-hover:text-sky-600 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                         </svg>
                                     </div>
-                                    <span class="text-[10px] font-bold tracking-wider text-slate-300 group-hover:text-blue-400 transition-colors uppercase text-center">Construcción</span>
+                                    <span class="text-[10px] font-bold tracking-wider text-slate-655 group-hover:text-sky-600 transition-colors uppercase text-center">Construcción</span>
                                 </div>
 
                                 <!-- Rubro 4: Transporte -->
                                 <div onclick="mostrarSector('transporte'); document.getElementById('sectores').scrollIntoView({ behavior: 'smooth' });" class="group cursor-pointer flex flex-col items-center gap-2.5">
-                                    <div class="relative w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center transition-all duration-300 hover:border-emerald-500/50 hover:bg-slate-900/80 shadow-lg shadow-black/40 group-hover:shadow-emerald-500/10 overflow-hidden">
+                                    <div class="relative w-20 h-20 rounded-full backdrop-blur-sm bg-white/60 border border-slate-200 flex items-center justify-center transition-all duration-300 hover:border-sky-500 hover:shadow-lg overflow-hidden">
                                         <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/0 via-emerald-500/0 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                        <svg class="w-8 h-8 text-emerald-500 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <svg class="w-8 h-8 text-slate-500 group-hover:text-sky-600 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1m-6 0a1 1 0 001-1m-6 0H9" />
                                         </svg>
                                     </div>
-                                    <span class="text-[10px] font-bold tracking-wider text-slate-300 group-hover:text-emerald-400 transition-colors uppercase text-center">Transporte</span>
+                                    <span class="text-[10px] font-bold tracking-wider text-slate-655 group-hover:text-sky-600 transition-colors uppercase text-center">Transporte</span>
                                 </div>
 
                                 <!-- Rubro 5: Logística -->
                                 <div onclick="mostrarSector('transporte'); document.getElementById('sectores').scrollIntoView({ behavior: 'smooth' });" class="group cursor-pointer flex flex-col items-center gap-2.5">
-                                    <div class="relative w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center transition-all duration-300 hover:border-teal-500/50 hover:bg-slate-900/80 shadow-lg shadow-black/40 group-hover:shadow-teal-500/10 overflow-hidden">
+                                    <div class="relative w-20 h-20 rounded-full backdrop-blur-sm bg-white/60 border border-slate-200 flex items-center justify-center transition-all duration-300 hover:border-sky-500 hover:shadow-lg overflow-hidden">
                                         <div class="absolute inset-0 bg-gradient-to-br from-teal-500/0 via-teal-500/0 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                        <svg class="w-8 h-8 text-teal-500 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <svg class="w-8 h-8 text-slate-500 group-hover:text-sky-600 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                                         </svg>
                                     </div>
-                                    <span class="text-[10px] font-bold tracking-wider text-slate-300 group-hover:text-teal-400 transition-colors uppercase text-center">Logística</span>
+                                    <span class="text-[10px] font-bold tracking-wider text-slate-655 group-hover:text-sky-600 transition-colors uppercase text-center">Logística</span>
                                 </div>
 
                                 <!-- Rubro 6: Retail / Servicios -->
                                 <div onclick="mostrarSector('retail'); document.getElementById('sectores').scrollIntoView({ behavior: 'smooth' });" class="group cursor-pointer flex flex-col items-center gap-2.5">
-                                    <div class="relative w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center transition-all duration-300 hover:border-indigo-500/50 hover:bg-slate-900/80 shadow-lg shadow-black/40 group-hover:shadow-indigo-500/10 overflow-hidden">
+                                    <div class="relative w-20 h-20 rounded-full backdrop-blur-sm bg-white/60 border border-slate-200 flex items-center justify-center transition-all duration-300 hover:border-sky-500 hover:shadow-lg overflow-hidden">
                                         <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-indigo-500/0 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                        <svg class="w-8 h-8 text-indigo-500 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <svg class="w-8 h-8 text-slate-500 group-hover:text-sky-600 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                         </svg>
                                     </div>
-                                    <span class="text-[10px] font-bold tracking-wider text-slate-300 group-hover:text-indigo-400 transition-colors uppercase text-center max-w-[90px]">Retail/Servicios</span>
+                                    <span class="text-[10px] font-bold tracking-wider text-slate-655 group-hover:text-sky-600 transition-colors uppercase text-center max-w-[90px]">Retail/Servicios</span>
                                 </div>
 
                             </div>
@@ -239,69 +249,73 @@
             </section>
 
             <!-- SECCIÓN: MÉTRICAS DE CONFIANZA INDUSTRIAL (ESTILO CODELCO) -->
-            <section class="border-y border-slate-900 bg-slate-950 py-12 relative z-20">
+            <section class="border-y border-slate-200 bg-slate-50 py-12 relative z-20">
                 <div class="max-w-7xl mx-auto px-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-slate-900">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-slate-200">
                         <!-- Métrica 1 -->
                         <div class="text-center md:text-left md:px-8 py-6 md:py-0 flex flex-col justify-center">
-                            <span class="text-4xl md:text-5xl font-black text-amber-500 tracking-tight leading-none">100%</span>
-                            <span class="text-xs uppercase tracking-widest text-slate-200 font-extrabold mt-2" data-translate="metric-trazabilidad">Trazabilidad Ley 21.719</span>
+                            <span class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">100%</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-700 font-extrabold mt-2" data-translate="metric-trazabilidad">Trazabilidad Ley 21.719</span>
                             <span class="text-xs text-slate-500 mt-1" data-translate="metric-trazabilidad-desc">Registros inmutables en tiempo real</span>
+                            <span class="font-mono text-[8px] tracking-wider text-slate-400 mt-1">[ TRAZABILIDAD: COMPLETA ]</span>
                         </div>
                         <!-- Métrica 2 -->
                         <div class="text-center md:text-left md:px-8 py-6 md:py-0 flex flex-col justify-center">
-                            <span class="text-4xl md:text-5xl font-black text-amber-500 tracking-tight leading-none">0%</span>
-                            <span class="text-xs uppercase tracking-widest text-slate-200 font-extrabold mt-2" data-translate="metric-multas">Multas previsionales</span>
+                            <span class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">0%</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-700 font-extrabold mt-2" data-translate="metric-multas">Multas previsionales</span>
                             <span class="text-xs text-slate-500 mt-1" data-translate="metric-multas-desc">Mitigación activa y control solidario</span>
+                            <span class="font-mono text-[8px] tracking-wider text-slate-400 mt-1">[ LIQUIDACIÓN: OK ]</span>
                         </div>
                         <!-- Métrica 3 -->
                         <div class="text-center md:text-left md:px-8 py-6 md:py-0 flex flex-col justify-center">
-                            <span class="text-4xl md:text-5xl font-black text-amber-500 tracking-tight leading-none">24/7</span>
-                            <span class="text-xs uppercase tracking-widest text-slate-200 font-extrabold mt-2" data-translate="metric-control">Control de accesos</span>
+                            <span class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">24/7</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-700 font-extrabold mt-2" data-translate="metric-control">Control de accesos</span>
                             <span class="text-xs text-slate-500 mt-1" data-translate="metric-control-desc">Monitoreo y bloqueo de credenciales</span>
+                            <span class="font-mono text-[8px] tracking-wider text-slate-400 mt-1">[ GATE_CONTROL: SYSTEM_ACTIVE ]</span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SECCIONES INTERMEDIAS: Fondo Sólido Negro/Gris Muy Oscuro (Evita distracciones y asegura contraste) -->
-            <div class="bg-slate-950 relative z-20">
+            <!-- SECCIONES INTERMEDIAS: Fondo Sólido Blanco/Gris Claro -->
+            <div class="bg-white relative z-20">
 
                 <!-- SECCIÓN: QUIÉNES SOMOS -->
-                <section id="quienes-somos" class="border-t border-slate-900 py-24">
+                <section id="quienes-somos" class="border-t border-slate-200 py-24">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div>
-                                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">¿Quiénes Somos?</span>
-                                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3">
+                                <span class="text-xs font-bold uppercase tracking-widest text-sky-600">¿Quiénes Somos?</span>
+                                <div class="font-mono text-[8px] tracking-wider text-slate-400 mt-1">[ INFO: GENERAL_OVERVIEW ]</div>
+                                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-slate-900 mt-3">
                                     Garantizamos Rigurosidad Técnica para Operaciones Complejas
                                 </h2>
-                                <p class="mt-6 text-slate-400 leading-relaxed">
+                                <p class="mt-6 text-slate-300 leading-relaxed">
                                     En <strong>HRINSER</strong> entendemos que en cualquier industria de alta exigencia (minería, energía, construcción, transporte y servicios generales), un documento vencido o una acreditación retrasada es una amenaza directa a tus estados de pago y continuidad operacional.
                                 </p>
-                                <p class="mt-4 text-slate-400 leading-relaxed">
+                                <p class="mt-4 text-slate-300 leading-relaxed">
                                     No somos un simple gestor de archivos. Somos el escudo técnico que protege a las empresas mandantes y contratistas mediante el control preventivo de la documentación exigida por la DT, la Seremi de Salud y el Sernageomin.
                                 </p>
                             </div>
-                            <div class="bg-slate-900/60 p-8 rounded-3xl border border-slate-800 shadow-xl relative">
-                                <div class="absolute -top-3 -right-3 w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center border border-amber-500/20">
-                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm relative">
+                                <div class="absolute -top-3 -right-3 w-12 h-12 bg-sky-50 rounded-2xl flex items-center justify-center border border-sky-100">
+                                    <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                                     </svg>
                                 </div>
-                                <h3 class="text-xl font-bold text-white mb-4">Nuestro Compromiso de Cumplimiento</h3>
+                                <h3 class="text-xl font-bold text-slate-900 mb-4">Nuestro Compromiso de Cumplimiento</h3>
                                 <div class="space-y-4 text-sm">
                                     <div class="flex gap-3">
-                                        <div class="w-5 h-5 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
-                                        <p><strong class="text-slate-200">Ley de Trazabilidad Laboral:</strong> Aseguramos el cumplimiento pleno de la ley de trazabilidad documental, registrando de forma inmutable cada examen, firma de ODI y entrega de EPP.</p>
+                                        <div class="w-5 h-5 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
+                                        <p><strong class="text-slate-800">Ley de Trazabilidad Laboral:</strong> Aseguramos el cumplimiento pleno de la ley de trazabilidad documental, registrando de forma inmutable cada examen, firma de ODI y entrega de EPP.</p>
                                     </div>
                                     <div class="flex gap-3">
-                                        <div class="w-5 h-5 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
-                                        <p><strong class="text-slate-200">Cero Errores de Plazos:</strong> Alertas preventivas 30 días antes del vencimiento de cualquier credencial o examen médico.</p>
+                                        <div class="w-5 h-5 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
+                                        <p><strong class="text-slate-800">Cero Errores de Plazos:</strong> Alertas preventivas 30 días antes del vencimiento de cualquier credencial o examen médico.</p>
                                     </div>
                                     <div class="flex gap-3">
-                                        <div class="w-5 h-5 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
-                                        <p><strong class="text-slate-200">Mitigación Solidaria:</strong> Protección legal activa ante deudas previsionales o laborales de subcontratistas.</p>
+                                        <div class="w-5 h-5 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold shrink-0">✓</div>
+                                        <p><strong class="text-slate-800">Mitigación Solidaria:</strong> Protección legal activa ante deudas previsionales o laborales de subcontratistas.</p>
                                     </div>
                                 </div>
                             </div>
@@ -310,68 +324,72 @@
                 </section>
 
                 <!-- SECCIÓN: TERMÓMETRO DE RIESGOS -->
-                <section id="riesgos" class="border-t border-slate-900 py-24">
+                <section id="riesgos" class="border-t border-slate-200 py-24">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
-                            <span class="text-xs font-bold uppercase tracking-widest text-red-400">Impacto Real de Infracciones</span>
-                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3">
+                            <span class="text-xs font-bold uppercase tracking-widest text-red-500">Impacto Real de Infracciones</span>
+                            <div class="font-mono text-[8px] tracking-wider text-slate-400 mt-1">[ AUDIT: RED_LINE_COMPLIANCE ]</div>
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-slate-900 mt-3">
                                 Riesgos Operacionales Inminentes
                             </h2>
-                            <p class="text-slate-400 mt-4 text-sm md:text-base">
+                            <p class="text-slate-300 mt-4 text-sm md:text-base">
                                 Un documento mal gestionado tiene consecuencias reales en la industria chilena. Esto es lo que evitamos con nuestro sistema operativo de compliance.
                             </p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <!-- Tarjeta 1 -->
-                            <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-red-500/30 transition-all duration-300">
-                                <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
-                                    <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-red-400 hover:shadow-md transition-all duration-300">
+                                <div class="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center mb-6">
+                                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1115 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 13.5a3 3 0 100-6 3 3 0 000 6z" />
                                     </svg>
                                 </div>
                                 <h3 class="text-lg font-bold text-white mb-2">Salud y Altura Física</h3>
                                 <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: DS 72 / Sernageomin</p>
-                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                <p class="text-sm text-slate-300 mb-6 leading-relaxed">
                                     Ingresar personal a faenas con exámenes médicos de aptitud vencidos (altura, espacios confinados).
                                 </p>
-                                <div class="bg-red-500/5 border border-red-500/10 rounded-xl p-4 text-xs text-red-300/90">
+                                <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-xs text-red-700">
                                     <strong>Consecuencia Legal:</strong> Paralización del frente de trabajo + Multas superiores a <strong>150 UTM</strong> por trabajador expuesto.
+                                    <div class="font-mono text-[8px] tracking-wider text-red-500/80 mt-2">[ DS_72: VIOLATION_RISK ]</div>
                                 </div>
                             </div>
 
                             <!-- Tarjeta 2 -->
-                            <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-amber-500/30 transition-all duration-300">
-                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6">
-                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-amber-400 hover:shadow-md transition-all duration-300">
+                                <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center mb-6">
+                                    <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
                                 </div>
                                 <h3 class="text-lg font-bold text-white mb-2">Control de Terceros</h3>
                                 <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: Ley 20.123 (Subcontratación)</p>
-                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                <p class="text-sm text-slate-300 mb-6 leading-relaxed">
                                     No validar mensualmente el pago de cotizaciones previsionales y de salud de contratistas (F30 y F30-1).
                                 </p>
-                                <div class="bg-amber-500/5 border border-amber-500/10 rounded-xl p-4 text-xs text-amber-300/90">
+                                <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 text-xs text-amber-800">
                                     <strong>Consecuencia Legal:</strong> Retención de estados de pago por la mandante + Responsabilidad solidaria de deudas de terceros.
+                                    <div class="font-mono text-[8px] tracking-wider text-amber-600/80 mt-2">[ LEY_20123: AUDIT_REQUIRED ]</div>
                                 </div>
                             </div>
 
                             <!-- Tarjeta 3 -->
-                            <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-amber-500/30 transition-all duration-300">
-                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6">
-                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-amber-400 hover:shadow-md transition-all duration-300">
+                                <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center mb-6">
+                                    <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </div>
                                 <h3 class="text-lg font-bold text-white mb-2">Inducción y Seguridad</h3>
                                 <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">Regulaciones: DS 594 / Ley 16.744</p>
-                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                <p class="text-sm text-slate-300 mb-6 leading-relaxed">
                                     Falta de registro o firma digital de la Obligación de Informar (ODI/DAS) e implementos de seguridad (EPP).
                                 </p>
-                                <div class="bg-amber-500/5 border border-amber-500/10 rounded-xl p-4 text-xs text-amber-300/90">
-                                    <strong>Consecuencia Legal:</strong> Pérdida de cobertura de mutualidad + Exposición a demandas civiles y penales por negligencia.
+                                <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 text-xs text-amber-800">
+                                    <strong>Consecuencia Legal:</strong> Pérdida de cobertura de mutualidad + Exposición a demandas civiles y penales por negligence.
+                                    <div class="font-mono text-[8px] tracking-wider text-amber-600/80 mt-2">[ DS_594: COMPLIANCE_PENDING ]</div>
                                 </div>
                             </div>
                         </div>
@@ -379,14 +397,15 @@
                 </section>
 
                 <!-- SECCIÓN: SECTORES SOPORTADOS -->
-                <section id="sectores" class="border-t border-slate-900 py-24 bg-slate-950/40">
+                <section id="sectores" class="border-t border-slate-200 py-24 bg-slate-50">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
-                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400" data-translate="sectors-subtitle">Industrias de Alta Exigencia</span>
-                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3" data-translate="sectors-title">
+                            <span class="text-xs font-bold uppercase tracking-widest text-sky-600" data-translate="sectors-subtitle">Industrias de Alta Exigencia</span>
+                            <div class="font-mono text-[8px] tracking-wider text-slate-400 mt-1">[ SYSTEM: SECTOR_ADAPTATION ]</div>
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-slate-900 mt-3" data-translate="sectors-title">
                                 Sectores Soportados
                             </h2>
-                            <p class="text-slate-400 mt-4 text-sm md:text-base" data-translate="sectors-desc">
+                            <p class="text-slate-300 mt-4 text-sm md:text-base" data-translate="sectors-desc">
                                 Adaptamos nuestros flujos de acreditación y control documental a las normativas específicas de cada industria clave en Chile.
                             </p>
                         </div>
@@ -394,78 +413,78 @@
                         <!-- Grilla de Tarjetas con Hover Animado Premium -->
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                             <!-- Minería y Energía -->
-                            <div onclick="mostrarSector('mineria')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 hover:border-amber-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                            <div onclick="mostrarSector('mineria')" class="group cursor-pointer bg-white border border-slate-200 rounded-2xl p-8 hover:border-sky-500 hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
                                 <div>
-                                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <!-- SVG Minería digitalizado -->
-                                        <svg class="w-6 h-6 text-amber-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <svg class="w-6 h-6 text-sky-600 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                         </svg>
                                     </div>
                                     <h3 class="text-lg font-bold text-white mb-2" data-translate="sector-mineria-title">Minería y Energía</h3>
-                                    <p class="text-xs text-slate-400 leading-relaxed" data-translate="sector-mineria-desc">
+                                    <p class="text-xs text-slate-300 leading-relaxed" data-translate="sector-mineria-desc">
                                         Control riguroso de DS 72, pases de acceso a faenas críticas, inducciones de seguridad y exámenes de salud ocupacional.
                                     </p>
                                 </div>
-                                <span class="text-xs font-bold text-amber-400 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                <span class="text-xs font-bold text-sky-600 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                                     <span>Ver detalles</span> ➔
                                 </span>
                             </div>
 
                             <!-- Construcción -->
-                            <div onclick="mostrarSector('construccion')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 hover:border-blue-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                            <div onclick="mostrarSector('construccion')" class="group cursor-pointer bg-white border border-slate-200 rounded-2xl p-8 hover:border-sky-500 hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
                                 <div>
-                                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <div class="w-12 h-12 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <!-- SVG Construcción digitalizado -->
-                                        <svg class="w-6 h-6 text-blue-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <svg class="w-6 h-6 text-sky-600 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                         </svg>
                                     </div>
                                     <h3 class="text-lg font-bold text-white mb-2" data-translate="sector-construccion-title">Construcción</h3>
-                                    <p class="text-xs text-slate-400 leading-relaxed" data-translate="sector-construccion-desc">
+                                    <p class="text-xs text-slate-300 leading-relaxed" data-translate="sector-construccion-desc">
                                         Gestión documental para obras civiles, control de subcontratación en cascada, entrega de EPP y cumplimiento de DS 594.
                                     </p>
                                 </div>
-                                <span class="text-xs font-bold text-blue-400 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                <span class="text-xs font-bold text-sky-655 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                                     <span>Ver detalles</span> ➔
                                 </span>
                             </div>
 
                             <!-- Transporte y Logística -->
-                            <div onclick="mostrarSector('transporte')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 hover:border-emerald-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                            <div onclick="mostrarSector('transporte')" class="group cursor-pointer bg-white border border-slate-200 rounded-2xl p-8 hover:border-sky-500 hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
                                 <div>
-                                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <div class="w-12 h-12 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <!-- SVG Transporte digitalizado -->
-                                        <svg class="w-6 h-6 text-emerald-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <svg class="w-6 h-6 text-sky-600 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1m-6 0a1 1 0 001-1m-6 0H9" />
                                         </svg>
                                     </div>
                                     <h3 class="text-lg font-bold text-white mb-2" data-translate="sector-transporte-title">Transporte y Logística</h3>
-                                    <p class="text-xs text-slate-400 leading-relaxed" data-translate="sector-transporte-desc">
+                                    <p class="text-xs text-slate-300 leading-relaxed" data-translate="sector-transporte-desc">
                                         Acreditación ágil de conductores, hojas de ruta inmutables, control de fatiga y cumplimiento de cargas peligrosas.
                                     </p>
                                 </div>
-                                <span class="text-xs font-bold text-emerald-400 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                <span class="text-xs font-bold text-sky-655 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                                     <span>Ver detalles</span> ➔
                                 </span>
                             </div>
 
                             <!-- Servicios Generales y Retail -->
-                            <div onclick="mostrarSector('retail')" class="group cursor-pointer bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 hover:border-indigo-500/50 hover:bg-slate-900/70 transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex flex-col justify-between">
+                            <div onclick="mostrarSector('retail')" class="group cursor-pointer bg-white border border-slate-200 rounded-2xl p-8 hover:border-sky-500 hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
                                 <div>
-                                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <div class="w-12 h-12 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <!-- SVG Retail digitalizado -->
-                                        <svg class="w-6 h-6 text-indigo-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <svg class="w-6 h-6 text-sky-600 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                         </svg>
                                     </div>
                                     <h3 class="text-lg font-bold text-white mb-2" data-translate="sector-retail-title">Servicios Generales & Retail</h3>
-                                    <p class="text-xs text-slate-400 leading-relaxed" data-translate="sector-retail-desc">
+                                    <p class="text-xs text-slate-300 leading-relaxed" data-translate="sector-retail-desc">
                                         Homologación rápida para contratistas de aseo, seguridad, mantenimiento y personal de apoyo en centros de distribución.
                                     </p>
                                 </div>
-                                <span class="text-xs font-bold text-indigo-400 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                <span class="text-xs font-bold text-sky-655 mt-4 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                                     <span>Ver detalles</span> ➔
                                 </span>
                             </div>
@@ -475,17 +494,17 @@
                         <div id="sector-details-box" class="bg-slate-900/80 rounded-3xl border border-slate-800 p-8 shadow-2xl transition-all duration-500">
                             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                 <div class="lg:col-span-2 space-y-4">
-                                    <span id="sector-detail-norm" class="text-xs font-semibold text-amber-400" data-translate="sector-flow-rule">Marco Normativo</span>
+                                    <span id="sector-detail-norm" class="text-xs font-semibold text-sky-600" data-translate="sector-flow-rule">Marco Normativo</span>
                                     <h3 id="sector-detail-title" class="font-extrabold text-2xl text-white" data-translate="sector-flow-title">Flujo Operacional del Sector</h3>
                                     <p id="sector-detail-flow" class="text-slate-300 text-sm leading-relaxed" data-translate="sector-flow-desc">
                                         Haz clic en cualquiera de las tarjetas de sectores arriba para visualizar su flujo operativo y los documentos clave requeridos.
                                     </p>
                                 </div>
                                 <div class="lg:col-span-1 bg-slate-950 rounded-2xl border border-slate-800/80 p-6 flex flex-col justify-between">
-                                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Documentos Críticos</h4>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Documentos Críticos</h4>
                                     <ul id="sector-detail-docs" class="space-y-2 text-xs text-slate-300">
                                         <li class="flex items-center gap-2">
-                                            <span class="text-amber-400">•</span> Selecciona un sector para ver documentos
+                                            <span class="text-sky-600">•</span> Selecciona un sector para ver documentos
                                         </li>
                                     </ul>
                                 </div>
@@ -499,10 +518,10 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
                             <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Autogestión de Cumplimiento</span>
-                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3">
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-slate-900 mt-3">
                                 El Manual de Límites Legales en Sencillo
                             </h2>
-                            <p class="text-slate-400 mt-4 text-sm md:text-base">
+                            <p class="text-slate-300 mt-4 text-sm md:text-base">
                                 Simula y evalúa escenarios operativos para verificar si tu empresa está dentro o fuera de la "Línea Roja" regulada en Chile.
                             </p>
                         </div>
@@ -514,22 +533,22 @@
                                 <!-- Columna Izquierda: Escenarios para probar -->
                                 <div class="lg:col-span-1 space-y-4">
                                     <h4 class="font-bold text-white text-base mb-2 flex items-center gap-2">
-                                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
                                         <span>Selecciona un Escenario</span>
                                     </h4>
                                     <button onclick="probarLimite('altura')" id="btn-altura" class="w-full text-left p-4 rounded-xl bg-slate-800 border-2 border-amber-500 text-white font-medium hover:bg-slate-800/80 transition flex flex-col">
-                                        <span class="text-xs font-semibold text-amber-400">SALUD</span>
+                                        <span class="text-xs font-semibold text-sky-600">SALUD</span>
                                         <span class="text-sm">Exámenes de Altura Minera</span>
                                     </button>
-                                    <button onclick="probarLimite('contratistas')" id="btn-contratistas" class="w-full text-left p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 font-medium hover:bg-slate-800 transition flex flex-col">
-                                        <span class="text-xs font-semibold text-amber-400">SUBCONTRATACIÓN</span>
+                                    <button onclick="probarLimite('contratistas')" id="btn-contratistas" class="w-full text-left p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 font-medium hover:bg-slate-800 transition flex flex-col">
+                                        <span class="text-xs font-semibold text-sky-600">SUBCONTRATACIÓN</span>
                                         <span class="text-sm">Certificados F30 y F30-1</span>
                                     </button>
-                                    <button onclick="probarLimite('accidentes')" id="btn-accidentes" class="w-full text-left p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 font-medium hover:bg-slate-800 transition flex flex-col">
-                                        <span class="text-xs font-semibold text-amber-400">PREVENCIÓN</span>
+                                    <button onclick="probarLimite('accidentes')" id="btn-accidentes" class="w-full text-left p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 font-medium hover:bg-slate-800 transition flex flex-col">
+                                        <span class="text-xs font-semibold text-sky-600">PREVENCIÓN</span>
                                         <span class="text-sm">Firmas ODI y Entrega de EPP</span>
                                     </button>
                                 </div>
@@ -544,11 +563,11 @@
 
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                                             <div class="space-y-2">
-                                                <h5 class="font-semibold text-red-400 flex items-center gap-2">
+                                                <h5 class="font-semibold text-red-600 flex items-center gap-2">
                                                     <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 shrink-0"></span>
                                                     <span>La Línea Roja (Límite Legal)</span>
                                                 </h5>
-                                                <p id="limite-rojo" class="text-slate-400 text-xs md:text-sm leading-relaxed">
+                                                <p id="limite-rojo" class="text-slate-300 text-xs md:text-sm leading-relaxed">
                                                     Trabajar a más de 3.000 msnm sin examen de salud vigente. Cualquier vencimiento genera la detención inmediata y multas directas a toda la cadena de valor.
                                                 </p>
                                             </div>
@@ -557,7 +576,7 @@
                                                     <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
                                                     <span>Solución Preventiva HRINSER</span>
                                                 </h5>
-                                                <p id="limite-verde" class="text-slate-400 text-xs md:text-sm leading-relaxed">
+                                                <p id="limite-verde" class="text-slate-300 text-xs md:text-sm leading-relaxed">
                                                     Bloqueo del pase de acceso 30 días antes del vencimiento. Notificaciones automáticas al correo del supervisor y del contratista para agendar renovación a tiempo.
                                                 </p>
                                             </div>
@@ -568,8 +587,8 @@
                                         <div class="text-xs text-slate-500 font-mono">
                                             Cotejado bajo la legislación vigente de la República de Chile.
                                         </div>
-                                        <div id="limite-multa-box" class="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2.5 text-xs text-red-400 font-bold flex items-center gap-2">
-                                            <svg class="w-4 h-4 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <div id="limite-multa-box" class="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2.5 text-xs text-red-600 font-bold flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-red-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                             </svg>
                                             <span>Riesgo de Multa: </span><span id="limite-multa">150 UTM</span>
@@ -583,27 +602,28 @@
                 </section>
 
                 <!-- SECCIÓN: NUESTROS PLANES -->
-                <section id="planes" class="border-t border-slate-900 py-24 bg-slate-950">
+                <section id="planes" class="border-t border-slate-200 py-24 bg-slate-50">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
-                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">Planes a tu Medida</span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-sky-50 px-4 py-1.5 rounded-full border border-sky-100">Planes a tu Medida</span>
+                            <div class="font-mono text-[8px] tracking-wider text-slate-400 mt-2">[ CATALOG: COMMERCIAL_OFFERS ]</div>
                             <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-4">Planes Permanentes de Gestión</h2>
-                            <p class="text-slate-400 mt-4 text-sm md:text-base">
+                            <p class="text-slate-300 mt-4 text-sm md:text-base">
                                 Escala según las necesidades de tu empresa. Todos nuestros planes incluyen soporte técnico, DMS estructurado y CRM de ventas integrado.
                             </p>
                         </div>
 
                         <!-- Tarjeta Destacada: Piloto Fundador -->
-                        <div class="max-w-2xl mx-auto mb-16 bg-gradient-to-r from-amber-950/40 to-slate-950 border-2 border-amber-500 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 relative shadow-2xl">
-                            <span class="absolute -top-3 left-6 text-[10px] font-bold uppercase tracking-widest bg-amber-500 text-slate-950 px-3 py-1 rounded-full font-bold">Oportunidad Única</span>
+                        <div class="max-w-2xl mx-auto mb-16 bg-gradient-to-r from-sky-50 to-white border-2 border-sky-500 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 relative shadow-lg">
+                            <span class="absolute -top-3 left-6 text-[10px] font-bold uppercase tracking-widest bg-sky-600 text-white px-3 py-1 rounded-full">Oportunidad Única</span>
                             <div>
                                 <h4 class="text-2xl font-bold text-white">Plan Piloto Cliente Fundador</h4>
-                                <p class="text-slate-400 text-sm mt-2 max-w-md">Prueba nuestra plataforma y control documental por un período mensual completo. Sin contratos de largo plazo.</p>
+                                <p class="text-slate-300 text-sm mt-2 max-w-md">Prueba nuestra plataforma y control documental por un período mensual completo. Sin contratos de largo plazo.</p>
                             </div>
                             <div class="text-center md:text-right shrink-0">
-                                <p class="text-4xl font-black text-white">6 UF <span class="text-xs text-slate-400 font-normal">+ IVA</span></p>
-                                <p class="text-xs text-amber-400 mt-1">Valor aproximado: $245.000 CLP</p>
-                                <a href="#contacto" class="mt-4 inline-block bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-6 py-2.5 rounded-xl transition shadow-lg shadow-amber-500/20">Agendar Piloto</a>
+                                <p class="text-4xl font-black text-slate-900">6 UF <span class="text-xs text-slate-300 font-normal">+ IVA</span></p>
+                                <p class="text-xs text-sky-600 mt-1">Valor aproximado: $245.000 CLP</p>
+                                <a href="#contacto" class="mt-4 inline-block bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-6 py-2.5 rounded-xl transition shadow-sm">Agendar Piloto</a>
                             </div>
                         </div>
 
@@ -611,32 +631,32 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                             
                             <!-- Esencial -->
-                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between hover:border-slate-700 transition">
+                            <div class="bg-white border border-slate-200 rounded-2xl p-8 flex flex-col justify-between hover:border-sky-500 hover:shadow-md transition">
                                 <div>
-                                    <h4 class="font-bold text-lg text-slate-200">Esencial</h4>
+                                    <h4 class="font-bold text-lg text-slate-800">Esencial</h4>
                                     <p class="text-xs text-slate-500 mt-1">Pequeñas empresas</p>
-                                    <p class="text-2xl font-black text-white mt-4">8 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
-                                    <ul class="space-y-3 text-xs text-slate-400 mt-6 border-t border-slate-800 pt-6">
+                                    <p class="text-2xl font-black text-slate-900 mt-4">8 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
+                                    <ul class="space-y-3 text-xs text-slate-600 mt-6 border-t border-slate-200 pt-6">
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>1 Contrato activo</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>1 Plataforma mandante</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Hasta 20 trabajadores</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>DMS Básico</span>
@@ -647,32 +667,32 @@
                             </div>
 
                             <!-- Operación -->
-                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between hover:border-slate-700 transition">
+                            <div class="bg-white border border-slate-200 rounded-2xl p-8 flex flex-col justify-between hover:border-sky-500 hover:shadow-md transition">
                                 <div>
-                                    <h4 class="font-bold text-lg text-slate-200">Operación</h4>
+                                    <h4 class="font-bold text-lg text-slate-800">Operación</h4>
                                     <p class="text-xs text-slate-500 mt-1">Empresas en crecimiento</p>
-                                    <p class="text-2xl font-black text-white mt-4">14 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
-                                    <ul class="space-y-3 text-xs text-slate-400 mt-6 border-t border-slate-800 pt-6">
+                                    <p class="text-2xl font-black text-slate-900 mt-4">14 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
+                                    <ul class="space-y-3 text-xs text-slate-600 mt-6 border-t border-slate-200 pt-6">
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Hasta 2 contratos</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Múltiples plataformas</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Hasta 60 trabajadores</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>DMS Estándar + Trazabilidad</span>
@@ -683,33 +703,33 @@
                             </div>
 
                             <!-- Industrial -->
-                            <div class="bg-slate-900/50 border border-slate-700 rounded-2xl p-8 flex flex-col justify-between hover:border-slate-600 transition relative">
-                                <span class="absolute -top-2.5 right-6 text-[9px] font-bold uppercase tracking-widest bg-amber-600 text-slate-950 px-2 py-0.5 rounded-full">Recomendado</span>
+                            <div class="bg-white border-2 border-sky-500 rounded-2xl p-8 flex flex-col justify-between shadow-md relative">
+                                <span class="absolute -top-2.5 right-6 text-[9px] font-bold uppercase tracking-widest bg-sky-600 text-white px-2 py-0.5 rounded-full">Recomendado</span>
                                 <div>
-                                    <h4 class="font-bold text-lg text-white">Industrial</h4>
-                                    <p class="text-xs text-slate-400 mt-1">Medianas empresas</p>
-                                    <p class="text-2xl font-black text-white mt-4">22 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
-                                    <ul class="space-y-3 text-xs text-slate-300 mt-6 border-t border-slate-800 pt-6">
+                                    <h4 class="font-bold text-lg text-slate-900">Industrial</h4>
+                                    <p class="text-xs text-slate-300 mt-1">Medianas empresas</p>
+                                    <p class="text-2xl font-black text-slate-900 mt-4">22 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
+                                    <ul class="space-y-3 text-xs text-slate-600 mt-6 border-t border-slate-200 pt-6">
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Hasta 3 contratos</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Múltiples plataformas</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Hasta 120 trabajadores</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>DMS Avanzado + Semáforos</span>
@@ -720,32 +740,32 @@
                             </div>
 
                             <!-- Corporativo -->
-                            <div class="bg-slate-900/30 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between hover:border-slate-700 transition">
+                            <div class="bg-white border border-slate-200 rounded-2xl p-8 flex flex-col justify-between hover:border-sky-500 hover:shadow-md transition">
                                 <div>
-                                    <h4 class="font-bold text-lg text-slate-200">Corporativo</h4>
+                                    <h4 class="font-bold text-lg text-slate-800">Corporativo</h4>
                                     <p class="text-xs text-slate-500 mt-1">Grandes faenas</p>
-                                    <p class="text-2xl font-black text-white mt-4">Desde 30 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
-                                    <ul class="space-y-3 text-xs text-slate-400 mt-6 border-t border-slate-800 pt-6">
+                                    <p class="text-2xl font-black text-slate-900 mt-4">Desde 30 UF <span class="text-xs font-normal text-slate-500">+ IVA</span></p>
+                                    <ul class="space-y-3 text-xs text-slate-600 mt-6 border-t border-slate-200 pt-6">
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Contratos ilimitados</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>+120 trabajadores</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Alta complejidad / Multi-tenant</span>
                                         </li>
                                         <li class="flex gap-2">
-                                            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                             </svg>
                                             <span>Soporte Premium Dedicado</span>
@@ -768,7 +788,7 @@
                 <section id="portales" class="py-24">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center max-w-3xl mx-auto mb-16">
-                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">Centro de Mando Operativo</span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-sky-50 px-4 py-1.5 rounded-full border border-sky-100">Centro de Mando Operativo</span>
                             <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-4">Redireccionamiento Unificado</h2>
                             <p class="text-slate-300 mt-4 text-sm md:text-base">
                                 Ingresa a cada una de nuestras plataformas dedicadas. Cada sistema opera de manera aislada y robusta en la nube.
@@ -778,11 +798,11 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
                             
                             <!-- SECCIÓN: EQUIPO INTERNO -->
-                            <div class="bg-slate-950/80 rounded-3xl p-8 border border-slate-800 hover:border-slate-700/50 transition-all duration-300 flex flex-col justify-between shadow-xl backdrop-blur-sm">
+                            <div class="bg-white/90 rounded-3xl p-8 border border-slate-200 hover:border-sky-300 transition-all duration-300 flex flex-col justify-between shadow-lg backdrop-blur-sm">
                                 <div>
                                     <div class="flex items-center justify-between mb-6">
-                                        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">Backoffice de Operaciones</span>
-                                        <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-100">Backoffice de Operaciones</span>
+                                        <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                                         </svg>
                                     </div>
@@ -794,51 +814,52 @@
                                     <!-- Lista de Accesos Subdominios -->
                                     <div class="space-y-4">
                                         <!-- Botón DMS -->
-                                        <div onclick="abrirPortalApp('dms')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                        <div onclick="abrirPortalApp('dms')" class="group p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:bg-slate-100/80 transition-all cursor-pointer flex items-center justify-between">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <div class="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center group-hover:scale-110 transition-transform border border-sky-100">
+                                                    <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <h4 class="font-bold text-slate-200 text-sm group-hover:text-amber-400 transition-colors">Gestión Documental (DMS - Nextcloud)</h4>
-                                                    <p class="text-xs text-slate-400 mt-0.5">dms.hrinser.cl</p>
+                                                    <h4 class="font-bold text-slate-800 text-sm group-hover:text-sky-600 transition-colors">Gestión Documental (DMS - Nextcloud)</h4>
+                                                    <p class="text-xs text-slate-300 mt-0.5">dms.hrinser.cl</p>
                                                 </div>
                                             </div>
-                                            <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                            <span class="text-slate-400 group-hover:text-slate-700 transition-colors">→</span>
                                         </div>
 
                                         <!-- Botón CRM -->
-                                        <div onclick="abrirPortalApp('crm')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                        <div onclick="abrirPortalApp('crm')" class="group p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:bg-slate-100/80 transition-all cursor-pointer flex items-center justify-between">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                    <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform border border-emerald-100">
+                                                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21h12a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2-2v12a2 2 0 002 2z" />
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <h4 class="font-bold text-slate-200 text-sm group-hover:text-amber-400 transition-colors">CRM de Clientes (EspoCRM)</h4>
-                                                    <p class="text-xs text-slate-400 mt-0.5">crm.hrinser.cl</p>
+                                                    <h4 class="font-bold text-slate-800 text-sm group-hover:text-sky-600 transition-colors">CRM de Clientes (EspoCRM)</h4>
+                                                    <p class="text-xs text-slate-300 mt-0.5">crm.hrinser.cl</p>
                                                 </div>
                                             </div>
-                                            <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                            <span class="text-slate-400 group-hover:text-slate-700 transition-colors">→</span>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-400">
+                                <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-300">
                                     <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                                     Bases de datos segregadas por empresa cliente (Multi-tenant).
+                                    <span class="font-mono text-[8px] text-slate-400 ml-auto">[ TENANT: ISOLATED ]</span>
                                 </div>
                             </div>
 
                             <!-- SECCIÓN: CLIENTES Y TRABAJADORES -->
-                            <div class="bg-slate-950/80 rounded-3xl p-8 border border-slate-800 hover:border-slate-700/50 transition-all duration-300 flex flex-col justify-between shadow-xl backdrop-blur-sm">
+                            <div class="bg-white/90 rounded-3xl p-8 border border-slate-200 hover:border-sky-300 transition-all duration-300 flex flex-col justify-between shadow-lg backdrop-blur-sm">
                                 <div>
                                     <div class="flex items-center justify-between mb-6">
-                                        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">Portal de cara al Cliente</span>
-                                        <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-100">Portal de cara al Cliente</span>
+                                        <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
                                     </div>
@@ -850,42 +871,43 @@
                                     <!-- Lista de Accesos Clientes -->
                                     <div class="space-y-4">
                                         <!-- Botón Portal Clientes -->
-                                        <div onclick="abrirPortalApp('clientes')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                        <div onclick="abrirPortalApp('clientes')" class="group p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:bg-slate-100/80 transition-all cursor-pointer flex items-center justify-between">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <div class="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center group-hover:scale-110 transition-transform border border-sky-100">
+                                                    <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <h4 class="font-bold text-slate-200 text-sm group-hover:text-amber-400 transition-colors">Portal de Acreditación (Clientes)</h4>
-                                                    <p class="text-xs text-slate-400 mt-0.5">clientes.hrinser.cl</p>
+                                                    <h4 class="font-bold text-slate-800 text-sm group-hover:text-sky-600 transition-colors">Portal de Acreditación (Clientes)</h4>
+                                                    <p class="text-xs text-slate-300 mt-0.5">clientes.hrinser.cl</p>
                                                 </div>
                                             </div>
-                                            <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                            <span class="text-slate-400 group-hover:text-slate-700 transition-colors">→</span>
                                         </div>
 
                                         <!-- Botón Registro Externos -->
-                                        <div onclick="abrirPortalApp('trabajadores')" class="group p-4 bg-slate-950 rounded-2xl border border-slate-800 hover:bg-slate-900/80 transition-all cursor-pointer flex items-center justify-between">
+                                        <div onclick="abrirPortalApp('trabajadores')" class="group p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:bg-slate-100/80 transition-all cursor-pointer flex items-center justify-between">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <div class="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center group-hover:scale-110 transition-transform border border-sky-100">
+                                                    <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <h4 class="font-bold text-slate-200 text-sm group-hover:text-amber-400 transition-colors">Portal del Trabajador</h4>
-                                                    <p class="text-xs text-slate-400 mt-0.5">miperfil.hrinser.cl</p>
+                                                    <h4 class="font-bold text-slate-800 text-sm group-hover:text-sky-600 transition-colors">Portal del Trabajador</h4>
+                                                    <p class="text-xs text-slate-300 mt-0.5">miperfil.hrinser.cl</p>
                                                 </div>
                                             </div>
-                                            <span class="text-slate-600 group-hover:text-slate-300 transition-colors">→</span>
+                                            <span class="text-slate-400 group-hover:text-slate-700 transition-colors">→</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-400">
+                                <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-300">
                                     <span class="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
                                     Seguridad mediante Cloud Storage encriptado y firmado digitalmente.
+                                    <span class="font-mono text-[8px] text-slate-400 ml-auto">[ SECURITY: AES_256 ]</span>
                                 </div>
                             </div>
 
@@ -899,32 +921,33 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div>
-                                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Protege tu Operación Hoy</span>
-                                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-3">Agenda un Diagnóstico Operacional de 20 Minutos</h2>
+                                <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Protege tu Operación Hoy</span>
+                                <div class="font-mono text-[8px] tracking-wider text-slate-400 mt-1">[ LEAD: DIAGNOSTIC_SCHEDULING ]</div>
+                                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-slate-900 mt-3">Agenda un Diagnóstico Operacional de 20 Minutos</h2>
                                 <p class="mt-6 text-slate-300 leading-relaxed text-sm md:text-base">
                                     Durante la llamada, evaluaremos tus contratos actuales, el volumen de trabajadores activos y las plataformas que te exigen tus mandantes. Te entregaremos una estimación de riesgos y plazos sin costo para tu empresa.
                                 </p>
                                 
                                 <div class="mt-8 space-y-4">
                                     <div class="flex items-center gap-4 text-sm text-slate-300">
-                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
-                                            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-sky-600 shrink-0">
+                                            <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305 1.305a16.033 16.033 0 006.588 6.588l1.305-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.4 1.156l-.548 2.2a1 1 0 01-.94.725H5a2 2 0 01-2-2v-1z" />
                                             </svg>
                                         </span>
                                         <span>Coordinación directa con un especialista asignado de cumplimiento</span>
                                     </div>
                                     <div class="flex items-center gap-4 text-sm text-slate-300">
-                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
-                                            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-sky-600 shrink-0">
+                                            <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                             </svg>
                                         </span>
                                         <span>Opción de Plan Piloto por 6 UF</span>
                                     </div>
                                     <div class="flex items-center gap-4 text-sm text-slate-300">
-                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
-                                            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <span class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-sky-600 shrink-0">
+                                            <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                             </svg>
                                         </span>
@@ -934,29 +957,29 @@
                             </div>
                             
                             <!-- Formulario de Contacto -->
-                            <div class="bg-slate-950/85 border border-slate-800 p-8 rounded-3xl shadow-xl backdrop-blur-sm">
+                            <div class="bg-white border border-slate-200 p-8 rounded-3xl shadow-xl">
                                 <form id="contact-form" onsubmit="enviarLeadSlack(event)" class="space-y-4">
                                     <div>
-                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Nombre del Decisor</label>
-                                        <input type="text" id="lead-name" placeholder="Ej: Juan Pérez" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition text-slate-100">
+                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Nombre del Decisor</label>
+                                        <input type="text" id="lead-name" placeholder="Ej: Juan Pérez" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-sky-500 transition text-slate-805">
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Empresa Contratista</label>
-                                        <input type="text" id="lead-company" placeholder="Ej: Servicios Industriales SpA" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition text-slate-100">
+                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Empresa Contratista</label>
+                                        <input type="text" id="lead-company" placeholder="Ej: Servicios Industriales SpA" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-sky-500 transition text-slate-805">
                                     </div>
                                     <div class="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Correo Electrónico</label>
-                                            <input type="email" id="lead-email" placeholder="ejemplo@empresa.cl" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition text-slate-100">
+                                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Correo Electrónico</label>
+                                            <input type="email" id="lead-email" placeholder="ejemplo@empresa.cl" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-sky-500 transition text-slate-805">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Teléfono</label>
-                                            <input type="tel" id="lead-phone" placeholder="+56 9..." required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition text-slate-100">
+                                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Teléfono</label>
+                                            <input type="tel" id="lead-phone" placeholder="+56 9..." required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-sky-500 transition text-slate-805">
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">¿Cuántos trabajadores deben acreditar?</label>
-                                        <select id="lead-workers" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 text-slate-400 transition bg-slate-900">
+                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">¿Cuántos trabajadores deben acreditar?</label>
+                                        <select id="lead-workers" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 text-slate-300 transition bg-slate-900">
                                             <option value="">Selecciona un rango...</option>
                                             <option value="1-20">1 - 20 trabajadores (Plan Esencial)</option>
                                             <option value="21-60">Hasta 60 trabajadores (Plan Operación)</option>
@@ -967,16 +990,16 @@
                                     <!-- Checkbox de Privacidad Premium -->
                                     <div class="flex items-start gap-3 mt-4 mb-2">
                                         <div class="flex items-center h-5">
-                                            <input id="privacy-consent" name="privacy-consent" type="checkbox" required class="w-4 h-4 rounded border-slate-800 bg-slate-900 text-amber-500 focus:ring-amber-500 focus:ring-offset-slate-950 focus:ring-2 transition cursor-pointer checked:bg-amber-600 checked:border-amber-600">
+                                            <input id="privacy-consent" name="privacy-consent" type="checkbox" required class="w-4 h-4 rounded border-slate-255 bg-slate-50 text-sky-600 focus:ring-sky-500 focus:ring-offset-white focus:ring-2 transition cursor-pointer checked:bg-sky-600 checked:border-sky-600">
                                         </div>
-                                        <div class="text-xs text-slate-400 leading-tight">
+                                        <div class="text-xs text-slate-300 leading-tight">
                                             <label for="privacy-consent" class="cursor-pointer select-none">
                                                 <span data-translate="privacy-accept">Acepto la</span>
-                                                <a href="#politica-privacidad" class="text-amber-500 hover:text-amber-400 hover:underline transition font-semibold" data-translate="privacy-link">política de privacidad</a>
+                                                <a href="#politica-privacidad" class="text-amber-500 hover:text-sky-600 hover:underline transition font-semibold" data-translate="privacy-link">política de privacidad</a>
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-slate-950 font-extrabold py-3.5 rounded-xl text-sm transition shadow-lg shadow-amber-500/20 mt-4">
+                                    <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-3.5 rounded-xl text-sm transition mt-4 shadow-sm">
                                         Solicitar Diagnóstico Operacional
                                     </button>
                                 </form>
@@ -990,13 +1013,13 @@
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-slate-900 bg-slate-950/90 py-8 text-center text-xs text-slate-500 relative z-30">
+        <footer class="border-t border-slate-200 bg-slate-50 py-8 text-center text-xs text-slate-550 relative z-30">
             <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <p>© 2026 HRINSER SPA. Todos los derechos reservados. Diseñado por el Core Engineering Team.</p>
-                <div class="flex gap-6 text-slate-400">
-                    <a href="#" class="hover:text-amber-400 transition-colors">Seguridad Elestio Cloud</a>
+                <div class="flex gap-6 text-slate-300">
+                    <a href="#" class="hover:text-sky-600 transition-colors">Seguridad Elestio Cloud</a>
                     <span>•</span>
-                    <a href="#" class="hover:text-amber-400 transition-colors">Leyes & Normativas DT</a>
+                    <a href="#" class="hover:text-sky-600 transition-colors">Leyes & Normativas DT</a>
                 </div>
             </div>
         </footer>
@@ -1010,7 +1033,7 @@
         <!-- Header de la Aplicación -->
         <header class="h-16 border-b border-slate-800 bg-slate-900/90 px-6 flex items-center justify-between sticky top-0 z-40">
             <div class="flex items-center gap-4">
-                <button onclick="cerrarPortalApp()" class="flex items-center gap-2 text-xs font-semibold bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition">
+                <button onclick="cerrarPortalApp()" class="flex items-center gap-2 text-xs font-semibold bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-800 px-3.5 py-2 rounded-xl transition">
                     ← Salir al Sitio Web
                 </button>
                 <div class="h-4 w-px bg-slate-800"></div>
@@ -1018,7 +1041,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <div class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span class="text-xs font-mono text-slate-400">Entorno Seguro en Elestio Cloud</span>
+                <span class="text-xs font-mono text-slate-300">Entorno Seguro en Elestio Cloud</span>
             </div>
         </header>
 
@@ -1032,11 +1055,11 @@
                         <h2 class="text-2xl font-black text-white flex items-center gap-2">
                             <span>📁</span> Nextcloud DMS <span class="text-xs font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-full">v26.0.4</span>
                         </h2>
-                        <p class="text-xs text-slate-400 mt-1">Directorio jerárquico inmutable de almacenamiento de antecedentes laborales.</p>
+                        <p class="text-xs text-slate-300 mt-1">Directorio jerárquico inmutable de almacenamiento de antecedentes laborales.</p>
                     </div>
                     <div class="flex items-center gap-2 text-xs">
-                        <span class="text-slate-400">Almacenamiento:</span>
-                        <strong class="text-slate-200">65 GB utilizados de 100 GB</strong>
+                        <span class="text-slate-300">Almacenamiento:</span>
+                        <strong class="text-slate-800">65 GB utilizados de 100 GB</strong>
                     </div>
                 </div>
 
@@ -1044,13 +1067,13 @@
                 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                     <!-- Árbol de Carpetas (Sidebar) -->
                     <div class="lg:col-span-1 bg-slate-900/60 rounded-2xl p-4 border border-slate-800 space-y-3 text-sm">
-                        <h3 class="font-bold text-slate-400 text-xs uppercase tracking-wider mb-2">Estructura Jerárquica</h3>
+                        <h3 class="font-bold text-slate-300 text-xs uppercase tracking-wider mb-2">Estructura Jerárquica</h3>
                         <div class="space-y-1">
-                            <button onclick="navegarDMS('/')" class="w-full text-left p-2.5 rounded-lg font-semibold flex items-center gap-2 text-slate-200 bg-slate-800/80">
+                            <button onclick="navegarDMS('/')" class="w-full text-left p-2.5 rounded-lg font-semibold flex items-center gap-2 text-slate-800 bg-slate-800/80">
                                 🏢 Empresa Cliente A
                             </button>
                             <div class="pl-4 border-l border-slate-800 space-y-1 mt-1">
-                                <button onclick="navegarDMS('/Proyecto Escondida')" class="w-full text-left p-2 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2">
+                                <button onclick="navegarDMS('/Proyecto Escondida')" class="w-full text-left p-2 rounded-lg text-slate-300 hover:text-white transition flex items-center gap-2">
                                     🚧 Proyecto Escondida
                                 </button>
                                 <div class="pl-4 border-l border-slate-800 space-y-1 mt-1">
@@ -1069,7 +1092,7 @@
                             <input type="file" id="dms-file-input" class="absolute inset-0 opacity-0 cursor-pointer" onchange="simularSubidaDMS(event)">
                             <div class="space-y-2">
                                 <span class="text-3xl text-indigo-400 inline-block">☁️</span>
-                                <h4 class="font-bold text-slate-200 text-sm">Sube documentos del Trabajador</h4>
+                                <h4 class="font-bold text-slate-800 text-sm">Sube documentos del Trabajador</h4>
                                 <p class="text-xs text-slate-500">Soporta PDFs, XLSX o Imágenes. Máximo 50MB. Subida directa cifrada.</p>
                             </div>
                             <!-- Barra de progreso simulada -->
@@ -1077,14 +1100,14 @@
                                 <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
                                     <div id="upload-progress-bar" class="bg-indigo-500 h-full w-0 transition-all duration-300"></div>
                                 </div>
-                                <span class="text-[10px] text-slate-400 font-mono" id="upload-status-text">Subiendo...</span>
+                                <span class="text-[10px] text-slate-300 font-mono" id="upload-status-text">Subiendo...</span>
                             </div>
                         </div>
 
                         <!-- Tabla de Archivos -->
                         <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
                             <div class="p-4 border-b border-slate-800 bg-slate-900/60 flex items-center justify-between">
-                                <span class="text-xs font-mono text-slate-400" id="dms-path">Ruta actual: / Empresa Cliente A / Proyecto Escondida / Carlos Muñoz</span>
+                                <span class="text-xs font-mono text-slate-300" id="dms-path">Ruta actual: / Empresa Cliente A / Proyecto Escondida / Carlos Muñoz</span>
                                 <span class="text-xs text-indigo-400 font-bold" id="dms-count">2 documentos</span>
                             </div>
                             <table class="w-full text-left border-collapse text-xs md:text-sm">
@@ -1098,21 +1121,21 @@
                                 </thead>
                                 <tbody class="divide-y divide-slate-800" id="dms-file-list">
                                     <tr class="hover:bg-slate-800/40 transition">
-                                        <td class="p-4 flex items-center gap-3 font-semibold text-slate-200">
+                                        <td class="p-4 flex items-center gap-3 font-semibold text-slate-800">
                                             <span>📄</span> Contrato_Servicios_Fase3.pdf
                                         </td>
-                                        <td class="p-4 text-slate-400 font-mono">2.4 MB</td>
-                                        <td class="p-4 text-slate-400">PDF Resguardado</td>
+                                        <td class="p-4 text-slate-300 font-mono">2.4 MB</td>
+                                        <td class="p-4 text-slate-300">PDF Resguardado</td>
                                         <td class="p-4 text-right">
                                             <button onclick="alert('Descarga simulada con éxito.')" class="text-indigo-400 font-bold hover:underline">Descargar</button>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-slate-800/40 transition">
-                                        <td class="p-4 flex items-center gap-3 font-semibold text-slate-200">
+                                        <td class="p-4 flex items-center gap-3 font-semibold text-slate-800">
                                             <span>🩺</span> Ficha_Altura_Geografica_Carlos.pdf
                                         </td>
-                                        <td class="p-4 text-slate-400 font-mono">1.1 MB</td>
-                                        <td class="p-4 text-slate-400">Ficha Médica</td>
+                                        <td class="p-4 text-slate-300 font-mono">1.1 MB</td>
+                                        <td class="p-4 text-slate-300">Ficha Médica</td>
                                         <td class="p-4 text-right">
                                             <button onclick="alert('Descarga simulada con éxito.')" class="text-indigo-400 font-bold hover:underline">Descargar</button>
                                         </td>
@@ -1131,7 +1154,7 @@
                         <h2 class="text-2xl font-black text-white flex items-center gap-2">
                             <span>📈</span> CRM de Ventas <span class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">EspoCRM Enterprise</span>
                         </h2>
-                        <p class="text-xs text-slate-400 mt-1">Control comercial y seguimiento de embudos para Vanessa Galdames.</p>
+                        <p class="text-xs text-slate-300 mt-1">Control comercial y seguimiento de embudos para Vanessa Galdames.</p>
                     </div>
                     <button onclick="abrirModalCRM()" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl transition">
                         + Nueva Empresa Prospecto
@@ -1144,17 +1167,17 @@
                     <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between min-h-[400px]">
                         <div>
                             <div class="flex justify-between items-center mb-4">
-                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">1. Investigada</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-300">1. Investigada</span>
                                 <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-mono" id="crm-col-1-count">1</span>
                             </div>
                             <div class="space-y-3" id="crm-col-1">
                                 <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 hover:border-slate-700/50 transition">
-                                    <h4 class="font-bold text-sm text-slate-200">Servicios Industriales Norte</h4>
+                                    <h4 class="font-bold text-sm text-slate-800">Servicios Industriales Norte</h4>
                                     <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
                                         <span>RUT: 76.541.220-k</span>
                                         <span>30 Trab.</span>
                                     </div>
-                                    <button onclick="avanzarCRM('Servicios Industriales Norte', 1)" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                                    <button onclick="avanzarCRM('Servicios Industriales Norte', 1)" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-300 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
                                         <span>Avanzar a Diagnóstico</span> →
                                     </button>
                                 </div>
@@ -1171,7 +1194,7 @@
                             </div>
                             <div class="space-y-3" id="crm-col-2">
                                 <div class="bg-slate-950/80 p-4 rounded-xl border border-blue-500/20 hover:border-blue-500/40 transition">
-                                    <h4 class="font-bold text-sm text-slate-200">Transportes Andes SpA</h4>
+                                    <h4 class="font-bold text-sm text-slate-800">Transportes Andes SpA</h4>
                                     <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
                                         <span>RUT: 77.102.344-2</span>
                                         <span>15 Trab.</span>
@@ -1188,17 +1211,17 @@
                     <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between min-h-[400px]">
                         <div>
                             <div class="flex justify-between items-center mb-4">
-                                <span class="text-xs font-bold uppercase tracking-wider text-amber-400">3. Propuesta</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-sky-600">3. Propuesta</span>
                                 <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 text-xs font-mono" id="crm-col-3-count">1</span>
                             </div>
                             <div class="space-y-3" id="crm-col-3">
                                 <div class="bg-slate-950/80 p-4 rounded-xl border border-amber-500/20 hover:border-amber-500/40 transition">
-                                    <h4 class="font-bold text-sm text-slate-200">Aseo Industrial El Sol</h4>
+                                    <h4 class="font-bold text-sm text-slate-800">Aseo Industrial El Sol</h4>
                                     <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
                                         <span>RUT: 76.992.110-1</span>
                                         <span>80 Trab.</span>
                                     </div>
-                                    <button onclick="avanzarCRM('Aseo Industrial El Sol', 3)" class="w-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 font-bold text-[10px] text-amber-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                                    <button onclick="avanzarCRM('Aseo Industrial El Sol', 3)" class="w-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 font-bold text-[10px] text-sky-600 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
                                         <span>Avanzar a Piloto</span> →
                                     </button>
                                 </div>
@@ -1215,7 +1238,7 @@
                             </div>
                             <div class="space-y-3" id="crm-col-4">
                                 <div class="bg-slate-950/80 p-4 rounded-xl border border-emerald-500/20 hover:border-emerald-500/40 transition">
-                                    <h4 class="font-bold text-sm text-slate-200">Constructora Altiplano</h4>
+                                    <h4 class="font-bold text-sm text-slate-800">Constructora Altiplano</h4>
                                     <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
                                         <span>RUT: 77.250.312-3</span>
                                         <span>50 Trab.</span>
@@ -1237,10 +1260,10 @@
                         <h2 class="text-2xl font-black text-white flex items-center gap-2">
                             <span>💼</span> Portal de Acreditación <span class="text-xs font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 rounded-full">Mandante Vista</span>
                         </h2>
-                        <p class="text-xs text-slate-400 mt-1">Semáforo de cumplimiento para que tus clientes verifiquen a los subcontratistas.</p>
+                        <p class="text-xs text-slate-300 mt-1">Semáforo de cumplimiento para que tus clientes verifiquen a los subcontratistas.</p>
                     </div>
                     <div class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs flex items-center gap-3">
-                        <span class="text-slate-400 font-semibold">Tasa de Acreditación General:</span>
+                        <span class="text-slate-300 font-semibold">Tasa de Acreditación General:</span>
                         <strong class="text-emerald-400 text-sm font-black">92%</strong>
                     </div>
                 </div>
@@ -1251,21 +1274,21 @@
                         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl font-bold">🟢</div>
                         <div>
                             <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Aprobados</p>
-                            <h3 class="text-2xl font-black text-slate-200 mt-1">12 Trabajadores</h3>
+                            <h3 class="text-2xl font-black text-slate-800 mt-1">12 Trabajadores</h3>
                         </div>
                     </div>
                     <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl font-bold">🟡</div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-sky-600 text-xl font-bold">🟡</div>
                         <div>
                             <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Alerta Preventiva</p>
-                            <h3 class="text-2xl font-black text-slate-200 mt-1">2 Vencen pronto</h3>
+                            <h3 class="text-2xl font-black text-slate-800 mt-1">2 Vencen pronto</h3>
                         </div>
                     </div>
                     <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl font-bold">🔴</div>
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-600 text-xl font-bold">🔴</div>
                         <div>
                             <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Bloqueados</p>
-                            <h3 class="text-2xl font-black text-slate-200 mt-1">1 Vencido</h3>
+                            <h3 class="text-2xl font-black text-slate-800 mt-1">1 Vencido</h3>
                         </div>
                     </div>
                 </div>
@@ -1292,23 +1315,23 @@
                             </thead>
                             <tbody class="divide-y divide-slate-800">
                                 <tr class="hover:bg-slate-800/20 transition">
-                                    <td class="p-4 font-semibold text-slate-200">Carlos Muñoz</td>
-                                    <td class="p-4 text-slate-400 font-mono">16.541.220-k</td>
-                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-red-500/10 text-red-400 font-bold text-[10px] border border-red-500/20">🔴 Vencido</span></td>
+                                    <td class="p-4 font-semibold text-slate-800">Carlos Muñoz</td>
+                                    <td class="p-4 text-slate-300 font-mono">16.541.220-k</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-red-500/10 text-red-600 font-bold text-[10px] border border-red-500/20">🔴 Vencido</span></td>
                                     <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px] border border-emerald-500/20">🟢 Aprobado</span></td>
                                     <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-red-500/20 text-red-300 font-extrabold text-[10px] border border-red-500/30">BLOQUEADO</span></td>
                                 </tr>
                                 <tr class="hover:bg-slate-800/20 transition">
-                                    <td class="p-4 font-semibold text-slate-200">Juan Pérez</td>
-                                    <td class="p-4 text-slate-400 font-mono">15.992.312-3</td>
+                                    <td class="p-4 font-semibold text-slate-800">Juan Pérez</td>
+                                    <td class="p-4 text-slate-300 font-mono">15.992.312-3</td>
                                     <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px] border border-emerald-500/20">🟢 Aprobado</span></td>
                                     <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px] border border-emerald-500/20">🟢 Aprobado</span></td>
                                     <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px] border border-emerald-500/30">APROBADO</span></td>
                                 </tr>
                                 <tr class="hover:bg-slate-800/20 transition">
-                                    <td class="p-4 font-semibold text-slate-200">Ana Silva</td>
-                                    <td class="p-4 text-slate-400 font-mono">17.250.911-1</td>
-                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 font-bold text-[10px] border border-amber-500/20">🟡 Vence en 10 días</span></td>
+                                    <td class="p-4 font-semibold text-slate-800">Ana Silva</td>
+                                    <td class="p-4 text-slate-300 font-mono">17.250.911-1</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-amber-500/10 text-sky-600 font-bold text-[10px] border border-amber-500/20">🟡 Vence en 10 días</span></td>
                                     <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px] border border-emerald-500/20">🟢 Aprobado</span></td>
                                     <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-[10px] border border-amber-500/30">ALERTA</span></td>
                                 </tr>
@@ -1323,7 +1346,7 @@
                 <!-- Marco del Teléfono -->
                 <div class="w-full max-w-sm bg-slate-900 border-8 border-slate-800 rounded-[40px] shadow-2xl overflow-hidden relative" style="height: 600px;">
                     <!-- Cabecera del Teléfono (Simulado) -->
-                    <div class="h-6 bg-slate-800 flex justify-between items-center px-6 text-[10px] text-slate-400 font-mono">
+                    <div class="h-6 bg-slate-800 flex justify-between items-center px-6 text-[10px] text-slate-300 font-mono">
                         <span>14:30</span>
                         <div class="flex items-center gap-1.5">
                             <span>📡 4G</span>
@@ -1335,33 +1358,33 @@
                     <div class="p-6 space-y-6 overflow-y-auto" style="height: calc(100% - 24px);">
                         <!-- Perfil Cabecera -->
                         <div class="text-center space-y-2 border-b border-slate-800 pb-4">
-                            <div class="w-16 h-16 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full flex items-center justify-center font-bold text-xl mx-auto">
+                            <div class="w-16 h-16 bg-amber-500/10 text-sky-600 border border-amber-500/20 rounded-full flex items-center justify-center font-bold text-xl mx-auto">
                                 CM
                             </div>
                             <div>
                                 <h3 class="font-extrabold text-white text-base">Carlos Muñoz</h3>
-                                <p class="text-xs text-slate-400">Operario de Maquinaria Pesada</p>
+                                <p class="text-xs text-slate-300">Operario de Maquinaria Pesada</p>
                                 <p class="text-[10px] font-mono text-slate-500">RUT: 16.541.220-k</p>
                             </div>
                         </div>
 
                         <!-- Estado Crítico -->
                         <div class="bg-red-500/10 border border-red-500/20 p-4 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-bold text-red-400 flex items-center gap-1.5">
+                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5">
                                 <span class="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                                 Acreditación Bloqueada
                             </h4>
-                            <p class="text-[11px] text-slate-400">Tu examen de altura física expiró. Debes cargar el nuevo documento para poder ingresar a faena.</p>
+                            <p class="text-[11px] text-slate-300">Tu examen de altura física expiró. Debes cargar el nuevo documento para poder ingresar a faena.</p>
                         </div>
 
                         <!-- Carga Documental Móvil -->
                         <div class="space-y-4">
-                            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400">Mis Documentos Solicitados</h5>
+                            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-300">Mis Documentos Solicitados</h5>
                             
                             <!-- Documento 1: Cédula de Identidad -->
                             <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
                                 <div>
-                                    <h6 class="font-semibold text-slate-200">Cédula de Identidad</h6>
+                                    <h6 class="font-semibold text-slate-800">Cédula de Identidad</h6>
                                     <span class="text-[10px] text-emerald-400 font-bold">🟢 Aprobado</span>
                                 </div>
                                 <span class="text-emerald-500">✓</span>
@@ -1371,10 +1394,10 @@
                             <div class="bg-slate-950 p-3.5 rounded-xl border border-red-500/30 flex flex-col gap-3 text-xs" id="worker-doc-card">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <h6 class="font-semibold text-slate-200">Examen de Altura Física</h6>
-                                        <span class="text-[10px] text-red-400 font-bold" id="worker-status-text">🔴 Vencido (Actualizar)</span>
+                                        <h6 class="font-semibold text-slate-800">Examen de Altura Física</h6>
+                                        <span class="text-[10px] text-red-600 font-bold" id="worker-status-text">🔴 Vencido (Actualizar)</span>
                                     </div>
-                                    <span class="text-red-400" id="worker-doc-icon">⚠</span>
+                                    <span class="text-red-600" id="worker-doc-icon">⚠</span>
                                 </div>
                                 
                                 <!-- Botón de Captura Celular -->
@@ -1405,16 +1428,16 @@
             <h3 class="font-bold text-white text-lg">Agregar Nuevo Prospecto</h3>
             <div class="space-y-3 text-xs">
                 <div>
-                    <label class="block text-slate-400 mb-1">Nombre de la Empresa</label>
+                    <label class="block text-slate-300 mb-1">Nombre de la Empresa</label>
                     <input type="text" id="crm-in-name" placeholder="Ej: Minera Cerro Verde" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 outline-none">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-slate-400 mb-1">RUT</label>
+                        <label class="block text-slate-300 mb-1">RUT</label>
                         <input type="text" id="crm-in-rut" placeholder="76.xxx.xxx-x" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 outline-none">
                     </div>
                     <div>
-                        <label class="block text-slate-400 mb-1">Trabajadores</label>
+                        <label class="block text-slate-300 mb-1">Trabajadores</label>
                         <input type="number" id="crm-in-workers" placeholder="Ej: 45" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 outline-none">
                     </div>
                 </div>
@@ -1510,11 +1533,11 @@
         function probarLimite(clave) {
             document.querySelectorAll('#manual-limites button').forEach(btn => {
                 btn.classList.remove('bg-slate-800', 'border-2', 'border-amber-500', 'text-white');
-                btn.classList.add('bg-slate-950', 'border-slate-800', 'text-slate-400');
+                btn.classList.add('bg-slate-950', 'border-slate-800', 'text-slate-300');
             });
 
             const btnActivo = document.getElementById(`btn-${clave}`);
-            btnActivo.classList.remove('bg-slate-950', 'border-slate-800', 'text-slate-400');
+            btnActivo.classList.remove('bg-slate-950', 'border-slate-800', 'text-slate-300');
             btnActivo.classList.add('bg-slate-800', 'border-2', 'border-amber-500', 'text-white');
 
             const data = limitesData[clave];
@@ -1607,10 +1630,10 @@
                         const newRow = document.createElement('tr');
                         newRow.className = "hover:bg-slate-800/40 transition bg-indigo-500/5";
                         newRow.innerHTML = `
-                            <td class="p-4 flex items-center gap-3 font-semibold text-slate-200">
+                            <td class="p-4 flex items-center gap-3 font-semibold text-slate-800">
                                 <span>📄</span> ${filename}
                             </td>
-                            <td class="p-4 text-slate-400 font-mono">${size}</td>
+                            <td class="p-4 text-slate-300 font-mono">${size}</td>
                             <td class="p-4 text-indigo-400 font-bold">Carga de Prueba</td>
                             <td class="p-4 text-right">
                                 <button onclick="alert('Descarga de prueba exitosa')" class="text-indigo-400 font-bold hover:underline">Descargar</button>
@@ -1664,7 +1687,7 @@
                 // Modificar el botón
                 if (siguientePaso === 4) {
                     tarjeta.innerHTML = `
-                        <h4 class="font-bold text-sm text-slate-200">${nombre}</h4>
+                        <h4 class="font-bold text-sm text-slate-800">${nombre}</h4>
                         <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
                             <span>RUT: Modificado</span>
                             <span>Avanzado</span>
@@ -1675,12 +1698,12 @@
                     `;
                 } else {
                     tarjeta.innerHTML = `
-                        <h4 class="font-bold text-sm text-slate-200">${nombre}</h4>
+                        <h4 class="font-bold text-sm text-slate-800">${nombre}</h4>
                         <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
                             <span>RUT: Modificado</span>
                             <span>Avanzado</span>
                         </div>
-                        <button onclick="avanzarCRM('${nombre}', ${siguientePaso})" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                        <button onclick="avanzarCRM('${nombre}', ${siguientePaso})" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-300 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
                             <span>Avanzar a ${colMap[siguientePaso + 1]}</span> →
                         </button>
                     `;
@@ -1719,12 +1742,12 @@
             const card = document.createElement('div');
             card.className = "bg-slate-950/80 p-4 rounded-xl border border-slate-800 hover:border-slate-700/50 transition";
             card.innerHTML = `
-                <h4 class="font-bold text-sm text-slate-200">${name}</h4>
+                <h4 class="font-bold text-sm text-slate-800">${name}</h4>
                 <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-mono">
                     <span>RUT: ${rut}</span>
                     <span>${workers} Trab.</span>
                 </div>
-                <button onclick="avanzarCRM('${name}', 1)" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-400 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
+                <button onclick="avanzarCRM('${name}', 1)" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold text-[10px] text-slate-300 py-1.5 rounded-lg mt-3 transition flex justify-center items-center gap-1">
                     <span>Avanzar a Diagnóstico</span> →
                 </button>
             `;
@@ -1785,10 +1808,10 @@
             card.innerHTML = `
                 <div class="flex items-center justify-between">
                     <div>
-                        <h6 class="font-semibold text-slate-200">Examen de Altura Física</h6>
-                        <span class="text-[10px] text-amber-400 font-bold">🟡 En Revisión por HRINSER</span>
+                        <h6 class="font-semibold text-slate-800">Examen de Altura Física</h6>
+                        <span class="text-[10px] text-sky-600 font-bold">🟡 En Revisión por HRINSER</span>
                     </div>
-                    <span class="text-amber-400">⏳</span>
+                    <span class="text-sky-600">⏳</span>
                 </div>
                 <p class="text-[10px] text-slate-500 leading-normal mt-2">Tu documento fue cargado hoy de forma inmutable. Te notificaremos por WhatsApp cuando sea validado.</p>
             `;
