@@ -16,3 +16,6 @@ presentacion.html
 !7df06148be985dd15b4407c468fe9a94.webp
 !gemini_image.webp
 !watermarked_img.webp
+
+# Ignorar referencias de diseño locales
+referencias/
