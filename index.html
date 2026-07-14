@@ -797,6 +797,18 @@
                                             <option value="121+">Más de 120 trabajadores (Plan Corporativo)</option>
                                         </select>
                                     </div>
+                                    <!-- Checkbox de Privacidad Premium -->
+                                    <div class="flex items-start gap-3 mt-4 mb-2">
+                                        <div class="flex items-center h-5">
+                                            <input id="privacy-consent" name="privacy-consent" type="checkbox" required class="w-4 h-4 rounded border-slate-800 bg-slate-900 text-amber-500 focus:ring-amber-500 focus:ring-offset-slate-950 focus:ring-2 transition cursor-pointer checked:bg-amber-600 checked:border-amber-600">
+                                        </div>
+                                        <div class="text-xs text-slate-400 leading-tight">
+                                            <label for="privacy-consent" class="cursor-pointer select-none">
+                                                <span data-translate="privacy-accept">Acepto la</span>
+                                                <a href="#politica-privacidad" class="text-amber-500 hover:text-amber-400 hover:underline transition font-semibold" data-translate="privacy-link">política de privacidad</a>
+                                            </label>
+                                        </div>
+                                    </div>
                                     <button type="button" class="w-full bg-amber-600 hover:bg-amber-500 text-slate-950 font-extrabold py-3.5 rounded-xl text-sm transition shadow-lg shadow-amber-500/20 mt-4">
                                         Solicitar Diagnóstico Operacional
                                     </button>
@@ -1590,7 +1602,9 @@
                 "sector-retail-desc": "Homologación rápida para contratistas de aseo, seguridad, mantenimiento y personal de apoyo en centros de distribución.",
                 "sector-flow-title": "Flujo Operacional del Sector",
                 "sector-flow-rule": "Marco Normativo",
-                "sector-flow-desc": "Haz clic en cualquiera de las tarjetas de sectores arriba para visualizar su flujo operativo y los documentos clave requeridos."
+                "sector-flow-desc": "Haz clic en cualquiera de las tarjetas de sectores arriba para visualizar su flujo operativo y los documentos clave requeridos.",
+                "privacy-accept": "Acepto la",
+                "privacy-link": "política de privacidad"
             },
             en: {
                 "nav-inicio": "Home",
@@ -1614,7 +1628,9 @@
                 "sector-retail-desc": "Fast-track onboarding for cleaning, security, maintenance, and support staff in distribution centers.",
                 "sector-flow-title": "Sector Operational Flow",
                 "sector-flow-rule": "Regulatory Framework",
-                "sector-flow-desc": "Click on any of the sector cards above to view its operational flow and key document requirements."
+                "sector-flow-desc": "Click on any of the sector cards above to view its operational flow and key document requirements.",
+                "privacy-accept": "I accept the",
+                "privacy-link": "privacy policy"
             }
         };
 
